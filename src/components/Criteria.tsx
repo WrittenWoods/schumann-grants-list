@@ -4,7 +4,6 @@ function Criteria({userInputs}) {
 
   return (
     <div className="Criteria">
-        Hi I'm the Criteria
     </div>
   );
 }

@@ -4,14 +4,15 @@ export const starterData = {
     ),
     userInputs: {
         approvalDates: { minMonth: 0, maxMonth: 0, minYear: 0, maxYear: 0 },
-        awardAmounts: { minVal: 0, maxVal: 0 },
+        awardAmounts: { minVal: "", maxVal: "" },
         orgNames: [],
-        orgLocation: { orgCity:"", orgState:"" },
+        orgCities: [],
+        orgStates: [],
         grantTypes: [],
         fundingTypes: [],
         programAreas: [],
         strategies: [],
-        fundDonors: [],
+        donors: [],
         keywords: { anyTerms: true, searchQueries: [] }
     }
 }

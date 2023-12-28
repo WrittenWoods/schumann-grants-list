@@ -32,20 +32,38 @@ function Results( { loadedData, userInputs } ) {
   }
 
   function amountMatch(amount, minVal, maxVal) {
-    return amount >= minVal && amount <= maxVal
+    let aboveMin = false, belowMax = false
+
+    if (Number(minVal) || minVal === "0") { aboveMin = (amount >= Number(minVal)) }
+    if (Number(maxVal) || maxVal === "0") { belowMax = (amount <= Number(maxVal)) }
+      
+    if (minVal.length === 0 || maxVal.length === 0) {
+      return aboveMin || belowMax
+    } else {
+      return aboveMin && belowMax
+    }
   }
 
-  function locationMatch(data, input) {
-    let cityMatch = data.orgCity.toLowerCase() === input.orgCity.toLowerCase()
-    let stateMatch = data.orgState.toLowerCase() === input.orgState.toLowerCase()
-    
-    if (input.orgCity === "") {
-      return stateMatch
-    } else if (input.orgState === "") {
-      return cityMatch
+  function locationMatch(data, inputs) {
+    let city = data.orgCity
+    let state = data.orgState
+    let cityMatch = false
+    let stateMatch = false
+
+    if (inputs.orgCities.includes(city)) {
+      cityMatch = true
+    }
+
+    if (inputs.orgStates.includes(state)) {
+      stateMatch = true
+    }
+
+    if (inputs.orgStates.length === 0 || inputs.orgCities.length === 0) {
+      return cityMatch || stateMatch
     } else {
       return cityMatch && stateMatch
     }
+
   }
 
   function keywordMatch(data, inputs) {
@@ -76,13 +94,13 @@ function Results( { loadedData, userInputs } ) {
       dateMatch(data, inputs.approvalDates)
       || amountMatch(data.amount, inputs.awardAmounts.minVal, inputs.awardAmounts.maxVal) 
       || inputs.orgNames.includes(data.orgName)
-      || locationMatch(data, inputs.orgLocation)
+      || locationMatch(data, inputs)
       || inputs.grantTypes.includes(data.grantType)
       || inputs.fundingTypes.includes(data.fundingType)
       || inputs.programAreas.includes(data.programArea)
       || inputs.grantTypes.includes(data.grantType)
       || inputs.strategies.includes(data.strategy)
-      || inputs.fundDonors.includes(data.fundDonor)
+      || inputs.donors.includes(data.donor)
       || keywordMatch(data, inputs)
 
     return match
@@ -94,11 +112,13 @@ function Results( { loadedData, userInputs } ) {
     let filteredResults = []
 
     for (let i = 0; i < data.length; i++) {
-
       if (grantMatch(data[i], inputs)) {
         filteredResults.push(data[i])
       }
+    }
 
+    if (filteredResults === undefined || filteredResults.length === 0) {
+      filteredResults = [...data]
     }
 
     return filteredResults
@@ -108,14 +128,16 @@ function Results( { loadedData, userInputs } ) {
   // Uses the array generated from the filterGrants function to render Result components.
 
   return (
-    <div className="Results">
+    <table>
+    <tbody className="Results">
       {filterGrants(loadedData, userInputs).map( (individualGrant, n) =>
         <Result 
           individualGrant={individualGrant}
           key={n}
         />
       )}
-    </div>
+    </tbody>
+    </table>
   );
 }
 
