@@ -13,6 +13,10 @@ function App() {
   const [loadedData, setLoadedData] = useState(starterData.loadedData)
   const [userInputs, setUserInputs] = useState(starterData.userInputs)
 
+  useEffect(() => {
+    console.log(userInputs)
+  }, [userInputs] )
+
   // The SearchUI component represents user interaction with the interface.
   // The Criteria component represents user inputs displayed back to the user.
   // The Results component uses userInputs to filter and display loadedData.

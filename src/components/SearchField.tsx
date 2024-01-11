@@ -3,17 +3,18 @@ import { SearchFields } from '../helpers/enums';
 import Select, { StylesConfig } from 'react-select';
 import CheckDrop from './CheckDrop';
 import LocationMenu from './LocationMenu';
+import KeywordSearch from './KeywordSearch';
 
 function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
   // State variables corresponding to user inputs
    
-  const [minMonth, setMinMonth] = useState(userInputs.approvalDates.minMonth)
-  const [maxMonth, setMaxMonth] = useState(userInputs.approvalDates.maxMonth)
-  const [minYear, setMinYear] = useState(userInputs.approvalDates.minYear)
-  const [maxYear, setMaxYear] = useState(userInputs.approvalDates.maxYear)
-  const [minVal, setMinVal] = useState(userInputs.awardAmounts.minVal)
-  const [maxVal, setMaxVal] = useState(userInputs.awardAmounts.maxVal)
+  const [minMonth, setMinMonth] = useState(userInputs.minMonth)
+  const [maxMonth, setMaxMonth] = useState(userInputs.maxMonth)
+  const [minYear, setMinYear] = useState(userInputs.minYear)
+  const [maxYear, setMaxYear] = useState(userInputs.maxYear)
+  const [minVal, setMinVal] = useState(userInputs.minVal)
+  const [maxVal, setMaxVal] = useState(userInputs.maxVal)
   const [orgNames, setOrgNames] = useState([...userInputs.orgNames])
   const [orgCities, setOrgCities] = useState([...userInputs.orgCities])
   const [orgStates, setOrgStates] = useState([...userInputs.orgStates])
@@ -22,40 +23,99 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
   const [programAreas, setProgramAreas] = useState([...userInputs.programAreas])
   const [strategies, setStrategies] = useState([...userInputs.strategies])
   const [donors, setDonors] = useState([...userInputs.donors])
+  const [searchQueries, setSearchQueries] = useState([...userInputs.searchQueries])
 
   // Updates userInputs state whenever user interacts with the search UI
 
   useEffect(() => {
-    setUserInputs({
-      approvalDates: { minMonth: minMonth, maxMonth: maxMonth, minYear: minYear, maxYear: maxYear },
-      awardAmounts: { minVal: minVal, maxVal: maxVal },
-      orgNames: [...orgNames],
-      orgCities: [...orgCities],
-      orgStates: [...orgStates],
-      grantTypes: [...grantTypes],
-      fundingTypes: [...fundingTypes],
-      programAreas: [...programAreas],
-      strategies: [...strategies],
-      donors: [...donors],
-      keywords: { anyTerms: true, searchQueries: [] }
-    })
-    console.log(userInputs)
-  }, [
-    minMonth, 
-    maxMonth,
-    minYear,
-    maxYear,
-    minVal, 
-    maxVal, 
-    orgNames, 
-    orgCities, 
-    orgStates, 
-    grantTypes, 
-    fundingTypes, 
-    programAreas, 
-    strategies, 
-    donors
-  ])
+    let newUserInputs = { ...userInputs }
+    newUserInputs.minMonth = minMonth
+    setUserInputs(newUserInputs)
+  }, [minMonth] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.maxMonth = maxMonth
+    setUserInputs(newUserInputs)
+  }, [maxMonth] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.minYear = minYear
+    setUserInputs(newUserInputs)
+  }, [minYear] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.maxYear = maxYear
+    setUserInputs(newUserInputs)
+  }, [maxYear] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.orgNames = [...orgNames]
+    setUserInputs(newUserInputs)
+  }, [orgNames] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.orgCities = [...orgCities]
+    setUserInputs(newUserInputs)
+  }, [orgCities] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.orgStates = [...orgStates]
+    setUserInputs(newUserInputs)
+  }, [orgStates] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.grantTypes = [...grantTypes]
+    setUserInputs(newUserInputs)
+  }, [grantTypes] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.fundingTypes = [...fundingTypes]
+    setUserInputs(newUserInputs)
+  }, [fundingTypes] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.programAreas = [...programAreas]
+    setUserInputs(newUserInputs)
+  }, [programAreas] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.strategies = [...strategies]
+    setUserInputs(newUserInputs)
+  }, [strategies] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.donors = [...donors]
+    setUserInputs(newUserInputs)
+  }, [donors] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.minVal = minVal
+    setUserInputs(newUserInputs)
+  }, [minVal] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.maxVal = maxVal
+    setUserInputs(newUserInputs)
+  }, [maxVal] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.searchQueries = [...searchQueries]
+    setUserInputs(newUserInputs)
+  }, [searchQueries] )
 
   // uses the value of the fieldType props to render different parts of the search UI.
 
@@ -111,7 +171,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
             <select value={minYear} onChange={(e) => setMinYear(Number(e.target.value))}  >{yearOptions()}</select>
             
             <span>End</span>
-            <select value={maxMonth} onChange={(e) => setMinMonth(Number(e.target.value))} >{listOptions(months)}</select>
+            <select value={maxMonth} onChange={(e) => setMaxMonth(Number(e.target.value))} >{listOptions(months)}</select>
             <select value={maxYear} onChange={(e) => setMaxYear(Number(e.target.value))}  >{yearOptions()}</select>
 
           </div>
@@ -225,7 +285,10 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
         return (
           <div>
             <h3>Keyword Search</h3>
-            <input />
+            <KeywordSearch 
+              userInputs={userInputs}
+              setSearchQueries={setSearchQueries}
+            />
           </div>
         )
         break;

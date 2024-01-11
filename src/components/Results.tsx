@@ -67,8 +67,8 @@ function Results( { loadedData, userInputs } ) {
   }
 
   function keywordMatch(data, inputs) {
-    let anyTerms = inputs.keywords.anyTerms
-    let queries = inputs.keywords.searchQueries
+    let anyTerms = inputs.anyTerms
+    let queries = inputs.searchQueries
     let toMatch = [data.orgName, data.description, data.donor, data.fundingType, data.grantType, data.orgCity, data.programArea, data.strategy]
     let matchedAny = false
     let matchedAll = true
@@ -76,7 +76,7 @@ function Results( { loadedData, userInputs } ) {
     if (queries.length === 0) { return false }
 
     for (let i = 0; i < queries.length; i++) {
-      if (toMatch.filter( (s) => s.toLowerCase().match(queries[i]).toLowerCase() ).length > 0) {
+      if (toMatch.some( (s) => s.toLowerCase() === queries[i].toLowerCase() )) {
         matchedAny = true
       } else {
         matchedAll = false
@@ -91,8 +91,7 @@ function Results( { loadedData, userInputs } ) {
 
   function grantMatch(data, inputs) {
     let match = 
-      dateMatch(data, inputs.approvalDates)
-      || amountMatch(data.amount, inputs.awardAmounts.minVal, inputs.awardAmounts.maxVal) 
+      amountMatch(data.amount, inputs.minVal, inputs.maxVal) 
       || inputs.orgNames.includes(data.orgName)
       || locationMatch(data, inputs)
       || inputs.grantTypes.includes(data.grantType)
@@ -103,6 +102,9 @@ function Results( { loadedData, userInputs } ) {
       || inputs.donors.includes(data.donor)
       || keywordMatch(data, inputs)
 
+    // if (!dateMatch(data, inputs)) { match = false }
+
+    console.log(match)
     return match
   }
 
