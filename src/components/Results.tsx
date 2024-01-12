@@ -7,13 +7,18 @@
 
 */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Result from './Result';
+import { generateTallies } from '../helpers/generateTallies';
 
-function Results( { loadedData, userInputs } ) {
+function Results( { loadedData, userInputs, filteredResults, setFilteredResults } ) {
 
   // The functions below are named according to which properties of the userInputs object they identify.
   // If the function returns true at an index of loadedData, the result at that index is displayed.
+
+  useEffect(() => {
+    setFilteredResults(filterGrants(loadedData, userInputs))
+  }, [userInputs] )
 
   function dateMatch(data, inputDates) {
     let grantYear = data.year
@@ -118,13 +123,9 @@ function Results( { loadedData, userInputs } ) {
   // Iterates through loadedData array to check for matches with userInputs.
 
   function filterGrants(data, inputs) {
-
     let filteredResults = [...data]
-
     filteredResults = filteredResults.filter((x) => grantMatch(x, inputs))
-
     return filteredResults
-
   }
 
   // Uses the array generated from the filterGrants function to render Result components.
@@ -132,7 +133,7 @@ function Results( { loadedData, userInputs } ) {
   return (
     <table>
     <tbody className="Results">
-      {filterGrants(loadedData, userInputs).map( (individualGrant, n) =>
+      {filteredResults.map( (individualGrant, n) =>
         <Result 
           individualGrant={individualGrant}
           key={n}
