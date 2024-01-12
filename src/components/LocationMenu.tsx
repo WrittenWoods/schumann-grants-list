@@ -87,11 +87,11 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       <h3>City/State</h3>
       <h3>State</h3>
       <input value={stateSearch} onChange={(e) => setStateSearch(e.target.value)} />
-      <button onClick={e => setOpenStates(!openStates)}>open</button>
+      <button onClick={e => setOpenStates(!openStates)}>{ openStates ? "⌃" : "⌄" }</button>
       <ul>{stateList()}</ul>
       <h3>City</h3>
       <input value={citySearch} onChange={(e) => setCitySearch(e.target.value)} />
-      <button onClick={e => setOpenCities(!openCities)}>open</button>
+      <button onClick={e => setOpenCities(!openCities)}>{ openCities ? "⌃" : "⌄" }</button>
       <ul>{cityList()}</ul>
     </div>
   );

@@ -7,13 +7,25 @@
 
 */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Result from './Result';
+import { generateTallies } from '../helpers/generateTallies';
 
-function Results( { loadedData, userInputs } ) {
+function Results( { loadedData, userInputs, filteredResults, setFilteredResults } ) {
+
+  const [pagination, setPagination] = useState([0, 10, filteredResults.length])
+  const [displayed, setDisplayed] = useState(filteredResults.slice(pagination[0], pagination[1]))
 
   // The functions below are named according to which properties of the userInputs object they identify.
   // If the function returns true at an index of loadedData, the result at that index is displayed.
+
+  useEffect(() => {
+    setFilteredResults(filterGrants(loadedData, userInputs))
+  }, [userInputs] )
+
+  useEffect(() => {
+    setDisplayed(filteredResults.slice(pagination[0], pagination[1]))
+  }, [pagination] )
 
   function dateMatch(data, inputDates) {
     let grantYear = data.year
@@ -118,28 +130,55 @@ function Results( { loadedData, userInputs } ) {
   // Iterates through loadedData array to check for matches with userInputs.
 
   function filterGrants(data, inputs) {
-
     let filteredResults = [...data]
-
     filteredResults = filteredResults.filter((x) => grantMatch(x, inputs))
-
     return filteredResults
+  }
 
+  // handles click of previous button for pagination
+
+  function paginatePrev() {
+    let pageStart = pagination[0]
+    let pageEnd = pagination[1]
+    let pageSize = pageEnd - pageStart
+    if (pageStart - pageSize >= 0) {
+      pageStart = pageStart - pageSize
+      pageEnd = pageEnd - pageSize
+      setPagination([pageStart, pageEnd, filteredResults.length])
+    }
+  }
+
+  // handles click of previous button for pagination
+
+  function paginateNext() {
+    let pageStart = pagination[0]
+    let pageEnd = pagination[1]
+    let pageSize = pageEnd - pageStart
+    if (pageStart <= filteredResults.length - pageSize) {
+      pageStart = pageStart + pageSize
+      pageEnd = pageEnd + pageSize
+      setPagination([pageStart, pageEnd, filteredResults.length])
+    }
   }
 
   // Uses the array generated from the filterGrants function to render Result components.
 
   return (
-    <table>
-    <tbody className="Results">
-      {filterGrants(loadedData, userInputs).map( (individualGrant, n) =>
-        <Result 
-          individualGrant={individualGrant}
-          key={n}
-        />
-      )}
-    </tbody>
-    </table>
+    <>
+      <button onClick={paginatePrev} >previous</button>
+      <span> Results {pagination[0]} to {pagination[1]} of {pagination[2]} </span>
+      <button onClick={paginateNext} >next</button>
+      <table>
+      <tbody className="Results">
+        {displayed.map( (individualGrant, n) =>
+          <Result 
+            individualGrant={individualGrant}
+            key={n}
+          />
+        )}
+      </tbody>
+      </table>
+    </>
   );
 }
 

@@ -43,7 +43,8 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
 
   return (
     <>
-      <h3 onClick={e => setOpenList(!openList)} >{fieldName}</h3>
+      <h3>{fieldName}</h3>
+      <button onClick={e => setOpenList(!openList)}>{ openList ? "⌃" : "⌄" }</button>
       <ul className="CheckDrop">
         {renderList()}
       </ul>
