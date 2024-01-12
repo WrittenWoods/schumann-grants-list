@@ -18,8 +18,12 @@ function KeywordSearch({ userInputs, setSearchQueries }) {
         />
         <ul>
             {userInputs.searchQueries.map(
-                 (x, y) => <li key={y} >{x} <button>x</button></li> 
-            )}
+                 (x, y) => (
+                    <li key={y}>
+                        {x} 
+                        <button onClick={(e) => setSearchQueries([...userInputs.searchQueries].filter((i) => i !== x))} >x</button>
+                    </li> 
+            ))}
         </ul>
     </div>
   );

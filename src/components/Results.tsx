@@ -34,10 +34,11 @@ function Results( { loadedData, userInputs } ) {
   function amountMatch(amount, minVal, maxVal) {
     let aboveMin = false, belowMax = false
 
+    if (minVal.trim() === "" && maxVal.trim() === "") { return true }
     if (Number(minVal) || minVal === "0") { aboveMin = (amount >= Number(minVal)) }
     if (Number(maxVal) || maxVal === "0") { belowMax = (amount <= Number(maxVal)) }
       
-    if (minVal.length === 0 || maxVal.length === 0) {
+    if (minVal.trim() === "" || maxVal.trim() === "") {
       return aboveMin || belowMax
     } else {
       return aboveMin && belowMax
@@ -58,6 +59,10 @@ function Results( { loadedData, userInputs } ) {
       stateMatch = true
     }
 
+    if (inputs.orgStates.length === 0 && inputs.orgCities.length === 0) {
+      return true
+    }
+
     if (inputs.orgStates.length === 0 || inputs.orgCities.length === 0) {
       return cityMatch || stateMatch
     } else {
@@ -73,10 +78,10 @@ function Results( { loadedData, userInputs } ) {
     let matchedAny = false
     let matchedAll = true
 
-    if (queries.length === 0) { return false }
+    if (queries.length === 0) { return true }
 
     for (let i = 0; i < queries.length; i++) {
-      if (toMatch.some( (s) => s.toLowerCase() === queries[i].toLowerCase() )) {
+      if (toMatch.some( (s) => s.toLowerCase().includes(queries[i].toLowerCase()) )) {
         matchedAny = true
       } else {
         matchedAll = false
@@ -87,41 +92,36 @@ function Results( { loadedData, userInputs } ) {
 
   }
 
+  function inputMatch(inputArray, arg) {
+    if (inputArray === undefined || inputArray.length === 0) { return true }
+    return inputArray.includes(arg)
+  }
+
   // Checks a particular grant for correspondence with userInputs.
 
   function grantMatch(data, inputs) {
     let match = 
-      amountMatch(data.amount, inputs.minVal, inputs.maxVal) 
-      || inputs.orgNames.includes(data.orgName)
-      || locationMatch(data, inputs)
-      || inputs.grantTypes.includes(data.grantType)
-      || inputs.fundingTypes.includes(data.fundingType)
-      || inputs.programAreas.includes(data.programArea)
-      || inputs.grantTypes.includes(data.grantType)
-      || inputs.strategies.includes(data.strategy)
-      || inputs.donors.includes(data.donor)
-      || keywordMatch(data, inputs)
+      dateMatch(data, inputs)
+      && amountMatch(data.amount, inputs.minVal, inputs.maxVal)
+      && inputMatch(inputs.orgNames, data.orgName)
+      && locationMatch(data, inputs)
+      && inputMatch(inputs.grantTypes, data.grantType) // inputs.grantTypes.includes(data.grantType)
+      && inputMatch(inputs.fundingTypes, data.fundingType) // inputs.fundingTypes.includes(data.fundingType)
+      && inputMatch(inputs.programAreas, data.programArea) // inputs.programAreas.includes(data.programArea)
+      && inputMatch(inputs.strategies, data.strategy) // inputs.strategies.includes(data.strategy)
+      && inputMatch(inputs.donors, data.donor) // inputs.donors.includes(data.donor)
+      && keywordMatch(data, inputs)
 
-    // if (!dateMatch(data, inputs)) { match = false }
-
-    console.log(match)
     return match
   }
 
   // Iterates through loadedData array to check for matches with userInputs.
 
   function filterGrants(data, inputs) {
-    let filteredResults = []
 
-    for (let i = 0; i < data.length; i++) {
-      if (grantMatch(data[i], inputs)) {
-        filteredResults.push(data[i])
-      }
-    }
+    let filteredResults = [...data]
 
-    if (filteredResults === undefined || filteredResults.length === 0) {
-      filteredResults = [...data]
-    }
+    filteredResults = filteredResults.filter((x) => grantMatch(x, inputs))
 
     return filteredResults
 

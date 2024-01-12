@@ -4,6 +4,8 @@ import Select, { StylesConfig } from 'react-select';
 import CheckDrop from './CheckDrop';
 import LocationMenu from './LocationMenu';
 import KeywordSearch from './KeywordSearch';
+import ApprovalDate from './ApprovalDate';
+import { uniqueOptions } from '../helpers/uniqueOptions';
 
 function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
@@ -121,42 +123,6 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
   function renderField(fieldType) {
 
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
-    // Removes redundant options
-
-    function uniqueOptions (arg) {
-      let unique = []
-
-      for (let i = 0; i < arg.length; i++) {
-        if (!unique.includes(arg[i])) { unique.push(arg[i]) }
-      }
-
-      return unique
-    }
-
-    // Creates array of option elements corresponding to contents of an array
-
-    function listOptions (arg) {
-
-      let result = uniqueOptions(arg)
-
-      return result.map ( (x, y) => (
-        <option value={x} key={y}>{x}</option>
-      ))
-    }
-
-    // Creates array of year option elements for approval date selector
-
-    function yearOptions() {
-      let result = []
-      let currentYear = new Date().getFullYear()
-
-      for (let i = 1900; i <= currentYear; i++) { result.push(i) }
-
-      return result.map ( (x, y) => <option value={x} key={y} >{x}</option>)
-    } 
-
     // Returns JSX for a search UI component depending on the fieldType props
 
     switch (fieldType) {
@@ -164,16 +130,13 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
       case SearchFields.ApprovalDate:
         return (
           <div>
-            <h3>Approval Date</h3>
-
-            <span>Start</span>
-            <select value={minMonth} onChange={(e) => setMinMonth(Number(e.target.value))} >{listOptions(months)}</select>
-            <select value={minYear} onChange={(e) => setMinYear(Number(e.target.value))}  >{yearOptions()}</select>
-            
-            <span>End</span>
-            <select value={maxMonth} onChange={(e) => setMaxMonth(Number(e.target.value))} >{listOptions(months)}</select>
-            <select value={maxYear} onChange={(e) => setMaxYear(Number(e.target.value))}  >{yearOptions()}</select>
-
+            <ApprovalDate 
+              userInputs={userInputs}
+              setMinMonth={setMinMonth}
+              setMaxMonth={setMaxMonth}
+              setMinYear={setMinYear}
+              setMaxYear={setMaxYear}
+            />
           </div>
         )
         break;
