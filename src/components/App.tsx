@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     setTallies(generateTallies(filteredResults, userInputs))
   }, [filteredResults] )
-
+ 
   // The SearchUI component represents user interaction with the interface.
   // The Criteria component represents user inputs displayed back to the user.
   // The Results component uses userInputs to filter and display loadedData.
@@ -29,12 +29,13 @@ function App() {
       <header className="App-header">
       </header>
       <h3>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h3>
+      <h3>{userInputs.minMonth}/{userInputs.minYear} to {userInputs.maxMonth}/{userInputs.maxYear}</h3>
+      <Criteria userInputs={userInputs} />
       <SearchUI
         userInputs={userInputs}
         setUserInputs={setUserInputs}
         loadedData={loadedData}
       />
-      <Criteria userInputs={userInputs} />
       <Results 
         loadedData={loadedData}
         userInputs={userInputs}
