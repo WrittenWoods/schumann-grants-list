@@ -165,7 +165,7 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
 
   return (
     <>
-      <button onClick={paginatePrev} >previous</button>
+{/*      <button onClick={paginatePrev} >previous</button>
       <span> Results {pagination[0]} to {pagination[1]} of {pagination[2]} </span>
       <button onClick={paginateNext} >next</button>
       <table>
@@ -177,7 +177,49 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
           />
         )}
       </tbody>
-      </table>
+      </table>*/}
+
+
+
+      <nav class="db__results-nav">
+        <div class="db__results-sort">
+          <h6>Amount</h6>
+        </div>
+        <div class="db__results-sort">
+          <h6>Results</h6>
+        </div>
+        <div class="db__results-sort">
+          <h6>Approval Date</h6>
+          <div class="db__svg db__sort-arrow">
+            <img class="db__sort-arrow-up" src="../assets/svg/arrow-down.svg"/>
+          </div>
+        </div>
+      </nav>
+
+       {displayed.map( (individualGrant, n) =>
+          <Result 
+            individualGrant={individualGrant}
+            key={n}
+          />
+        )}
+
+
+      
+
+
+
+
+
+
+
+      <button onClick={paginatePrev} >previous</button>
+      <span> Results {pagination[0]} to {pagination[1]} of {pagination[2]} </span>
+      <button onClick={paginateNext} >next</button>
+
+
+
+
+
     </>
   );
 }
