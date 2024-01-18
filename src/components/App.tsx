@@ -55,7 +55,7 @@ function App() {
 
               
 
- <Results 
+            <Results 
                 loadedData={loadedData}
                 userInputs={userInputs}
                 filteredResults={filteredResults}
@@ -71,7 +71,11 @@ function App() {
 
 
             <div class="db__queries">
-            Refine Search
+             <SearchUI
+                userInputs={userInputs}
+                setUserInputs={setUserInputs}
+                loadedData={loadedData}
+              />
 
             </div>
 
@@ -92,10 +96,6 @@ function App() {
                 filteredResults={filteredResults}
                 setFilteredResults={setFilteredResults}
               />
-
-
-
-              
 
               <SearchUI
                 userInputs={userInputs}
