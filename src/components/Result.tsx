@@ -42,7 +42,7 @@ function Result({ individualGrant }) {
 
 
 
-{/*  Basically want to make this a loop type thing - creating the following for all filters; some places wont have every tag type, and keyword tag type could be multiple depending on how many the user puts in.
+{/*
             <div class="db__grant-info-tag">
               <span class="db__grant-info-tag-icon">[TAG ICON]</span>
               <span class="db__grant-info-tag-text">[TAG TEXT]</span>
