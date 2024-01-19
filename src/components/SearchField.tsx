@@ -25,6 +25,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
   const [programAreas, setProgramAreas] = useState([...userInputs.programAreas])
   const [strategies, setStrategies] = useState([...userInputs.strategies])
   const [donors, setDonors] = useState([...userInputs.donors])
+  const [anyTerms, setAnyTerms] = useState(userInputs.anyTerms)
   const [searchQueries, setSearchQueries] = useState([...userInputs.searchQueries])
 
   // Updates userInputs state whenever user interacts with the search UI
@@ -112,6 +113,12 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
     newUserInputs.maxVal = maxVal
     setUserInputs(newUserInputs)
   }, [maxVal] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
+    newUserInputs.anyTerms = anyTerms
+    setUserInputs(newUserInputs)
+  }, [anyTerms] )
 
   useEffect(() => {
     let newUserInputs = { ...userInputs }
@@ -251,6 +258,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
             <KeywordSearch 
               userInputs={userInputs}
               setSearchQueries={setSearchQueries}
+              setAnyTerms={setAnyTerms}
             />
           </div>
         )

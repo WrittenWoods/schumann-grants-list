@@ -1,11 +1,29 @@
 import React, { useState, useEffect } from 'react';
 
-function KeywordSearch({ userInputs, setSearchQueries }) {
+function KeywordSearch({ userInputs, setSearchQueries, setAnyTerms }) {
 
   const [searchTerm, setSearchTerm] = useState("")
 
   return (
     <div className="KeywordSearch">
+{/*         <label>
+          <input 
+            type="radio" 
+            name="anyTerms" 
+            value={!userInputs.anyTerms}
+            onChange={(e) => setAnyTerms(false)}
+          />
+          All terms
+        </label>
+        <label>
+          <input 
+            type="radio" 
+            name="anyTerms" 
+            value={userInputs.anyTerms}
+            onChange={(e) => setAnyTerms(true)}
+          />
+          Any terms
+        </label> */}
         <input 
             value={searchTerm} 
             onChange={(e) => setSearchTerm(e.target.value)} 

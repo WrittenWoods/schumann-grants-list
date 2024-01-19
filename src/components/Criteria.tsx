@@ -8,7 +8,7 @@ function Criteria({userInputs}) {
 
     function sublist(name, inputArray) {
       for (let i = 0; i < inputArray.length; i++) {
-        result.push(<li>{name}: {inputArray[i]}</li>)
+        result.push(<li key={i}>{name}: {inputArray[i]}</li>)
       }
     }
 
