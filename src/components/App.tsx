@@ -27,91 +27,27 @@ function App() {
   return (
 
     <div className="App">
-      <>
-        <div class="db__results_summary">
-          <div class="db__results_summary_inner">
-            <div class="db__summary_output">
-              <h2>Search database</h2>
-              <h3>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h3>
-              <p>{userInputs.minMonth} {userInputs.minYear} - {userInputs.maxMonth} {userInputs.maxYear}</p>
-            </div>
-            
-            <div class="db__summary_filters">
-              <Criteria userInputs={userInputs} />
-            </div>
+      <header className="App-header">
+      <h2>Search Grants Database</h2>
+      </header>
+      <h2>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h2>
+      <p>{userInputs.minMonth} {userInputs.minYear} - {userInputs.maxMonth} {userInputs.maxYear}</p>
+      <Criteria userInputs={userInputs} />
 
-
-          </div>
-        </div>
-
-
-
-        <div class="db__results_queries">
-          
-          <div class="db__results_queries_inner">
-          
-
-            <div class="db__results">
-
-              
-
- <Results 
-                loadedData={loadedData}
-                userInputs={userInputs}
-                filteredResults={filteredResults}
-                setFilteredResults={setFilteredResults}
-              />
-
-
-
-
-            </div>
-
-
-
-
-            <div class="db__queries">
-            Refine Search
-
-            </div>
-
-
-
-
-
-          </div>
-
-        </div>
-
-
-
-{/*
-                <Results 
-                loadedData={loadedData}
-                userInputs={userInputs}
-                filteredResults={filteredResults}
-                setFilteredResults={setFilteredResults}
-              />
-
-
-
-              
-
-              <SearchUI
-                userInputs={userInputs}
-                setUserInputs={setUserInputs}
-                loadedData={loadedData}
-              />
-              */}
-            
-
-      </>
-
-
+      <SearchUI
+        userInputs={userInputs}
+        setUserInputs={setUserInputs}
+        loadedData={loadedData}
+      />
+      
+      <Results 
+        loadedData={loadedData}
+        userInputs={userInputs}
+        filteredResults={filteredResults}
+        setFilteredResults={setFilteredResults}
+      />
     
     </div>
-
-
 
   );
 }
