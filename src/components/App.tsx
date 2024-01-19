@@ -28,20 +28,40 @@ function App() {
     <div className="App">
       <header className="App-header">
       </header>
-      <h3>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h3>
-      <h3>{userInputs.minMonth}/{userInputs.minYear} to {userInputs.maxMonth}/{userInputs.maxYear}</h3>
+
+      <div className="db__results_summary"> 
+        <div className="db__results_summary_inner">
+          <div className="db__summary_output">
+            <h2>Search database</h2>
+            <h3>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h3>
+            <p>{userInputs.minMonth}/{userInputs.minYear} - {userInputs.maxMonth}/{userInputs.maxYear}</p>
+          </div>
+        </div>
+      </div>
+
       <Criteria userInputs={userInputs} />
-      <SearchUI
-        userInputs={userInputs}
-        setUserInputs={setUserInputs}
-        loadedData={loadedData}
-      />
-      <Results 
-        loadedData={loadedData}
-        userInputs={userInputs}
-        filteredResults={filteredResults}
-        setFilteredResults={setFilteredResults}
-      />
+
+      <div className="db__results_queries">
+        <div className="db__results_queries_inner">
+          <div className="db__results">
+            <Results 
+              loadedData={loadedData}
+              userInputs={userInputs}
+              filteredResults={filteredResults}
+              setFilteredResults={setFilteredResults}
+            />
+          </div>
+
+          <div className="db__queries">
+            <h2>Refine Search</h2>
+            <SearchUI
+              userInputs={userInputs}
+              setUserInputs={setUserInputs}
+              loadedData={loadedData}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

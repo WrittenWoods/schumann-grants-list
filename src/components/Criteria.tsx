@@ -8,7 +8,12 @@ function Criteria({userInputs}) {
 
     function sublist(name, inputArray) {
       for (let i = 0; i < inputArray.length; i++) {
-        result.push(<li key={i}>{name}: {inputArray[i]}</li>)
+        result.push(
+          <div className="db__grant-info-tag" key={i}>
+            <span className="db__grant-info-tag-icon">{name}</span>
+            <span className="db__grant-info-tag-text">{inputArray[i]}</span>
+          </div>
+        )
       }
     }
 
@@ -23,18 +28,23 @@ function Criteria({userInputs}) {
     sublist("Keyword", userInputs.searchQueries)
 
     if (result.length === 0) {
-      return <li>None</li>
+      return (
+      <div className="db__grant-info-tag" key={0}>
+        <span className="db__grant-info-tag-icon">None</span>
+        <span className="db__grant-info-tag-text"></span>
+      </div>
+      )
     } else {
       return result
     }
   }
 
   return (
-    <div className="Criteria">
-      <h3>Filters:</h3>
-      <ul>
+    <div className="db__summary_filters">      
+      <h3>Filters applied:</h3>
+      <div className="db__grant-info-tags">      
         {listCriteria()}
-      </ul>
+      </div>
     </div>
   );
 }

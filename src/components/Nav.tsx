@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ColumnHead from './ColumnHead';
 
-function TableHead({ filteredResults, setFilteredResults }) {
+function Nav({ filteredResults, setFilteredResults }) {
 
     function stringCompare(a, b) {
         let compare = a.orgName.localeCompare(b.orgName)
 
-        if (compare === 0) { compare = dateCompare(a,b) }
-        if (compare === 0) { compare = amountCompare(a,b) }
         if (compare === 0) {
             let stateCompare = a.orgState.localeCompare(b.orgState)
             compare = stateCompare === 0 ? a.orgCity.localeCompare(b.orgCity) : stateCompare
@@ -31,34 +29,27 @@ function TableHead({ filteredResults, setFilteredResults }) {
     }
 
     return (
-    <thead>
-        <tr className="Result">
+        <div className='db__results-nav'>
             <ColumnHead 
-                name={"Grantee"} 
+                name={"Amount"} 
                 filteredResults={filteredResults} 
                 setFilteredResults={setFilteredResults}
-                sortFunction={stringCompare} 
+                sortFunctions={[dateCompare, stringCompare, amountCompare]} 
+            /> 
+            <ColumnHead 
+                name={"Result"} 
+                filteredResults={filteredResults} 
+                setFilteredResults={setFilteredResults}
+                sortFunctions={[amountCompare, dateCompare, stringCompare]} 
             />
             <ColumnHead 
                 name={"Approval Date"} 
                 filteredResults={filteredResults} 
                 setFilteredResults={setFilteredResults}
-                sortFunction={dateCompare} 
-            />
-            <td>Location</td> 
-            <ColumnHead 
-                name={"Amount"} 
-                filteredResults={filteredResults} 
-                setFilteredResults={setFilteredResults}
-                sortFunction={amountCompare} 
+                sortFunctions={[amountCompare, stringCompare, dateCompare]} 
             />             
-            <td>Donor</td>
-            <td>Funding Type</td>          
-            <td>Grant Type</td>    
-            <td>Strategy</td>     
-        </tr>
-    </thead>
+        </div>
     );
 }
 
-export default TableHead;
+export default Nav;

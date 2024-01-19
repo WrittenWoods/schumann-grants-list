@@ -9,7 +9,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Result from './Result';
-import TableHead from './TableHead';
+import Nav from './Nav';
 import { generateTallies } from '../helpers/generateTallies';
 
 function Results( { loadedData, userInputs, filteredResults, setFilteredResults } ) {
@@ -169,20 +169,19 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
 {/*       <button onClick={paginatePrev} >previous</button>
       <span> Results {pagination[0]} to {pagination[1]} of {pagination[2]} </span>
       <button onClick={paginateNext} >next</button> */}
-      <table>
-      <TableHead 
-        filteredResults={filteredResults}
-        setFilteredResults={setFilteredResults}
-      />
-      <tbody className="results-body">
-        {filteredResults.map( (individualGrant, n) =>
-          <Result 
-            individualGrant={individualGrant}
-            key={n}
-          />
-        )}
-      </tbody>
-      </table>
+      
+      <nav className="db__results-nav">
+        <Nav 
+          filteredResults={filteredResults}
+          setFilteredResults={setFilteredResults}
+        />
+      </nav>
+      {filteredResults.map( (individualGrant, n) =>
+        <Result 
+          individualGrant={individualGrant}
+          key={n}
+        />
+      )}
     </>
   );
 }
