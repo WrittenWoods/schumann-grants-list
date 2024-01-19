@@ -3,38 +3,31 @@ import ColumnHead from './ColumnHead';
 
 function TableHead({ filteredResults, setFilteredResults }) {
 
-    function nameCompare(a, b) {
-        return a.orgName.localeCompare(b.orgName)
+    function stringCompare(a, b) {
+        let compare = a.orgName.localeCompare(b.orgName)
+
+        if (compare === 0) { compare = dateCompare(a,b) }
+        if (compare === 0) { compare = amountCompare(a,b) }
+        if (compare === 0) {
+            let stateCompare = a.orgState.localeCompare(b.orgState)
+            compare = stateCompare === 0 ? a.orgCity.localeCompare(b.orgCity) : stateCompare
+        } 
+        if (compare === 0) { compare = a.programArea.localeCompare(b.programArea) }
+        if (compare === 0) { compare = a.fundingType.localeCompare(b.fundingType) }
+        if (compare === 0) { compare = a.donor.localeCompare(b.donor) }
+        if (compare === 0) { compare = a.grantType.localeCompare(b.grantType) }
+        if (compare === 0) { compare = a.strategy.localeCompare(b.strategy) }
+
+        return compare
     }
 
     function dateCompare(a, b) {
         let yearCompare = Math.sign(a.year - b.year)
         return yearCompare === 0 ? Math.sign(a.month - b.month) : yearCompare
     }
-    
-    function locationCompare(a, b) {
-        let stateCompare = a.orgState.localeCompare(b.orgState)
-        return stateCompare === 0 ? a.orgCity.localeCompare(b.orgCity) : stateCompare
-    }
 
     function amountCompare(a, b) {
         return Math.sign(a.amount - b.amount)
-    }
-
-    function donorCompare(a, b) {
-        return a.donor.localeCompare(b.donor)
-    }
-
-    function fundingTypeCompare(a, b) {
-        return a.fundingType.localeCompare(b.fundingType)
-    }
-
-    function grantTypeCompare(a, b) {
-        return a.grantType.localeCompare(b.grantType)
-    }
-
-    function strategyCompare(a, b) {
-        return a.strategy.localeCompare(b.strategy)
     }
 
     return (
@@ -44,50 +37,25 @@ function TableHead({ filteredResults, setFilteredResults }) {
                 name={"Grantee"} 
                 filteredResults={filteredResults} 
                 setFilteredResults={setFilteredResults}
-                sortFunction={nameCompare} 
+                sortFunction={stringCompare} 
             />
             <ColumnHead 
-                name={"Date"} 
+                name={"Approval Date"} 
                 filteredResults={filteredResults} 
                 setFilteredResults={setFilteredResults}
                 sortFunction={dateCompare} 
             />
-            <ColumnHead 
-                name={"Location"} 
-                filteredResults={filteredResults} 
-                setFilteredResults={setFilteredResults}
-                sortFunction={locationCompare} 
-            />            
+            <td>Location</td> 
             <ColumnHead 
                 name={"Amount"} 
                 filteredResults={filteredResults} 
                 setFilteredResults={setFilteredResults}
                 sortFunction={amountCompare} 
             />             
-            <ColumnHead 
-                name={"Donor"} 
-                filteredResults={filteredResults} 
-                setFilteredResults={setFilteredResults}
-                sortFunction={donorCompare} 
-            /> 
-            <ColumnHead 
-                name={"Funding Type"} 
-                filteredResults={filteredResults} 
-                setFilteredResults={setFilteredResults}
-                sortFunction={fundingTypeCompare} 
-            />             
-            <ColumnHead 
-                name={"Grant Type"} 
-                filteredResults={filteredResults} 
-                setFilteredResults={setFilteredResults}
-                sortFunction={grantTypeCompare} 
-            />     
-            <ColumnHead 
-                name={"Strategy"} 
-                filteredResults={filteredResults} 
-                setFilteredResults={setFilteredResults}
-                sortFunction={strategyCompare} 
-            />     
+            <td>Donor</td>
+            <td>Funding Type</td>          
+            <td>Grant Type</td>    
+            <td>Strategy</td>     
         </tr>
     </thead>
     );
