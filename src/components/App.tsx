@@ -49,6 +49,7 @@ function App() {
               userInputs={userInputs}
               filteredResults={filteredResults}
               setFilteredResults={setFilteredResults}
+              tallies={tallies}
             />
           </div>
 

@@ -10,12 +10,13 @@
 import React, { useState, useEffect } from 'react';
 import Result from './Result';
 import Nav from './Nav';
+import PaginationBar from './PaginationBar';
 import { generateTallies } from '../helpers/generateTallies';
 
 function Results( { loadedData, userInputs, filteredResults, setFilteredResults } ) {
 
-  const [pagination, setPagination] = useState([0, 10, filteredResults.length])
-  const [displayed, setDisplayed] = useState(filteredResults.slice(pagination[0], pagination[1]))
+  const [pageStart, setPageStart] = useState(0)
+  const [pageEnd, setPageEnd] = useState(10)
 
   // The functions below are named according to which properties of the userInputs object they identify.
   // If the function returns true at an index of loadedData, the result at that index is displayed.
@@ -23,10 +24,6 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
   useEffect(() => {
     setFilteredResults(filterGrants(loadedData, userInputs))
   }, [userInputs] )
-
-  useEffect(() => {
-    setDisplayed(filteredResults.slice(pagination[0], pagination[1]))
-  }, [pagination] )
 
   function dateMatch(data, inputDates) {
     let grantYear = data.year
@@ -136,52 +133,29 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
     return filteredResults
   }
 
-  // handles click of previous button for pagination
-
-  function paginatePrev() {
-    let pageStart = pagination[0]
-    let pageEnd = pagination[1]
-    let pageSize = pageEnd - pageStart
-    if (pageStart - pageSize >= 0) {
-      pageStart = pageStart - pageSize
-      pageEnd = pageEnd - pageSize
-      setPagination([pageStart, pageEnd, filteredResults.length])
-    }
-  }
-
-  // handles click of previous button for pagination
-
-  function paginateNext() {
-    let pageStart = pagination[0]
-    let pageEnd = pagination[1]
-    let pageSize = pageEnd - pageStart
-    if (pageStart <= filteredResults.length - pageSize) {
-      pageStart = pageStart + pageSize
-      pageEnd = pageEnd + pageSize
-      setPagination([pageStart, pageEnd, filteredResults.length])
-    }
-  }
-
   // Uses the array generated from the filterGrants function to render Result components.
 
   return (
     <>
-{/*       <button onClick={paginatePrev} >previous</button>
-      <span> Results {pagination[0]} to {pagination[1]} of {pagination[2]} </span>
-      <button onClick={paginateNext} >next</button> */}
-      
       <nav className="db__results-nav">
         <Nav 
           filteredResults={filteredResults}
           setFilteredResults={setFilteredResults}
         />
       </nav>
-      {filteredResults.map( (individualGrant, n) =>
+      {[...filteredResults].slice(pageStart, pageEnd).map( (individualGrant, n) =>
         <Result 
           individualGrant={individualGrant}
           key={n}
         />
       )}
+      <PaginationBar 
+        filteredResults={filteredResults}
+        pageStart={pageStart}
+        setPageStart={setPageStart}
+        pageEnd={pageEnd}
+        setPageEnd={setPageEnd}
+      />
     </>
   );
 }
