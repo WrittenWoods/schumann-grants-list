@@ -1,90 +1,6 @@
-
-/* manrope-200 - latin_latin-ext */
-@font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 200;
-    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-200.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  
-  /* manrope-300 - latin_latin-ext */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 300;
-    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  
-  /* manrope-regular - latin_latin-ext */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  
-  /* manrope-500 - latin_latin-ext */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 500;
-    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  
-  /* manrope-600 - latin_latin-ext */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 600;
-    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  
-  /* manrope-700 - latin_latin-ext */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 700;
-    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  
-  /* manrope-800 - latin_latin-ext */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 800;
-    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-800.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  
-  
-  
-  
-  
-  body{
-    background-color:var(--base-3);
-    color:var(--contrast-2);
-  }
-  
-  a{
-    color:var(--accent-8);
-  }
-  a{
-    text-decoration:underline;
-  }
-  
-  
-  a:hover, a:focus, a:active{color:var(--accent-6);}
-  
-  
   :root{
-    --contrast:#1E0917;
-    --contrast-50o:rgba(31,9,23,0.5);
+  --contrast:#1E0917;
+  --contrast-50o:rgba(31,9,23,0.5);
   --contrast-2:#40343C;
   --contrast-2-50o:rgba(64,52,60,0.5);
   --contrast-3:#6D656A;
@@ -114,12 +30,31 @@
   }
   
   
+
+
+ body{
+    line-height:1.6;
+  background-color:var(--base-3);
+    color:var(--contrast-2);
+  }
+
+
+ body, button, input, select, textarea {font-family:Manrope;font-weight:500;font-size:18px;letter-spacing:0.07px;}
+ 
+  p {margin-bottom:1.2em;}
+
   
-  html{font-family:Manrope;font-weight:normal;}
+  a {
+    color:var(--accent-8);
+    text-decoration:underline;
+  }
+ 
   
-  body, button, input, select, textarea{font-family:Manrope;font-weight:500;font-size:18px;letter-spacing:0.07px;}
-  body{line-height:1.6;}
-  p{margin-bottom:1.2em;}
+  
+  a:hover, a:focus, a:active{color:var(--accent-6);}
+  
+
+
   h1, h2, h3, h4, h5, h6{font-family:museo-sans-display;font-weight:600;line-height:1.1;margin-bottom:20px;}
   h1{font-size:62px;}
   h2{font-size:44px;margin-bottom:10px;}
@@ -250,3 +185,79 @@
   .db__results_queries_inner {
   background-color:#04ff0040;
   }*/
+
+
+
+
+
+
+
+
+
+@import url("https://use.typekit.net/pbe7sje.css"); 
+
+
+
+/* manrope-200 - latin_latin-ext */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-200.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  
+  /* manrope-300 - latin_latin-ext */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  
+  /* manrope-regular - latin_latin-ext */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  
+  /* manrope-500 - latin_latin-ext */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  
+  /* manrope-600 - latin_latin-ext */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  
+  /* manrope-700 - latin_latin-ext */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  
+  /* manrope-800 - latin_latin-ext */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../assets/fonts/manrope/manrope-v15-latin_latin-ext-800.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  

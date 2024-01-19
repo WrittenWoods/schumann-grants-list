@@ -36,10 +36,11 @@ function App() {
             <h3>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h3>
             <p>{userInputs.minMonth}/{userInputs.minYear} - {userInputs.maxMonth}/{userInputs.maxYear}</p>
           </div>
+          <Criteria userInputs={userInputs} />
         </div>
       </div>
 
-      <Criteria userInputs={userInputs} />
+      
 
       <div className="db__results_queries">
         <div className="db__results_queries_inner">
