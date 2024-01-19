@@ -145,6 +145,7 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
       </nav>
       {[...filteredResults].slice(pageStart, pageEnd).map( (individualGrant, n) =>
         <Result 
+          userInputs={userInputs}
           individualGrant={individualGrant}
           key={n}
         />
