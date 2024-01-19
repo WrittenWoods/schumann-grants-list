@@ -25,30 +25,24 @@ function App() {
   // The Results component uses userInputs to filter and display loadedData.
 
   return (
-
     <div className="App">
       <header className="App-header">
-      <h2>Search Grants Database</h2>
       </header>
-      <h2>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h2>
-      <p>{userInputs.minMonth} {userInputs.minYear} - {userInputs.maxMonth} {userInputs.maxYear}</p>
+      <h3>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h3>
+      <h3>{userInputs.minMonth}/{userInputs.minYear} to {userInputs.maxMonth}/{userInputs.maxYear}</h3>
       <Criteria userInputs={userInputs} />
-
       <SearchUI
         userInputs={userInputs}
         setUserInputs={setUserInputs}
         loadedData={loadedData}
       />
-      
       <Results 
         loadedData={loadedData}
         userInputs={userInputs}
         filteredResults={filteredResults}
         setFilteredResults={setFilteredResults}
       />
-    
     </div>
-
   );
 }
 
