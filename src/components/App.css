@@ -96,7 +96,10 @@
   a.button:hover,
   button:focus,
   a.button:focus
-  {color:#ffffff;background-color:var(--accent-2);}
+  {color:#ffffff;
+    background-color:var(--accent-3);
+  }
+
   
   
   
@@ -176,7 +179,68 @@
    max-width:1280px;
   }
   
+.db__results-sort {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.db__results-sort h6 {
+  margin:0 5px 0 0;
+}
+
+ .db__results-sort button {
+    width: .8em;
+    margin: 0;
+    padding: 0;
+    background-color:unset;
+    border:none;
+    cursor:pointer;
+  }
+
+inactive
+
+
+/* Raj --- 
+
+Please:
+- remove "^" placeholder arrow from column heads;
+- add "activeDesc" class to button that is active and descending;
+- add "activeAsce" class to button that is active and ascending;
+- add "inactive" class to buttons that are inactive;
+- add svg folder and files (included in push)
+
+*/
+
+ .db__results-sort button.activeDesc::before,
+  .db__results-sort button.activeDesc:focus::before {
+  content:url('../assets/svg/arrow-down.svg');
+}
+
+ .db__results-sort button.activeAsce::before,
+  .db__results-sort button.activeAsce:focus::before {
+  content:url('../assets/svg/arrow-up.svg');
+}
+
+
+ .db__results-sort button.inactive::before,
+  .db__results-sort button.inactive:focus::before {
+  content:url('../assets/svg/arrow-down.svg');
+}
+
+  .db__results-sort button:hover,
+  .db__results-sort button:focus
+
+  {color:#ffffff;
+    background-color:var(--base-2);
+  }
+
   
+
+
+
+
+
   .db__queries {
     padding:90px 45px 45px 45px;
     width: 400px;
