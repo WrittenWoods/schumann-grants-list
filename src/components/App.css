@@ -1,7 +1,7 @@
   
 /* Font Styles */
 @import url("https://use.typekit.net/pbe7sje.css"); 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap')
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
   
 
 
@@ -46,7 +46,7 @@
   }
 
 
- body, button, input, select, textarea {font-family:Manrope;font-weight:500;font-size:18px;letter-spacing:0.07px;}
+ body, button, input, select, textarea {font-family:"Manrope";font-weight:500;font-size:18px;letter-spacing:0.07px;}
  
   p {margin-bottom:1.2em;}
 
@@ -68,7 +68,7 @@
   h3{font-size:32px;}
   h4{font-size:22px;letter-spacing:0.1px;line-height:1.3em;}
   h5{text-transform:uppercase;font-size:20px;letter-spacing:0.1px;line-height:1.3em;}
-  h6{font-family:Manrope;font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.55px;}
+  h6{font-family:"Manrope";font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.55px;}
   
   button, .button, .button a, {font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.8px;}
   
