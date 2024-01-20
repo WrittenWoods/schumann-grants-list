@@ -29,7 +29,7 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
 
     return (
     <>
-        <h3>Approval Date</h3>
+        <h6>Approval Date</h6>
 
         <span>Start</span>
         <select value={months[userInputs.minMonth - 1]} onChange={(e) => setMinMonth(months.indexOf(e.target.value) + 1)} >{listOptions(months)}</select>

@@ -151,9 +151,10 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
       case SearchFields.Amount:
         return (
           <div>
-            <h3>Minimum Value</h3>
+          <h6>Amount</h6>
+            <h6>Minimum Value</h6>
             <input value={minVal} onChange={(e) => setMinVal(e.target.value)} />
-            <h3>Maximum Value</h3>
+            <h6>Maximum Value</h6>
             <input value={maxVal} onChange={(e) => setMaxVal(e.target.value)} />
           </div>
         )      
@@ -254,7 +255,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
       case SearchFields.KeywordSearch:
         return (
           <div>
-            <h3>Keyword Search</h3>
+            <h6>Keyword Search</h6>
             <KeywordSearch 
               userInputs={userInputs}
               setSearchQueries={setSearchQueries}
