@@ -15,7 +15,7 @@ function Result({ individualGrant, userInputs }) {
   console.log(dateString(individualGrant))
 
   function matchedCriteria(individualGrant, userInputs) {
-    let matched = []
+    let displayedTags = []
     let toMatch = [
       individualGrant.orgName, 
       individualGrant.description, 
@@ -27,47 +27,17 @@ function Result({ individualGrant, userInputs }) {
       individualGrant.strategy
     ]
 
-    if (userInputs.orgNames.includes(individualGrant.orgName)) { 
-      matched.push({ icon: 'Grantee', text: individualGrant.orgName }) 
-    }
-
-    if (userInputs.orgCities.includes(individualGrant.orgCity)) { 
-      matched.push({ icon: 'City', text: individualGrant.orgCity }) 
-    }
-
-    if (userInputs.orgStates.includes(individualGrant.orgState)) { 
-      matched.push({ icon: 'State', text: individualGrant.orgState }) 
-    }
-
-    if (userInputs.grantTypes.includes(individualGrant.grantType)) { 
-      matched.push({ icon: 'Grant Type', text: individualGrant.grantType }) 
-    }
-
-    if (userInputs.fundingTypes.includes(individualGrant.fundingType)) { 
-      matched.push({ icon: 'Funding Type', text: individualGrant.fundingType }) 
-    }
-
-    if (userInputs.programAreas.includes(individualGrant.programArea)) { 
-      matched.push({ icon: 'Program Area', text: individualGrant.programArea }) 
-    }
-
-    if (userInputs.strategies.includes(individualGrant.strategy)) { 
-      matched.push({ icon: 'Strategy', text: individualGrant.strategy }) 
-    }
-
-    if (userInputs.donors.includes(individualGrant.donor)) { 
-      matched.push({ icon: 'Donor', text: individualGrant.donor }) 
-    }
-
-    for (let i = 0; i < userInputs.searchQueries.length; i++) {
-      if (toMatch.some( (s) => s.toLowerCase().includes(userInputs.searchQueries[i].toLowerCase()) )) {
-        matched.push({ icon: 'Keyword', text: userInputs.searchQueries[i] })
-      }
-    }
+    displayedTags.push({ icon: 'City', text: individualGrant.orgCity }) 
+    displayedTags.push({ icon: 'State', text: individualGrant.orgState }) 
+    displayedTags.push({ icon: 'Grant Type', text: individualGrant.grantType }) 
+    displayedTags.push({ icon: 'Funding Type', text: individualGrant.fundingType }) 
+    displayedTags.push({ icon: 'Program Area', text: individualGrant.programArea }) 
+    displayedTags.push({ icon: 'Strategy', text: individualGrant.strategy }) 
+    displayedTags.push({ icon: 'Donor', text: individualGrant.donor }) 
 
     return (
       <div className="db__grant-info-tags">
-        {matched.map( (x, y) => (
+        {displayedTags.map( (x, y) => (
           <div className="db__grant-info-tag" key={y}>
             <span className="db__grant-info-tag-icon">{x.icon + ": "}</span>
             <span className="db__grant-info-tag-text">{x.text}</span>
