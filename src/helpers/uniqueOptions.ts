@@ -7,5 +7,5 @@ export function uniqueOptions (arg) {
         if (!unique.includes(arg[i])) { unique.push(arg[i]) }
     }
 
-    return unique
+    return unique.filter( (x) => x.trim().length)
 }
