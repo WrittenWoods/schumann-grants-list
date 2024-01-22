@@ -329,3 +329,9 @@
 .db__search-field ul {
   margin:0;
 }
+
+
+ul.CheckDrop {
+    list-style-type: none;
+    padding: 0;
+}
