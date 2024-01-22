@@ -2,7 +2,8 @@
 /* Font Styles */
 @import url("https://use.typekit.net/pbe7sje.css"); 
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
-  
+
+
 
 
   :root{
@@ -36,7 +37,7 @@
   --accent-13:#bbe698;
   }
   
-  
+
 
  body, button, input, select, textarea {font-family:"Manrope";font-weight:500;font-size:18px;letter-spacing:0.07px;line-height:1.6;color:var(--contrast-2);}
  
@@ -193,43 +194,37 @@
 
 
 
-
-/* Raj --- 
-
-Please:
-- remove "^" placeholder arrow from column heads;
-- add "activeDesc" class to button that is active and descending;
-- add "activeAsce" class to button that is active and ascending;
-- add "inactive" class to buttons that are inactive;
-- add svg folder and files (included in push)
-
-*/
-
  .db__results-sort button.activeDesc::before,
   .db__results-sort button.activeDesc:focus::before {
-  content:url('../assets/svg/arrow-down.svg');
+
 }
 
  .db__results-sort button.activeAsce::before,
   .db__results-sort button.activeAsce:focus::before {
-  content:url('../assets/svg/arrow-up.svg');
+
 }
 
 
  .db__results-sort button.inactive::before,
 .db__results-sort button.inactive:focus::before {
-  content:url('../assets/svg/arrow-down.svg');
+
 }
 
-  .db__results-sort button:hover,
-  .db__results-sort button:focus
 
-  {color:#ffffff;
-    background-color:var(--base-2);
+  .db__results-sort {
+    button, button::before {
+    
+    color:var(--contrast);
+
+    :hover, :focus {
+      color:var(--accent);
+    }
+
+
   }
+}
 
   
-
 
 
 
