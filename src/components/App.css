@@ -38,15 +38,7 @@
   
   
 
-
- body{
-    line-height:1.6;
-  background-color:var(--base-3);
-    color:var(--contrast-2);
-  }
-
-
- body, button, input, select, textarea {font-family:"Manrope";font-weight:500;font-size:18px;letter-spacing:0.07px;}
+ body, button, input, select, textarea {font-family:"Manrope";font-weight:500;font-size:18px;letter-spacing:0.07px;line-height:1.6;color:var(--contrast-2);}
  
   p {margin-bottom:1.2em;}
 
@@ -56,11 +48,33 @@
     text-decoration:underline;
   }
  
-  
-  
   a:hover, a:focus, a:active{color:var(--accent-6);}
   
+  button, .button, .button a {
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:14px;
+    letter-spacing:0.8px; 
+    border:0px;
+    padding:8px 14px;
+    border-radius:30px;
+  }
+  
+  
+  button:hover,  a.button:hover,  button:focus,  a.button:focus  {
+    color:#ffffff;
+    background-color:var(--accent-3);
+    cursor:pointer;
+    border:0px;
+  }
 
+  
+  textarea, select
+  {color:var(--contrast);background-color:var(--base-2);border-color:var(--base);}
+  
+  textarea:focus, select:focus
+  {color:var(--contrast);background-color:var(--base-2);border-color:var(--contrast-3);}
+  
 
   h1, h2, h3, h4, h5, h6{font-family:museo-sans-display;font-weight:600;line-height:1.1;margin-bottom:20px;}
   h1{font-size:62px;}
@@ -70,9 +84,8 @@
   h5{text-transform:uppercase;font-size:20px;letter-spacing:0.1px;line-height:1.3em;}
   h6{font-family:"Manrope";font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.55px;}
   
-  button, .button, .button a, {font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.8px;}
   
-  .db__tags{font-weight:700;text-transform:uppercase;font-size:12px;}
+    .db__tags{font-weight:700;text-transform:uppercase;font-size:12px;}
   .site-description{color:var(--contrast-2);}
   
   h1{color:var(--contrast);}
@@ -81,26 +94,6 @@
   h4{color:var(--contrast);}
   h5{color:var(--contrast);}
   h6{color:var(--contrast);}
-  
-  
-  textarea,
-  select
-  {color:var(--contrast);background-color:var(--base-2);border-color:var(--base);}
-  
-  textarea:focus,
-  select:focus
-  {color:var(--contrast);background-color:var(--base-2);border-color:var(--contrast-3);}
-  
-  
-  button:hover,
-  a.button:hover,
-  button:focus,
-  a.button:focus
-  {color:#ffffff;
-    background-color:var(--accent-3);
-  }
-
-  
   
   
   
@@ -195,7 +188,7 @@
     padding: 0;
     background-color:unset;
     border:none;
-    cursor:pointer;
+    
   }
 
 
@@ -224,7 +217,7 @@ Please:
 
 
  .db__results-sort button.inactive::before,
-  .db__results-sort button.inactive:focus::before {
+.db__results-sort button.inactive:focus::before {
   content:url('../assets/svg/arrow-down.svg');
 }
 
@@ -247,30 +240,15 @@ Please:
     background-color: var(--base-2);
   }
 
-.search-field {}
+  
 
-.search-field > div {
-  padding:20px 0px 40px 0px;
-  border-bottom: 2px solid var(--base);
-
-
+.db__grant-info h4 {
+  margin:0;
 }
 
-  
-  
-  /* Testing */
-  /*.db__results_queries,
-  .db__results_summary {
-  background-color:#ff00004a;
-  }
-  
-  .db__results_summary_inner, 
-  .db__results_queries_inner {
-  background-color:#04ff0040;
-  }*/
-
-
-
+.db__grant-info p {
+  margin:0;
+}
 
 
 .db__grant-info-tags {
@@ -295,10 +273,64 @@ Please:
 
 
 
+.db__results-pagination {
+  margin-top:20px;
+}
+
+
+.db__results-pagination button:hover{
+  background-color:var(--accent);
+  color:var(--base-3);
+}
+
+
+
+.db__search-field-inner {
+  padding:20px 0px 40px 0px;
+  border-bottom: 2px solid var(--base);
+
+}
+
+.db__search-field-head {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    column-gap: .5em;
+}
+
+.db__search-field-head h6 {
+  margin:0;
+  margin-top:3px;
+}
+
+
+
+.db__search-field-head button,
+.db__LocationMenu button {
+  padding:0px 4px;
+  border-radius:0;
+  font-size:1.5em;
+  font-weight:500;
+  line-height:1;
+
+}
+
+
+
+
+.db__search-field-head,.db__LocationMenu {
+  button:hover, button:focus {
+      background-color:unset;
+  color:var(--accent-10);
+  }
+}
 
 
 
 
 
-
-
+.db__search-field ul {
+  margin:0;
+}

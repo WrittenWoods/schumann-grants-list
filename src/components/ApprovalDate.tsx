@@ -29,8 +29,9 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
 
     return (
     <>
+        <div className="db__search-field-head">
         <h6>Approval Date</h6>
-
+        </div>
         <span>Start</span>
         <select value={months[userInputs.minMonth - 1]} onChange={(e) => setMinMonth(months.indexOf(e.target.value) + 1)} >{listOptions(months)}</select>
         <select value={userInputs.minYear} onChange={(e) => setMinYear(Number(e.target.value))}  >{yearOptions()}</select>

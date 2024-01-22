@@ -23,7 +23,7 @@ function SearchUI( {userInputs, setUserInputs, loadedData} ) {
   // Iterates over searchFieldsList to render the UI for various search criteria.
 
   return (
-    <div className="SearchUI">
+    <div className="db__queries_inner">
       {searchFieldsList.map( (fieldType, n) =>
         <SearchField 
           fieldType={fieldType} 

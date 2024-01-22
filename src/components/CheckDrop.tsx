@@ -43,8 +43,11 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
 
   return (
     <>
+    <div className="db__search-field-head">
       <h6>{fieldName}</h6>
-      <button onClick={e => setOpenList(!openList)}>{ openList ? "⌃" : "⌄" }</button>
+      <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
+      </div>
+      
       <ul className="CheckDrop">
         {renderList()}
       </ul>
