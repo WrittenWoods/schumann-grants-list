@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './App.css';
 
 function PaginationBar({ filteredResults, pageStart, setPageStart, pageEnd, setPageEnd }) {
 

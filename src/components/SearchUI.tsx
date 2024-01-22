@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import SearchField from "./SearchField";
 import { SearchFields } from '../helpers/enums';
 

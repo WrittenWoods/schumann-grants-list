@@ -8,6 +8,7 @@
 */
 
 import React, { useState, useEffect } from 'react';
+import './App.css';
 import Result from './Result';
 import Nav from './Nav';
 import PaginationBar from './PaginationBar';

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import { uniqueOptions } from '../helpers/uniqueOptions';
 
 function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMaxYear }) {

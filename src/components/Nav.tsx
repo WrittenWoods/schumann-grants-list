@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 import ColumnHead from './ColumnHead';
 
 function Nav({ filteredResults, setFilteredResults }) {
@@ -29,7 +30,7 @@ function Nav({ filteredResults, setFilteredResults }) {
     }
 
     return (
-        <div className='db__results-nav'>
+        <>
             <ColumnHead 
                 name={"Amount"} 
                 filteredResults={filteredResults} 
@@ -48,7 +49,7 @@ function Nav({ filteredResults, setFilteredResults }) {
                 setFilteredResults={setFilteredResults}
                 sortFunctions={[amountCompare, stringCompare, dateCompare]} 
             />             
-        </div>
+        </>
     );
 }
 

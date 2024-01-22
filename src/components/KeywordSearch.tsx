@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 
 function KeywordSearch({ userInputs, setSearchQueries, setAnyTerms }) {
 

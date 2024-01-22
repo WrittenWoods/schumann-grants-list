@@ -1,6 +1,10 @@
 import { uniqueOptions } from "./uniqueOptions"
 
 export function generateTallies(results, inputs) {
+  
+    const options = {  maximumFractionDigits: 2  }   
+    const numformat = Intl.NumberFormat("en-US",options).format
+
     let resultsNum = results.length
     let granteesNum = uniqueOptions(results.map((x) => x.orgName)).length
     let grantsTotal = results.map((x) => x.amount).reduce(
@@ -10,8 +14,8 @@ export function generateTallies(results, inputs) {
     );
 
     return {
-        resultsNum: resultsNum,
-        granteesNum: granteesNum,
-        grantsTotal: grantsTotal
+        resultsNum: numformat(resultsNum),
+        granteesNum: numformat(granteesNum),
+        grantsTotal: numformat(grantsTotal)
     }
 }

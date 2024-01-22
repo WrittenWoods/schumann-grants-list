@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 import { SearchFields } from '../helpers/enums';
 import Select, { StylesConfig } from 'react-select';
 import CheckDrop from './CheckDrop';
