@@ -25,7 +25,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
 
     if (openList) {
       return (
-        options.map( (x, y) => 
+        options.sort().map( (x, y) => 
           <li key={y} >
             <input 
               type="checkbox" 
