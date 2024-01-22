@@ -37,7 +37,6 @@ function App() {
             <p>{userInputs.minMonth}/{userInputs.minYear} - {userInputs.maxMonth}/{userInputs.maxYear}</p>
           </div>
           <Criteria userInputs={userInputs} />
-          <Criteria userInputs={userInputs} />
         </div>
       </div>
 
