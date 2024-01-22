@@ -8,6 +8,8 @@
   :root{
   --contrast:#1E0917;
   --contrast-50o:rgba(31,9,23,0.5);
+  --contrast:#1E0917;
+  --contrast-50o:rgba(31,9,23,0.5);
   --contrast-2:#40343C;
   --contrast-2-50o:rgba(64,52,60,0.5);
   --contrast-3:#6D656A;
@@ -83,8 +85,10 @@
   h4{font-size:22px;letter-spacing:0.1px;line-height:1.3em;}
   h5{text-transform:uppercase;font-size:20px;letter-spacing:0.1px;line-height:1.3em;}
   h6{font-family:"Manrope";font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.55px;}
+  h6{font-family:"Manrope";font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.55px;}
   
   
+    .db__tags{font-weight:700;text-transform:uppercase;font-size:12px;}
     .db__tags{font-weight:700;text-transform:uppercase;font-size:12px;}
   .site-description{color:var(--contrast-2);}
   
@@ -104,6 +108,7 @@
       flex-wrap: nowrap;
       column-gap: 10px;
           border-bottom: 4px solid var(--base);
+          border-bottom: 4px solid var(--base);
   }
   
   article.db__grant {
@@ -114,8 +119,12 @@
       padding-top: 40px;
     padding-bottom: 50px;
     border-bottom: 2px solid var(--base);
+      padding-top: 40px;
+    padding-bottom: 50px;
+    border-bottom: 2px solid var(--base);
   }
   
+
 
   .db__results-sort:first-child,
   .db__grant-amount{
@@ -152,8 +161,10 @@
   
   .db__results_queries_inner{
 
+
     display:flex;
       flex-direction: row;
+          margin:0 auto;
           margin:0 auto;
      margin-left: calc(-100vw / 2 + 100% / 2);
       margin-right: calc(-100vw / 2 + 100% / 2);
@@ -166,6 +177,7 @@
   
   
   .db__results {
+   margin-left: calc(50vw - 595px - 90px);
    margin-left: calc(50vw - 595px - 90px);
    padding:90px 45px 45px;
    width: 1280px;
@@ -333,4 +345,10 @@ Please:
 
 .db__search-field ul {
   margin:0;
+}
+
+
+ul.CheckDrop {
+    list-style-type: none;
+    padding: 0;
 }

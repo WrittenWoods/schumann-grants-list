@@ -32,9 +32,11 @@ function PaginationBar({ filteredResults, pageStart, setPageStart, pageEnd, setP
 
   return (
     <>
+        <div class="db__results-pagination">
         <button onClick={paginatePrev}>previous</button>
         <span> Results {pageStart} to {pageEnd} of {filteredResults.length} </span>
         <button onClick={paginateNext}>next</button>
+        </div>
     </>
   );
         

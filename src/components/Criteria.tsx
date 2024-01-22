@@ -42,7 +42,7 @@ function Criteria({userInputs}) {
 
   return (
     <div className="db__summary_filters">      
-      <h3>Filters applied:</h3>
+      <h4>Filters applied:</h4>
       <div className="db__grant-info-tags">      
         {listCriteria()}
       </div>
