@@ -3,7 +3,16 @@ import './App.css';
 
 function Result({ individualGrant, userInputs }) {
 
-  console.log(individualGrant)
+  const options = {  maximumFractionDigits: 2  }   
+  const numformat = Intl.NumberFormat("en-US",options).format
+
+  function dateString(individualGrant) {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    return `${months[individualGrant.month - 1] + ` ` + individualGrant.year}`
+  }
+
+  console.log(individualGrant.month + ' ' + individualGrant.year)
+  console.log(dateString(individualGrant))
 
   function matchedCriteria(individualGrant, userInputs) {
     let matched = []
@@ -72,7 +81,7 @@ function Result({ individualGrant, userInputs }) {
   return (
     <article className="db__grant">
       <div className='db__grant-amount'>
-        {"$" + individualGrant.amount}
+        {"$" + numformat(individualGrant.amount)}
       </div>
 
       <div className="db__grant-info">
@@ -82,7 +91,7 @@ function Result({ individualGrant, userInputs }) {
       </div>
 
       <div className="db__grant-date">
-        {individualGrant.month + " / " + individualGrant.year}
+        {dateString(individualGrant)}
       </div>
     </article>
   );

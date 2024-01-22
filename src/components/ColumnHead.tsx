@@ -17,7 +17,7 @@ function ColumnHead({ name, filteredResults, setFilteredResults, sortFunctions }
     <div className='db__results-sort'>
       <h6>{name}</h6>
       <button onClick={e => handleSortButton()}>
-         { reversed ? <i class="fa-solid fa-arrow-down"></i> : <i class="fa-solid fa-arrow-up"></i> }
+         { reversed ? <i className="fa-solid fa-arrow-down"></i> : <i className="fa-solid fa-arrow-up"></i> }
       </button>
     </div>
   );
