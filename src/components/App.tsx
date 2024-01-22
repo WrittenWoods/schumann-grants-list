@@ -5,6 +5,7 @@ import SearchUI from "./SearchUI";
 import Criteria from "./Criteria";
 import { starterData } from "../starterData";
 import { generateTallies } from '../helpers/generateTallies';
+import { dateCompare } from '../helpers/dateCompare';
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
 
   const [loadedData, setLoadedData] = useState(starterData.loadedData)
   const [userInputs, setUserInputs] = useState(starterData.userInputs)
-  const [filteredResults, setFilteredResults] = useState(starterData.loadedData)
+  const [filteredResults, setFilteredResults] = useState(starterData.loadedData.sort(dateCompare).reverse())
   const [tallies, setTallies] = useState(generateTallies(loadedData, userInputs))
 
   useEffect(() => {
