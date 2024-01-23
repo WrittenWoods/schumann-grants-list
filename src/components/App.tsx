@@ -13,7 +13,7 @@ function App() {
   // userInputs refers to search criteria added by user via UI.
 
   const [loadedData, setLoadedData] = useState(starterData.loadedData)
-  const [userInputs, setUserInputs] = useState(starterData.userInputs)
+  const [userInputs, setUserInputs] = useState(generateStarterInputs(loadedData, starterData.userInputs))
   const [filteredResults, setFilteredResults] = useState(starterData.loadedData.sort(dateCompare).reverse())
   const [tallies, setTallies] = useState(generateTallies(loadedData, userInputs))
 
@@ -24,6 +24,14 @@ function App() {
   // The SearchUI component represents user interaction with the interface.
   // The Criteria component represents user inputs displayed back to the user.
   // The Results component uses userInputs to filter and display loadedData.
+
+  function generateStarterInputs(loadedData, userInputs) {
+    console.log(loadedData.map( (x) => x.amount ))
+    let starterInputs = { ...userInputs }
+    starterInputs.minVal = "0"
+    starterInputs.maxVal = Math.max(...loadedData.map( (x) => x.amount )).toString()
+    return starterInputs
+  }
 
   return (
     <div className="App">

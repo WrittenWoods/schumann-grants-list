@@ -8,10 +8,22 @@ function Criteria({userInputs}) {
 
     const result = []
 
+    result.push(
+      <div className="db__grant-info-tag" key={0}>
+        <div className="db__grant-info-tag-text">{`${'Minimum Amount: ' + userInputs.minVal}`}</div>
+      </div>
+    )
+
+    result.push(
+      <div className="db__grant-info-tag" key={1}>
+        <div className="db__grant-info-tag-text">{`${'Maximum Amount: ' + userInputs.maxVal}`}</div>
+      </div>
+    )
+
     function sublist(icon, inputArray) {
       for (let i = 0; i < inputArray.length; i++) {
         result.push(
-          <div className="db__grant-info-tag" key={i}>
+          <div className="db__grant-info-tag" key={i+2}>
             <div className="db__grant-info-tag-icon"><i className={icon}></i></div>
             <div className="db__grant-info-tag-text">{inputArray[i]}</div>
           </div>
@@ -32,7 +44,7 @@ function Criteria({userInputs}) {
     if (result.length === 0) {
       return (
       <div className="db__grant-info-tag" key={0}>
-        <div className="db__grant-info-tag-icon">None</div>
+        <div className="db__grant-info-tag-icon"></div>
         <div className="db__grant-info-tag-text"></div>
       </div>
       )
