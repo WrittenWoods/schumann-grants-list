@@ -4,19 +4,24 @@ import { IconClasses } from '../helpers/enums';
 
 function Criteria({userInputs}) {
 
+  const options = {  maximumFractionDigits: 2  }   
+  const numformat = Intl.NumberFormat("en-US",options).format
+
   function listCriteria() {
 
     const result = []
 
     result.push(
       <div className="db__grant-info-tag" key={0}>
-        <div className="db__grant-info-tag-text">{`${'Minimum Amount: ' + userInputs.minVal}`}</div>
+        <div className="db__grant-info-tag-icon"><i className={IconClasses.iconAmount}></i></div>
+        <div className="db__grant-info-tag-text">{`${'Minimum Amount: $' + numformat(Number(userInputs.minVal))}`}</div>
       </div>
     )
 
     result.push(
       <div className="db__grant-info-tag" key={1}>
-        <div className="db__grant-info-tag-text">{`${'Maximum Amount: ' + userInputs.maxVal}`}</div>
+        <div className="db__grant-info-tag-icon"><i className={IconClasses.iconAmount}></i></div>
+        <div className="db__grant-info-tag-text">{`${'Maximum Amount: $' + numformat(Number(userInputs.maxVal))}`}</div>
       </div>
     )
 
