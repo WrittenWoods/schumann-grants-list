@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
+import '../helpers/generalOptions.ts';
+
+
 
 function Result({ individualGrant, userInputs }) {
 
@@ -27,20 +30,21 @@ function Result({ individualGrant, userInputs }) {
       individualGrant.strategy
     ]
 
-    displayedTags.push({ icon: 'City', text: individualGrant.orgCity }) 
-    displayedTags.push({ icon: 'State', text: individualGrant.orgState }) 
-    displayedTags.push({ icon: 'Grant Type', text: individualGrant.grantType }) 
-    displayedTags.push({ icon: 'Funding Type', text: individualGrant.fundingType }) 
-    displayedTags.push({ icon: 'Program Area', text: individualGrant.programArea }) 
-    displayedTags.push({ icon: 'Strategy', text: individualGrant.strategy }) 
-    displayedTags.push({ icon: 'Donor', text: individualGrant.donor }) 
+
+    displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: iconLocation })
+    displayedTags.push({ name: 'Grant Type', text: individualGrant.grantType, icon: iconGrantType }) 
+    displayedTags.push({ name: 'Funding Type', text: individualGrant.fundingType, icon: iconFundingType }) 
+    displayedTags.push({ name: 'Program Area', text: individualGrant.programArea, icon: iconProgramArea }) 
+    displayedTags.push({ name: 'Strategy', text: individualGrant.strategy, icon: iconStrategy }) 
+    displayedTags.push({ name: 'Donor', text: individualGrant.donor, icon: iconDonor }) 
+
 
     return (
       <div className="db__grant-info-tags">
         {displayedTags.map( (x, y) => (
           <div className="db__grant-info-tag" key={y}>
-            <span className="db__grant-info-tag-icon">{x.icon + ": "}</span>
-            <span className="db__grant-info-tag-text">{x.text}</span>
+            <div className="db__grant-info-tag-icon" alt={x.name}><i className={x.icon}></i></div>
+            <div className="db__grant-info-tag-text">{x.text}</div>
           </div>
         ))}
       </div>

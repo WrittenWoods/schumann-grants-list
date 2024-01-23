@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import '../helpers/generalOptions.ts';
+
 
 function Criteria({userInputs}) {
 
@@ -7,32 +9,32 @@ function Criteria({userInputs}) {
 
     const result = []
 
-    function sublist(name, inputArray) {
+    function sublist(icon, inputArray) {
       for (let i = 0; i < inputArray.length; i++) {
         result.push(
           <div className="db__grant-info-tag" key={i}>
-            <span className="db__grant-info-tag-icon">{name}: </span>
-            <span className="db__grant-info-tag-text">{inputArray[i]}</span>
+            <div className="db__grant-info-tag-icon"><i className={icon}></i></div>
+            <div className="db__grant-info-tag-text">{inputArray[i]}</div>
           </div>
         )
       }
     }
 
-    sublist("Grantee", userInputs.orgNames)
-    sublist("City", userInputs.orgCities)
-    sublist("State", userInputs.orgStates)
-    sublist("Grant Type", userInputs.grantTypes)
-    sublist("Funding Type", userInputs.fundingTypes)
-    sublist("Program Area", userInputs.programAreas)
-    sublist("Strategy", userInputs.strategies)
-    sublist("Donor", userInputs.donors)
-    sublist("Keyword", userInputs.searchQueries)
+    sublist(iconOrg, userInputs.orgNames)
+    sublist(iconLocation, userInputs.orgCities)
+    sublist(iconLocation, userInputs.orgStates)
+    sublist(iconGrantType, userInputs.grantTypes)
+    sublist(iconFundingType, userInputs.fundingTypes)
+    sublist(iconProgramArea, userInputs.programAreas)
+    sublist(iconStrategy, userInputs.strategies)
+    sublist(iconDonor, userInputs.donors)
+    sublist(iconKeyword, userInputs.searchQueries)
 
     if (result.length === 0) {
       return (
       <div className="db__grant-info-tag" key={0}>
-        <span className="db__grant-info-tag-icon">None</span>
-        <span className="db__grant-info-tag-text"></span>
+        <div className="db__grant-info-tag-icon">None</div>
+        <div className="db__grant-info-tag-text"></div>
       </div>
       )
     } else {

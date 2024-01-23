@@ -2,7 +2,7 @@
 /* Font Styles */
 @import url("https://use.typekit.net/pbe7sje.css"); 
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
-  
+@import url("https://use.fontawesome.com/releases/v6.4.2/css/all.css");
 
 
   :root{
@@ -85,12 +85,9 @@
   h4{font-size:22px;letter-spacing:0.1px;line-height:1.3em;}
   h5{text-transform:uppercase;font-size:20px;letter-spacing:0.1px;line-height:1.3em;}
   h6{font-family:"Manrope";font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.55px;}
-  h6{font-family:"Manrope";font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:0.55px;}
   
   
-    .db__tags{font-weight:700;text-transform:uppercase;font-size:12px;}
-    .db__tags{font-weight:700;text-transform:uppercase;font-size:12px;}
-  .site-description{color:var(--contrast-2);}
+
   
   h1{color:var(--contrast);}
   h2{color:var(--contrast);}
@@ -107,8 +104,7 @@
       flex-direction: row;
       flex-wrap: nowrap;
       column-gap: 10px;
-          border-bottom: 4px solid var(--base);
-          border-bottom: 4px solid var(--base);
+      border-bottom: 4px solid var(--base);
   }
   
   article.db__grant {
@@ -116,9 +112,6 @@
       flex-direction: row;
       flex-wrap: nowrap;
       column-gap: 10px;
-      padding-top: 40px;
-    padding-bottom: 50px;
-    border-bottom: 2px solid var(--base);
       padding-top: 40px;
     padding-bottom: 50px;
     border-bottom: 2px solid var(--base);
@@ -141,8 +134,7 @@
       width: 20%;
   }
   
-  
-/*   .db__results_summary {} */
+
 
   .db__results_summary_inner {
     max-width:1280px;
@@ -157,7 +149,6 @@
   }
   
   
-/*   .db__results_queries{} */
   
   .db__results_queries_inner{
 
@@ -206,43 +197,20 @@
 
 
 
-/* Raj --- 
+  .db__results-sort {
+    button, button::before {
+    
+    color:var(--contrast);
 
-Please:
-- remove "^" placeholder arrow from column heads;
-- add "activeDesc" class to button that is active and descending;
-- add "activeAsce" class to button that is active and ascending;
-- add "inactive" class to buttons that are inactive;
-- add svg folder and files (included in push)
-
-*/
-
- .db__results-sort button.activeDesc::before,
-  .db__results-sort button.activeDesc:focus::before {
-  content:url('../assets/svg/arrow-down.svg');
-}
-
- .db__results-sort button.activeAsce::before,
-  .db__results-sort button.activeAsce:focus::before {
-  content:url('../assets/svg/arrow-up.svg');
-}
+    :hover, :focus {
+      color:var(--accent);
+    }
 
 
- .db__results-sort button.inactive::before,
-.db__results-sort button.inactive:focus::before {
-  content:url('../assets/svg/arrow-down.svg');
-}
-
-  .db__results-sort button:hover,
-  .db__results-sort button:focus
-
-  {color:#ffffff;
-    background-color:var(--base-2);
   }
+}
 
   
-
-
 
 
 
@@ -272,6 +240,7 @@ Please:
     font-weight: 800;
     text-transform: uppercase;
     font-size: 12px;
+    line-height:1.2;
 }
 
 .db__grant-info-tag{
@@ -281,6 +250,7 @@ Please:
     border-radius: 30px;
      display: flex;
     column-gap: 5px;
+    align-items: center;
 }
 
 
@@ -300,7 +270,6 @@ Please:
 .db__search-field-inner {
   padding:20px 0px 40px 0px;
   border-bottom: 2px solid var(--base);
-
 }
 
 .db__search-field-head {
@@ -352,3 +321,47 @@ ul.CheckDrop {
     list-style-type: none;
     padding: 0;
 }
+
+
+
+
+
+.db__approval-date {
+  display:flex;
+  flex-direction:column;
+  margin-top:10px;
+}
+
+
+.db__approval-date-start,
+.db__approval-date-end {
+
+  display:flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  column-gap:.5em;
+  margin-top:10px;
+  padding:20px 20px;
+  align-items: center;
+  border-radius:12px;
+
+  background-color:var(--base);
+
+  :first-child {width:60px;}
+
+  font-weight:800;
+  text-transform:uppercase;
+  font-size:15px;
+  letter-spacing:0.55px;
+
+}
+
+.db__approval-date-start {
+  
+}
+
+
+
+
+
+
