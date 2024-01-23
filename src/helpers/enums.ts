@@ -24,4 +24,14 @@ export enum IconClasses {
   iconOrg = "fa-solid fa-house",
 }
 
-  
+export enum SortableColumns {
+  ApprovalDate = "Approval Date",
+  Amount = "Amount",
+  Result = "Result"
+}
+
+export enum SortStatus {
+  ArrowDown = "fa-solid fa-arrow-down",
+  ArrowUp = "fa-solid fa-arrow-up",
+  Close = "fa-solid fa-close"
+}
