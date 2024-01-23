@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import '../helpers/generalOptions.ts';
-
+import { iconClasses } from '../helpers/generalOptions';
 
 function Criteria({userInputs}) {
 
@@ -20,15 +19,15 @@ function Criteria({userInputs}) {
       }
     }
 
-    sublist(iconOrg, userInputs.orgNames)
-    sublist(iconLocation, userInputs.orgCities)
-    sublist(iconLocation, userInputs.orgStates)
-    sublist(iconGrantType, userInputs.grantTypes)
-    sublist(iconFundingType, userInputs.fundingTypes)
-    sublist(iconProgramArea, userInputs.programAreas)
-    sublist(iconStrategy, userInputs.strategies)
-    sublist(iconDonor, userInputs.donors)
-    sublist(iconKeyword, userInputs.searchQueries)
+    sublist(iconClasses.iconOrg, userInputs.orgNames)
+    sublist(iconClasses.iconLocation, userInputs.orgCities)
+    sublist(iconClasses.iconLocation, userInputs.orgStates)
+    sublist(iconClasses.iconGrantType, userInputs.grantTypes)
+    sublist(iconClasses.iconFundingType, userInputs.fundingTypes)
+    sublist(iconClasses.iconProgramArea, userInputs.programAreas)
+    sublist(iconClasses.iconStrategy, userInputs.strategies)
+    sublist(iconClasses.iconDonor, userInputs.donors)
+    sublist(iconClasses.iconKeyword, userInputs.searchQueries)
 
     if (result.length === 0) {
       return (

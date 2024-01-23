@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import '../helpers/generalOptions.ts';
-
-
+import { iconClasses } from '../helpers/generalOptions';
 
 function Result({ individualGrant, userInputs }) {
 
@@ -13,9 +11,6 @@ function Result({ individualGrant, userInputs }) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     return `${months[individualGrant.month - 1] + ` ` + individualGrant.year}`
   }
-
-  console.log(individualGrant.month + ' ' + individualGrant.year)
-  console.log(dateString(individualGrant))
 
   function matchedCriteria(individualGrant, userInputs) {
     let displayedTags = []
@@ -31,12 +26,12 @@ function Result({ individualGrant, userInputs }) {
     ]
 
 
-    displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: iconLocation })
-    displayedTags.push({ name: 'Grant Type', text: individualGrant.grantType, icon: iconGrantType }) 
-    displayedTags.push({ name: 'Funding Type', text: individualGrant.fundingType, icon: iconFundingType }) 
-    displayedTags.push({ name: 'Program Area', text: individualGrant.programArea, icon: iconProgramArea }) 
-    displayedTags.push({ name: 'Strategy', text: individualGrant.strategy, icon: iconStrategy }) 
-    displayedTags.push({ name: 'Donor', text: individualGrant.donor, icon: iconDonor }) 
+    displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: iconClasses.iconLocation })
+    displayedTags.push({ name: 'Grant Type', text: individualGrant.grantType, icon: iconClasses.iconGrantType }) 
+    displayedTags.push({ name: 'Funding Type', text: individualGrant.fundingType, icon: iconClasses.iconFundingType }) 
+    displayedTags.push({ name: 'Program Area', text: individualGrant.programArea, icon: iconClasses.iconProgramArea }) 
+    displayedTags.push({ name: 'Strategy', text: individualGrant.strategy, icon: iconClasses.iconStrategy }) 
+    displayedTags.push({ name: 'Donor', text: individualGrant.donor, icon: iconClasses.iconDonor }) 
 
 
     return (
