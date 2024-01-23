@@ -89,7 +89,6 @@
   
   
     .db__tags{font-weight:700;text-transform:uppercase;font-size:12px;}
-    .db__tags{font-weight:700;text-transform:uppercase;font-size:12px;}
   .site-description{color:var(--contrast-2);}
   
   h1{color:var(--contrast);}
@@ -107,8 +106,7 @@
       flex-direction: row;
       flex-wrap: nowrap;
       column-gap: 10px;
-          border-bottom: 4px solid var(--base);
-          border-bottom: 4px solid var(--base);
+      border-bottom: 4px solid var(--base);
   }
   
   article.db__grant {
@@ -116,9 +114,6 @@
       flex-direction: row;
       flex-wrap: nowrap;
       column-gap: 10px;
-      padding-top: 40px;
-    padding-bottom: 50px;
-    border-bottom: 2px solid var(--base);
       padding-top: 40px;
     padding-bottom: 50px;
     border-bottom: 2px solid var(--base);
@@ -141,8 +136,7 @@
       width: 20%;
   }
   
-  
-/*   .db__results_summary {} */
+
 
   .db__results_summary_inner {
     max-width:1280px;
@@ -157,7 +151,6 @@
   }
   
   
-/*   .db__results_queries{} */
   
   .db__results_queries_inner{
 
@@ -206,43 +199,20 @@
 
 
 
-/* Raj --- 
+  .db__results-sort {
+    button, button::before {
+    
+    color:var(--contrast);
 
-Please:
-- remove "^" placeholder arrow from column heads;
-- add "activeDesc" class to button that is active and descending;
-- add "activeAsce" class to button that is active and ascending;
-- add "inactive" class to buttons that are inactive;
-- add svg folder and files (included in push)
-
-*/
-
- .db__results-sort button.activeDesc::before,
-  .db__results-sort button.activeDesc:focus::before {
-  content:url('../assets/svg/arrow-down.svg');
-}
-
- .db__results-sort button.activeAsce::before,
-  .db__results-sort button.activeAsce:focus::before {
-  content:url('../assets/svg/arrow-up.svg');
-}
+    :hover, :focus {
+      color:var(--accent);
+    }
 
 
- .db__results-sort button.inactive::before,
-.db__results-sort button.inactive:focus::before {
-  content:url('../assets/svg/arrow-down.svg');
-}
-
-  .db__results-sort button:hover,
-  .db__results-sort button:focus
-
-  {color:#ffffff;
-    background-color:var(--base-2);
   }
+}
 
   
-
-
 
 
 
