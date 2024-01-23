@@ -25,7 +25,6 @@ function Result({ individualGrant, userInputs }) {
       individualGrant.strategy
     ]
 
-
     displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: iconClasses.iconLocation })
     displayedTags.push({ name: 'Grant Type', text: individualGrant.grantType, icon: iconClasses.iconGrantType }) 
     displayedTags.push({ name: 'Funding Type', text: individualGrant.fundingType, icon: iconClasses.iconFundingType }) 
@@ -33,6 +32,7 @@ function Result({ individualGrant, userInputs }) {
     displayedTags.push({ name: 'Strategy', text: individualGrant.strategy, icon: iconClasses.iconStrategy }) 
     displayedTags.push({ name: 'Donor', text: individualGrant.donor, icon: iconClasses.iconDonor }) 
 
+    displayedTags = displayedTags.filter( (x) => x.text.trim().length )
 
     return (
       <div className="db__grant-info-tags">
