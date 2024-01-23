@@ -4,6 +4,8 @@ import { IconClasses } from '../helpers/enums';
 
 function Criteria({userInputs}) {
 
+  const [displayCriteria, setDisplayCriteria] = useState(true)
+
   const options = {  maximumFractionDigits: 2  }   
   const numformat = Intl.NumberFormat("en-US",options).format
 
@@ -46,14 +48,7 @@ function Criteria({userInputs}) {
     sublist(IconClasses.iconDonor, userInputs.donors)
     sublist(IconClasses.iconKeyword, userInputs.searchQueries)
 
-    if (result.length === 0) {
-      return (
-      <div className="db__grant-info-tag" key={0}>
-        <div className="db__grant-info-tag-icon"></div>
-        <div className="db__grant-info-tag-text"></div>
-      </div>
-      )
-    } else {
+    if (displayCriteria) {
       return result
     }
   }
@@ -61,6 +56,7 @@ function Criteria({userInputs}) {
   return (
     <div className="db__summary_filters">      
       <h4>Filters applied:</h4>
+      <button onClick={(e) => setDisplayCriteria(!displayCriteria)} >{ displayCriteria ? 'collapse' : 'expand' }</button>
       <div className="db__grant-info-tags">      
         {listCriteria()}
       </div>
