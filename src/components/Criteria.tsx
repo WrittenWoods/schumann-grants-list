@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { iconClasses } from '../helpers/generalOptions';
+import { IconClasses } from '../helpers/enums';
 
 function Criteria({userInputs}) {
 
@@ -19,15 +19,15 @@ function Criteria({userInputs}) {
       }
     }
 
-    sublist(iconClasses.iconOrg, userInputs.orgNames)
-    sublist(iconClasses.iconLocation, userInputs.orgCities)
-    sublist(iconClasses.iconLocation, userInputs.orgStates)
-    sublist(iconClasses.iconGrantType, userInputs.grantTypes)
-    sublist(iconClasses.iconFundingType, userInputs.fundingTypes)
-    sublist(iconClasses.iconProgramArea, userInputs.programAreas)
-    sublist(iconClasses.iconStrategy, userInputs.strategies)
-    sublist(iconClasses.iconDonor, userInputs.donors)
-    sublist(iconClasses.iconKeyword, userInputs.searchQueries)
+    sublist(IconClasses.iconOrg, userInputs.orgNames)
+    sublist(IconClasses.iconLocation, userInputs.orgCities)
+    sublist(IconClasses.iconLocation, userInputs.orgStates)
+    sublist(IconClasses.iconGrantType, userInputs.grantTypes)
+    sublist(IconClasses.iconFundingType, userInputs.fundingTypes)
+    sublist(IconClasses.iconProgramArea, userInputs.programAreas)
+    sublist(IconClasses.iconStrategy, userInputs.strategies)
+    sublist(IconClasses.iconDonor, userInputs.donors)
+    sublist(IconClasses.iconKeyword, userInputs.searchQueries)
 
     if (result.length === 0) {
       return (

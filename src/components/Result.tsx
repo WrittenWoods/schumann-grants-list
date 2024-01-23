@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { iconClasses } from '../helpers/generalOptions';
+import { IconClasses } from '../helpers/enums';
 
 function Result({ individualGrant, userInputs }) {
 
@@ -26,13 +26,13 @@ function Result({ individualGrant, userInputs }) {
       individualGrant.strategy2
     ]
 
-    displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: iconClasses.iconLocation })
-    displayedTags.push({ name: 'Grant Type', text: individualGrant.grantType, icon: iconClasses.iconGrantType }) 
-    displayedTags.push({ name: 'Funding Type', text: individualGrant.fundingType, icon: iconClasses.iconFundingType }) 
-    displayedTags.push({ name: 'Program Area', text: individualGrant.programArea, icon: iconClasses.iconProgramArea }) 
-    displayedTags.push({ name: 'Strategy', text: individualGrant.strategy, icon: iconClasses.iconStrategy }) 
-    displayedTags.push({ name: 'Strategy', text: individualGrant.strategy2, icon: iconClasses.iconStrategy }) 
-    displayedTags.push({ name: 'Donor', text: individualGrant.donor, icon: iconClasses.iconDonor }) 
+    displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: IconClasses.iconLocation })
+    displayedTags.push({ name: 'Grant Type', text: individualGrant.grantType, icon: IconClasses.iconGrantType }) 
+    displayedTags.push({ name: 'Funding Type', text: individualGrant.fundingType, icon: IconClasses.iconFundingType }) 
+    displayedTags.push({ name: 'Program Area', text: individualGrant.programArea, icon: IconClasses.iconProgramArea }) 
+    displayedTags.push({ name: 'Strategy', text: individualGrant.strategy, icon: IconClasses.iconStrategy }) 
+    displayedTags.push({ name: 'Strategy', text: individualGrant.strategy2, icon: IconClasses.iconStrategy }) 
+    displayedTags.push({ name: 'Donor', text: individualGrant.donor, icon: IconClasses.iconDonor }) 
 
     displayedTags = displayedTags.filter( (x) => x.text.trim().length )
 
