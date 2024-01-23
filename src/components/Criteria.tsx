@@ -13,7 +13,7 @@ function Criteria({userInputs}) {
       for (let i = 0; i < inputArray.length; i++) {
         result.push(
           <div className="db__grant-info-tag" key={i}>
-            <div className="db__grant-info-tag-icon"><i class={icon}></i></div>
+            <div className="db__grant-info-tag-icon"><i className={icon}></i></div>
             <div className="db__grant-info-tag-text">{inputArray[i]}</div>
           </div>
         )

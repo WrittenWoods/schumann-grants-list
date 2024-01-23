@@ -31,10 +31,6 @@ function Result({ individualGrant, userInputs }) {
     ]
 
 
-
-
-
-
     displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: iconLocation })
     displayedTags.push({ name: 'Grant Type', text: individualGrant.grantType, icon: iconGrantType }) 
     displayedTags.push({ name: 'Funding Type', text: individualGrant.fundingType, icon: iconFundingType }) 
@@ -43,13 +39,11 @@ function Result({ individualGrant, userInputs }) {
     displayedTags.push({ name: 'Donor', text: individualGrant.donor, icon: iconDonor }) 
 
 
-
-
     return (
       <div className="db__grant-info-tags">
-        {displayedTags.map( (x, y, i) => (
+        {displayedTags.map( (x, y) => (
           <div className="db__grant-info-tag" key={y}>
-            <div className="db__grant-info-tag-icon" alt={x.name}><i class={x.icon}></i></div>
+            <div className="db__grant-info-tag-icon" alt={x.name}><i className={x.icon}></i></div>
             <div className="db__grant-info-tag-text">{x.text}</div>
           </div>
         ))}
