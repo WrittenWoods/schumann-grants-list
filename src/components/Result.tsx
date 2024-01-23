@@ -22,7 +22,8 @@ function Result({ individualGrant, userInputs }) {
       individualGrant.grantType, 
       individualGrant.orgCity, 
       individualGrant.programArea, 
-      individualGrant.strategy
+      individualGrant.strategy,
+      individualGrant.strategy2
     ]
 
     displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: iconClasses.iconLocation })
@@ -30,6 +31,7 @@ function Result({ individualGrant, userInputs }) {
     displayedTags.push({ name: 'Funding Type', text: individualGrant.fundingType, icon: iconClasses.iconFundingType }) 
     displayedTags.push({ name: 'Program Area', text: individualGrant.programArea, icon: iconClasses.iconProgramArea }) 
     displayedTags.push({ name: 'Strategy', text: individualGrant.strategy, icon: iconClasses.iconStrategy }) 
+    displayedTags.push({ name: 'Strategy', text: individualGrant.strategy2, icon: iconClasses.iconStrategy }) 
     displayedTags.push({ name: 'Donor', text: individualGrant.donor, icon: iconClasses.iconDonor }) 
 
     displayedTags = displayedTags.filter( (x) => x.text.trim().length )

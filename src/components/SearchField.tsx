@@ -234,7 +234,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
               fieldName={"Strategy"}
               results={userInputs.strategies}
               setMethod={setStrategies}
-              options={uniqueOptions(loadedData.map( (x) => x.strategy ))}
+              options={uniqueOptions(loadedData.map( (x) => x.strategy ).concat(loadedData.map( (x) => x.strategy2 )))}
             />
           </div>
         )

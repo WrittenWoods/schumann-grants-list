@@ -85,7 +85,7 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
   function keywordMatch(data, inputs) {
     let anyTerms = inputs.anyTerms
     let queries = inputs.searchQueries
-    let toMatch = [data.orgName, data.description, data.donor, data.fundingType, data.grantType, data.orgCity, data.programArea, data.strategy]
+    let toMatch = [data.orgName, data.description, data.donor, data.fundingType, data.grantType, data.orgCity, data.programArea, data.strategy, data.strategy2]
     let matchedAny = false
     let matchedAll = true
 
@@ -105,7 +105,7 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
 
   function inputMatch(inputArray, arg) {
     if (inputArray === undefined || inputArray.length === 0) { return true }
-    return inputArray.includes(arg)
+    return inputArray.includes(arg.trim())
   }
 
   // Checks a particular grant for correspondence with userInputs.
@@ -116,11 +116,11 @@ function Results( { loadedData, userInputs, filteredResults, setFilteredResults 
       && amountMatch(data.amount, inputs.minVal, inputs.maxVal)
       && inputMatch(inputs.orgNames, data.orgName)
       && locationMatch(data, inputs)
-      && inputMatch(inputs.grantTypes, data.grantType) // inputs.grantTypes.includes(data.grantType)
-      && inputMatch(inputs.fundingTypes, data.fundingType) // inputs.fundingTypes.includes(data.fundingType)
-      && inputMatch(inputs.programAreas, data.programArea) // inputs.programAreas.includes(data.programArea)
-      && inputMatch(inputs.strategies, data.strategy) // inputs.strategies.includes(data.strategy)
-      && inputMatch(inputs.donors, data.donor) // inputs.donors.includes(data.donor)
+      && inputMatch(inputs.grantTypes, data.grantType)
+      && inputMatch(inputs.fundingTypes, data.fundingType) 
+      && inputMatch(inputs.programAreas, data.programArea) 
+      && (inputMatch(inputs.strategies, data.strategy) || (inputMatch(inputs.strategies, data.strategy2)))
+      && inputMatch(inputs.donors, data.donor)
       && keywordMatch(data, inputs)
 
     return match
