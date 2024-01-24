@@ -26,8 +26,8 @@ function Criteria({userInputs, setUserInputs, defaults = {}}:{userInputs:any, se
       result.push(
         <CriteriaBlock 
           key={0} 
-          iconClass={'IconClasses.iconAmount'} 
-          label={`${'Min Amount: $' + numformat(Number(userInputs.minVal))}`} 
+          iconClass={IconClasses.iconAmount} 
+          label={`${'Min: $' + numformat(Number(userInputs.minVal))}`} 
         />
       )
     }
@@ -36,8 +36,8 @@ function Criteria({userInputs, setUserInputs, defaults = {}}:{userInputs:any, se
       result.push(
         <CriteriaBlock 
           key={1} 
-          iconClass={'IconClasses.iconAmount'} 
-          label={`${'Max Amount: $' + numformat(Number(userInputs.maxVal))}`} 
+          iconClass={IconClasses.iconAmount} 
+          label={`${'Max: $' + numformat(Number(userInputs.maxVal))}`} 
         />
       )
     }
