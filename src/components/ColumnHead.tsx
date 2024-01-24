@@ -40,17 +40,12 @@ function ColumnHead({ name, filteredResults, setFilteredResults, sortedColumn, s
   }
 
   function renderSortButton() {
-    if (sortedColumn !== name) {
+    if (sortedColumn === name) {
       return (
-        <button onClick={e => handleSortButton()}>
-          <i className={SortStatus.Close}></i>
-        </button>
-      )
-    } else {
-      return (
-        <button onClick={e => handleSortButton()}>
+        // <button onClick={e => handleSortButton()}>
+        <>
           { reversed ? <i className={SortStatus.ArrowDown}></i> : <i className={SortStatus.ArrowUp}></i> }
-        </button>
+        </>
       )
     }
   }
@@ -64,11 +59,21 @@ function ColumnHead({ name, filteredResults, setFilteredResults, sortedColumn, s
     setSortedColumn(name)
   }
 
+  function activeSortClass() {
+    return (sortedColumn !== name ? 'db__results-sorted-inactive' : 'db__results-sorted-active')  
+  }
+
+  function sortDirection() {
+    return (sortedColumn !== name 
+        ? ''
+        : reversed ? 'db__results-sorted-ascending' : 'db__results-sorted-descending'
+    ) 
+  }
   return (
-    <div className='db__results-sort'>
+    <button className={`db__results-sort ${activeSortClass()} ${sortDirection()}`} onClick={e => handleSortButton()}>
       <h6>{name}</h6>
       {renderSortButton()}
-    </div>
+    </button>
   );
         
 }
