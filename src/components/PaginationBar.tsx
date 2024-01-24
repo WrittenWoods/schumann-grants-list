@@ -3,20 +3,22 @@ import './App.css';
 
 function PaginationBar({ filteredResults, pageStart, setPageStart, pageEnd, setPageEnd }) {
 
+const resultsMax = 10;
+
     useEffect(() => {
         setPageStart(0)
-        setPageEnd(filteredResults.length > 10 ? 10 : filteredResults.length)
+        setPageEnd(filteredResults.length > resultsMax ? resultsMax : filteredResults.length)
     }, [filteredResults] )
     // handles click of previous button for pagination
 
     function paginatePrev() {
         if (pageStart > 0) {
-            if (pageStart - 10 > 0) {
+            if (pageStart - resultsMax > 0) {
                 setPageEnd(pageStart)
-                setPageStart(pageStart - 10)
+                setPageStart(pageStart - resultsMax)
             } else {
                 setPageStart(0)
-                setPageEnd(10)
+                setPageEnd(resultsMax)
             }
         }
     }
@@ -25,8 +27,8 @@ function PaginationBar({ filteredResults, pageStart, setPageStart, pageEnd, setP
 
     function paginateNext() {
         if (pageEnd < filteredResults.length) {
-            setPageStart(pageStart+10)
-            pageEnd + 10 < filteredResults.length ? setPageEnd(pageEnd+10) : setPageEnd(filteredResults.length)
+            setPageStart(pageStart+resultsMax)
+            pageEnd + resultsMax < filteredResults.length ? setPageEnd(pageEnd+resultsMax) : setPageEnd(filteredResults.length)
         }
     }
 
