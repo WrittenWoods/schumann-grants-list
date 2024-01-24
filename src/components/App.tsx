@@ -13,9 +13,17 @@ function App() {
   // userInputs refers to search criteria added by user via UI.
 
   const [loadedData, setLoadedData] = useState(starterData.loadedData)
-  const [userInputs, setUserInputs] = useState(generateStarterInputs(loadedData, starterData.userInputs))
+  const starterInputs = generateStarterInputs(loadedData, starterData.userInputs)
+
+  const [userInputs, setUserInputs] = useState(starterInputs)
   const [filteredResults, setFilteredResults] = useState(starterData.loadedData.sort(dateCompare).reverse())
   const [tallies, setTallies] = useState(generateTallies(loadedData, userInputs))
+
+  const [ initMinValue, setInitMinValue ] = useState<string>(starterInputs.minVal)
+  const [ initMaxValue, setInitMaxValue ] = useState<string>(starterInputs.maxVal)
+
+  useEffect(() => {
+  }, [loadedData])
 
   const MONTHS = ["January", "February", "March",  "April", "May", "June",  "July", "August", "September", "October", "November", "December"]
   useEffect(() => {
@@ -31,6 +39,7 @@ function App() {
     let starterInputs = { ...userInputs }
     starterInputs.minVal = "0"
     starterInputs.maxVal = Math.max(...loadedData.map( (x) => x.amount )).toString()
+
     return starterInputs
   }
 
@@ -46,7 +55,7 @@ function App() {
             <h3>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h3>
             <p>{MONTHS[Math.min(Math.max(0, userInputs.minMonth - 1), 11)]} {userInputs.minYear} - {MONTHS[Math.min(Math.max(1, userInputs.maxMonth - 0), 11)]} {userInputs.maxYear}</p>
           </div>
-          <Criteria userInputs={userInputs} setUserInputs={setUserInputs} />
+          <Criteria userInputs={userInputs} setUserInputs={setUserInputs} defaults={{minVal: initMinValue, maxVal: initMaxValue}}/>
         </div>
       </div>
 

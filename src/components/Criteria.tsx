@@ -11,7 +11,7 @@ function CriteriaBlock({iconClass, label, removeCritera}:{iconClass:string, labe
     </div>
   )
 }
-function Criteria({userInputs, setUserInputs}) {
+function Criteria({userInputs, setUserInputs, defaults = {}}:{userInputs:any, setUserInputs:Function, defaults?:any}) {
 
   const [displayCriteria, setDisplayCriteria] = useState(true)
 
@@ -22,21 +22,25 @@ function Criteria({userInputs, setUserInputs}) {
 
     const result = []
 
-    result.push(
-      <CriteriaBlock 
-        key={0} 
-        iconClass={'IconClasses.iconAmount'} 
-        label={`${'Min Amount: $' + numformat(Number(userInputs.minVal))}`} 
-      />
-    )
-
-    result.push(
-      <CriteriaBlock 
-        key={1} 
-        iconClass={'IconClasses.iconAmount'} 
-        label={`${'Max Amount: $' + numformat(Number(userInputs.maxVal))}`} 
-      />
-    )
+    if (!defaults.hasOwnProperty('minVal') || userInputs.minVal !== defaults.minVal ) {
+      result.push(
+        <CriteriaBlock 
+          key={0} 
+          iconClass={'IconClasses.iconAmount'} 
+          label={`${'Min Amount: $' + numformat(Number(userInputs.minVal))}`} 
+        />
+      )
+    }
+    
+    if (!defaults.hasOwnProperty('maxVal') || userInputs.maxVal !== defaults.maxVal ) {
+      result.push(
+        <CriteriaBlock 
+          key={1} 
+          iconClass={'IconClasses.iconAmount'} 
+          label={`${'Max Amount: $' + numformat(Number(userInputs.maxVal))}`} 
+        />
+      )
+    }
 
     function sublist(icon, inputArray, remove?:Function) {
       for (let i = 0; i < inputArray.length; i++) {

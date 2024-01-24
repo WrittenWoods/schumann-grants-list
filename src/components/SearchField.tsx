@@ -161,11 +161,9 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
             { openAmount && 
               <>
                 <h6>Minimum Value</h6>
-                {/* <input value={minVal} onChange={(e) => setMinVal(e.target.value)} /> */}
-                <CurrencyInput defaultValue={minVal} prefix={'$'} onValueChange={(value) => setMinVal(value)} />
+                <CurrencyInput defaultValue={minVal} prefix={'$'} onValueChange={(value) => setMinVal(value || '0')} />
                 <h6>Maximum Value</h6>
-                {/* <input value={maxVal} onChange={(e) => setMaxVal(e.target.value)} /> */}
-                <CurrencyInput defaultValue={maxVal} prefix={'$'} onValueChange={(value) => setMaxVal(value)} />
+                <CurrencyInput defaultValue={maxVal} prefix={'$'} onValueChange={(value) => setMaxVal(value || '0')} />
               </>
             }
           </div>
