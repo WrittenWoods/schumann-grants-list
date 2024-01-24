@@ -7,7 +7,7 @@ function CriteriaBlock({iconClass, label, removeCritera}:{iconClass:string, labe
     <div className="db__grant-info-tag">
       <div className="db__grant-info-tag-icon"><i className={iconClass}></i></div>
       <div className="db__grant-info-tag-text">{label}</div>
-      { removeCritera && <button className="db__grant-info-remove" onClick={() => removeCritera(label) }>x</button> }
+      { removeCritera && <button className="db__grant-info-remove" alt="Remove Filter" onClick={() => removeCritera(label) }><i class="fa-solid fa-xmark"></i></button> }
     </div>
   )
 }

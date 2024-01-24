@@ -246,12 +246,36 @@
 .db__grant-info-tag{
   background-color: var(--base-2);
     color: var(--accent);
-    padding: 5px 10px;
+    padding: 5px 15px 5px 10px;
     border-radius: 30px;
      display: flex;
-    column-gap: 5px;
+    column-gap: 8px;
     align-items: center;
+    position: relative;
 }
+
+
+button.db__grant-info-remove {
+    font-size: 10px;
+    padding: 0px 4px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: -5px;
+    margin-right: -10px;
+    color: var(--accent);
+    border:3px solid white;
+}
+
+
+button.db__grant-info-remove:focus,
+button.db__grant-info-remove:hover
+
+   {
+  color:var(--base-3)!important;
+}
+
+
 
 
 
