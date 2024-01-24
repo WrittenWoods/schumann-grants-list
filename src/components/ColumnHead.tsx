@@ -70,10 +70,12 @@ function ColumnHead({ name, filteredResults, setFilteredResults, sortedColumn, s
     ) 
   }
   return (
+    <div className='db__results-sort'>
     <button className={`db__results-sort ${activeSortClass()} ${sortDirection()}`} onClick={e => handleSortButton()}>
       <h6>{name}</h6>
       {renderSortButton()}
     </button>
+    </div>
   );
         
 }
