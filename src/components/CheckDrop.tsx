@@ -4,20 +4,15 @@ import './App.css';
 function CheckDrop({ fieldName, results, setMethod, options }) {
   
   const [openList, setOpenList] = useState(false)
-  const [currentResults, setCurrentResults] = useState([...results])
-
-  useEffect(() => {
-    setMethod([...currentResults])
-  }, [currentResults])
 
   function handleCheck(arg) {
-    if (currentResults.includes(arg)) {
-      let index = currentResults.indexOf(arg)
-      let newResults = [...currentResults]
+    if (results.includes(arg)) {
+      let index = results.indexOf(arg)
+      let newResults = [...results]
       newResults.splice(index, 1)
-      setCurrentResults(newResults)
+      setMethod(newResults)
     } else {
-      setCurrentResults([...currentResults, arg])
+      setMethod([...results, arg])
     }
   }
 
@@ -29,7 +24,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
           <li key={y} >
             <input 
               type="checkbox" 
-              checked={currentResults.includes(x)}
+              checked={results.includes(x)}
               onChange={e => handleCheck(x)}
             >  
             </input>
