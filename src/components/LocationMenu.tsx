@@ -3,6 +3,7 @@ import './App.css';
 
 function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, setOrgCities }) {
 
+  const [openCitiesStates, setOpenCitiesStates] = useState(false)
   const [openStates, setOpenStates] = useState(false)
   const [openCities, setOpenCities] = useState(false)
   const [selectedStates, setSelectedStates] = useState([...userInputs.orgStates])
@@ -87,16 +88,23 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
     <div className="db__LocationMenu">
       <div className="db__search-field-head">
       <h6>City/State</h6>
+      <button onClick={e => setOpenCitiesStates(!openCitiesStates)}>{ openCitiesStates ? "-" : "+" }</button>
       </div>
-      <h6>State</h6>
-      <input value={stateSearch} onChange={(e) => setStateSearch(e.target.value)} />
-      <button onClick={e => setOpenStates(!openStates)}>{ openStates ? "+" : "-" }</button>
-      <ul className="CheckDrop">{stateList()}</ul>
-      <h6>City</h6>
-      <input value={citySearch} onChange={(e) => setCitySearch(e.target.value)} />
-      <button onClick={e => setOpenCities(!openCities)}>{ openCities ? "+" : "-" }</button>
-      <ul className="CheckDrop">{cityList()}</ul>
-    </div>
+      { 
+        openCitiesStates ? 
+        <>
+          <h6>State</h6>
+          <input value={stateSearch} onChange={(e) => setStateSearch(e.target.value)} />
+          <button onClick={e => setOpenStates(!openStates)}>{ openStates ? "+" : "-" }</button>
+          <ul className="CheckDrop">{stateList()}</ul>
+          <h6>City</h6>
+          <input value={citySearch} onChange={(e) => setCitySearch(e.target.value)} />
+          <button onClick={e => setOpenCities(!openCities)}>{ openCities ? "+" : "-" }</button>
+          <ul className="CheckDrop">{cityList()}</ul>
+        </>
+        : <></>
+      }
+    </div>  
   );
 }
 

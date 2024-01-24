@@ -10,6 +10,7 @@ import { uniqueOptions } from '../helpers/uniqueOptions';
 
 function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
+  const [ openAmount, setOpenAmount ] = useState<boolean>(true);
   // State variables corresponding to user inputs
    
   const [minMonth, setMinMonth] = useState(userInputs.minMonth)
@@ -152,11 +153,18 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
       case SearchFields.Amount:
         return (
           <div className="db__search-field-inner">
-          <h6>Amount</h6>
-            <h6>Minimum Value</h6>
-            <input value={minVal} onChange={(e) => setMinVal(e.target.value)} />
-            <h6>Maximum Value</h6>
-            <input value={maxVal} onChange={(e) => setMaxVal(e.target.value)} />
+            <div className="db__search-field-head">
+            <h6>Amount</h6>
+            <button onClick={e => setOpenAmount(!openAmount)}>{ openAmount ? "-" : "+" }</button>
+            </div>
+            { openAmount && 
+              <>
+                <h6>Minimum Value</h6>
+                <input value={minVal} onChange={(e) => setMinVal(e.target.value)} />
+                <h6>Maximum Value</h6>
+                <input value={maxVal} onChange={(e) => setMaxVal(e.target.value)} />
+              </>
+            }
           </div>
         )      
         break;  

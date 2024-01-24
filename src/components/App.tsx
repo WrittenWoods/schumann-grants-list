@@ -17,6 +17,7 @@ function App() {
   const [filteredResults, setFilteredResults] = useState(starterData.loadedData.sort(dateCompare).reverse())
   const [tallies, setTallies] = useState(generateTallies(loadedData, userInputs))
 
+  const MONTHS = ["January", "February", "March",  "April", "May", "June",  "July", "August", "September", "October", "November", "December"]
   useEffect(() => {
     setTallies(generateTallies(filteredResults, userInputs))
   }, [filteredResults] )
@@ -26,7 +27,7 @@ function App() {
   // The Results component uses userInputs to filter and display loadedData.
 
   function generateStarterInputs(loadedData, userInputs) {
-    console.log(loadedData.map( (x) => x.amount ))
+    // console.log(loadedData.map( (x) => x.amount ))
     let starterInputs = { ...userInputs }
     starterInputs.minVal = "0"
     starterInputs.maxVal = Math.max(...loadedData.map( (x) => x.amount )).toString()
@@ -43,7 +44,7 @@ function App() {
           <div className="db__summary_output">
             <h2>Search database</h2>
             <h3>{tallies.resultsNum} results for {tallies.granteesNum} grantees totaling ${tallies.grantsTotal}</h3>
-            <p>{userInputs.minMonth}/{userInputs.minYear} - {userInputs.maxMonth}/{userInputs.maxYear}</p>
+            <p>{MONTHS[Math.min(Math.max(0, userInputs.minMonth - 1), 11)]} {userInputs.minYear} - {MONTHS[Math.min(Math.max(1, userInputs.maxMonth - 0), 11)]} {userInputs.maxYear}</p>
           </div>
           <Criteria userInputs={userInputs} setUserInputs={setUserInputs} />
         </div>
@@ -62,7 +63,7 @@ function App() {
           </div>
 
           <div className="db__queries">
-            <h2>Refine Search</h2>
+            <h3>Refine Search</h3>
             <SearchUI
               userInputs={userInputs}
               setUserInputs={setUserInputs}

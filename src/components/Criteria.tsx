@@ -26,7 +26,7 @@ function Criteria({userInputs, setUserInputs}) {
       <CriteriaBlock 
         key={0} 
         iconClass={'IconClasses.iconAmount'} 
-        label={`${'Minimum Amount: $' + numformat(Number(userInputs.minVal))}`} 
+        label={`${'Min Amount: $' + numformat(Number(userInputs.minVal))}`} 
       />
     )
 
@@ -34,7 +34,7 @@ function Criteria({userInputs, setUserInputs}) {
       <CriteriaBlock 
         key={1} 
         iconClass={'IconClasses.iconAmount'} 
-        label={`${'Maximum Amount: $' + numformat(Number(userInputs.maxVal))}`} 
+        label={`${'Max Amount: $' + numformat(Number(userInputs.maxVal))}`} 
       />
     )
 
@@ -80,7 +80,6 @@ function Criteria({userInputs, setUserInputs}) {
   return (
     <div className="db__summary_filters">      
       <h4>Filters applied:</h4>
-      <button onClick={(e) => setDisplayCriteria(!displayCriteria)} >{ displayCriteria ? 'collapse' : 'expand' }</button>
       <div className="db__grant-info-tags">      
         {listCriteria()}
       </div>
