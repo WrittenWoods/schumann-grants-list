@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import { uniqueOptions } from '../helpers/uniqueOptions';
 
 function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMaxYear }) {
@@ -29,15 +30,21 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
 
     return (
     <>
-        <h3>Approval Date</h3>
-
+        <div className="db__search-field-head">
+        <h6>Approval Date</h6>
+        </div>
+        <div className="db__approval-date">
+        <div className="db__approval-date-start">
         <span>Start</span>
         <select value={months[userInputs.minMonth - 1]} onChange={(e) => setMinMonth(months.indexOf(e.target.value) + 1)} >{listOptions(months)}</select>
         <select value={userInputs.minYear} onChange={(e) => setMinYear(Number(e.target.value))}  >{yearOptions()}</select>
-
+        </div>
+        <div className="db__approval-date-end">
         <span>End</span>
         <select value={months[userInputs.maxMonth - 1]} onChange={(e) => setMaxMonth(months.indexOf(e.target.value) + 1)} >{listOptions(months)}</select>
         <select value={userInputs.maxYear} onChange={(e) => setMaxYear(Number(e.target.value))}  >{yearOptions()}</select>
+        </div>
+        </div>
     </>
     );
 }

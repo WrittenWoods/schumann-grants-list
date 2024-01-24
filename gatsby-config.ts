@@ -1,5 +1,9 @@
 import type { GatsbyConfig } from "gatsby";
 
+module.exports = {
+  pathPrefix: "/schumann-grants-list",
+}
+
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `schumann-grants-list`,

@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 
 function CheckDrop({ fieldName, results, setMethod, options }) {
   
   const [openList, setOpenList] = useState(false)
-  const [currentResults, setCurrentResults] = useState([...results])
-
-  useEffect(() => {
-    setMethod([...currentResults])
-  }, [currentResults])
 
   function handleCheck(arg) {
-    if (currentResults.includes(arg)) {
-      let index = currentResults.indexOf(arg)
-      let newResults = [...currentResults]
+    if (results.includes(arg)) {
+      let index = results.indexOf(arg)
+      let newResults = [...results]
       newResults.splice(index, 1)
-      setCurrentResults(newResults)
+      setMethod(newResults)
     } else {
-      setCurrentResults([...currentResults, arg])
+      setMethod([...results, arg])
     }
   }
 
@@ -24,11 +20,11 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
 
     if (openList) {
       return (
-        options.map( (x, y) => 
+        options.sort().map( (x, y) => 
           <li key={y} >
             <input 
               type="checkbox" 
-              checked={currentResults.includes(x)}
+              checked={results.includes(x)}
               onChange={e => handleCheck(x)}
             >  
             </input>
@@ -43,8 +39,11 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
 
   return (
     <>
-      <h3>{fieldName}</h3>
-      <button onClick={e => setOpenList(!openList)}>{ openList ? "⌃" : "⌄" }</button>
+    <div className="db__search-field-head">
+      <h6>{fieldName}</h6>
+      <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
+      </div>
+      
       <ul className="CheckDrop">
         {renderList()}
       </ul>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 import { SearchFields } from '../helpers/enums';
 import Select, { StylesConfig } from 'react-select';
 import CheckDrop from './CheckDrop';
@@ -6,9 +7,11 @@ import LocationMenu from './LocationMenu';
 import KeywordSearch from './KeywordSearch';
 import ApprovalDate from './ApprovalDate';
 import { uniqueOptions } from '../helpers/uniqueOptions';
+import CurrencyInput from 'react-currency-input-field';
 
 function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
+  const [ openAmount, setOpenAmount ] = useState<boolean>(true);
   // State variables corresponding to user inputs
    
   const [minMonth, setMinMonth] = useState(userInputs.minMonth)
@@ -25,6 +28,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
   const [programAreas, setProgramAreas] = useState([...userInputs.programAreas])
   const [strategies, setStrategies] = useState([...userInputs.strategies])
   const [donors, setDonors] = useState([...userInputs.donors])
+  const [anyTerms, setAnyTerms] = useState(userInputs.anyTerms)
   const [searchQueries, setSearchQueries] = useState([...userInputs.searchQueries])
 
   // Updates userInputs state whenever user interacts with the search UI
@@ -115,6 +119,12 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
   useEffect(() => {
     let newUserInputs = { ...userInputs }
+    newUserInputs.anyTerms = anyTerms
+    setUserInputs(newUserInputs)
+  }, [anyTerms] )
+
+  useEffect(() => {
+    let newUserInputs = { ...userInputs }
     newUserInputs.searchQueries = [...searchQueries]
     setUserInputs(newUserInputs)
   }, [searchQueries] )
@@ -129,7 +139,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.ApprovalDate:
         return (
-          <div>
+          <div className="db__search-field-inner">
             <ApprovalDate 
               userInputs={userInputs}
               setMinMonth={setMinMonth}
@@ -143,18 +153,26 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.Amount:
         return (
-          <div>
-            <h3>Minimum Value</h3>
-            <input value={minVal} onChange={(e) => setMinVal(e.target.value)} />
-            <h3>Maximum Value</h3>
-            <input value={maxVal} onChange={(e) => setMaxVal(e.target.value)} />
+          <div className="db__search-field-inner">
+            <div className="db__search-field-head">
+            <h6>Amount</h6>
+            <button onClick={e => setOpenAmount(!openAmount)}>{ openAmount ? "-" : "+" }</button>
+            </div>
+            { openAmount && 
+              <>
+                <h6>Minimum Value</h6>
+                <CurrencyInput defaultValue={minVal} prefix={'$'} onValueChange={(value) => setMinVal(value || '0')} />
+                <h6>Maximum Value</h6>
+                <CurrencyInput defaultValue={maxVal} prefix={'$'} onValueChange={(value) => setMaxVal(value || '0')} />
+              </>
+            }
           </div>
         )      
         break;  
 
       case SearchFields.Organization:
         return (
-          <div>
+          <div className="db__search-field-inner">
             <CheckDrop 
               fieldName={"Organization"}
               results={userInputs.orgNames}
@@ -167,7 +185,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.Location:
         return (
-          <div>
+          <div className="db__search-field-inner">
             <LocationMenu
               userInputs={userInputs}
               cityOptions={uniqueOptions(loadedData.map( (x) => x.orgCity ))}
@@ -181,7 +199,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.GrantType:
         return (
-          <div>
+          <div className="db__search-field-inner">
             <CheckDrop 
               fieldName={"Grant Type"}
               results={userInputs.grantTypes}
@@ -194,7 +212,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.FundingType:
         return (
-          <div>
+          <div className="db__search-field-inner">
             <CheckDrop 
               fieldName={"Funding Types"}
               results={userInputs.fundingTypes}
@@ -207,7 +225,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.ProgramArea:
         return (
-          <div>
+          <div className="db__search-field-inner">
             <CheckDrop 
               fieldName={"Program Area"}
               results={userInputs.programAreas}
@@ -220,12 +238,12 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.Strategy:
         return (
-          <div>
+          <div className="db__search-field-inner">
             <CheckDrop 
               fieldName={"Strategy"}
               results={userInputs.strategies}
               setMethod={setStrategies}
-              options={uniqueOptions(loadedData.map( (x) => x.strategy ))}
+              options={uniqueOptions(loadedData.map( (x) => x.strategy ).concat(loadedData.map( (x) => x.strategy2 )))}
             />
           </div>
         )
@@ -233,7 +251,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.Donor:
         return (
-          <div>
+          <div className="db__search-field-inner">
             <CheckDrop 
               fieldName={"Donor"}
               results={userInputs.donors}
@@ -246,11 +264,12 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
       case SearchFields.KeywordSearch:
         return (
-          <div>
-            <h3>Keyword Search</h3>
+          <div className="db__search-field-inner">
+            <h6>Keyword Search</h6>
             <KeywordSearch 
               userInputs={userInputs}
               setSearchQueries={setSearchQueries}
+              setAnyTerms={setAnyTerms}
             />
           </div>
         )
@@ -262,7 +281,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
   }
 
   return (
-    <div className="search-field">
+    <div className="db__search-field">
       {renderField(fieldType)}
     </div>
   );
