@@ -7,6 +7,7 @@ import LocationMenu from './LocationMenu';
 import KeywordSearch from './KeywordSearch';
 import ApprovalDate from './ApprovalDate';
 import { uniqueOptions } from '../helpers/uniqueOptions';
+import CurrencyInput from 'react-currency-input-field';
 
 function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
@@ -160,9 +161,11 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
             { openAmount && 
               <>
                 <h6>Minimum Value</h6>
-                <input value={minVal} onChange={(e) => setMinVal(e.target.value)} />
+                {/* <input value={minVal} onChange={(e) => setMinVal(e.target.value)} /> */}
+                <CurrencyInput defaultValue={minVal} prefix={'$'} onValueChange={(value) => setMinVal(value)} />
                 <h6>Maximum Value</h6>
-                <input value={maxVal} onChange={(e) => setMaxVal(e.target.value)} />
+                {/* <input value={maxVal} onChange={(e) => setMaxVal(e.target.value)} /> */}
+                <CurrencyInput defaultValue={maxVal} prefix={'$'} onValueChange={(value) => setMaxVal(value)} />
               </>
             }
           </div>
