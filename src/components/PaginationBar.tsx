@@ -36,7 +36,7 @@ const resultsMax = 10;
     <>
         <div className="db__results-pagination">
         <button onClick={paginatePrev}>previous</button>
-        <span> Results {pageStart} to {pageEnd} of {filteredResults.length} </span>
+        <span> Results {pageStart + 1} to {pageEnd} of {filteredResults.length} </span>
         <button onClick={paginateNext}>next</button>
         </div>
     </>
