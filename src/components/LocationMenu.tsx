@@ -26,7 +26,8 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       newResults.splice(index, 1)
       setMethod(newResults)
     } else {
-      setMethod([...stateArray, arg])
+      let newResults = [...stateArray, arg]
+      setMethod(newResults)
     }
   }
 
@@ -40,7 +41,7 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
         ) 
       }
       return (
-        filteredStates.map( (x, y) => 
+        filteredStates.sort().map( (x, y) => 
           <li key={y} >
             <input 
               type="checkbox" 
@@ -64,10 +65,10 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       if (citySearch) { 
         filteredCities = cityOptions.filter(
           function (str) { return str.toLowerCase().includes(citySearch.toLowerCase()) } 
-        ) 
+        )
       }
       return (
-        filteredCities.map( (x, y) => 
+        filteredCities.sort().map( (x, y) => 
           <li key={y} >
             <input 
               type="checkbox" 
