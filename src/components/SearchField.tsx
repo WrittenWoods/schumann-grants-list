@@ -11,7 +11,7 @@ import CurrencyInput from 'react-currency-input-field';
 
 function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
 
-  const [ openAmount, setOpenAmount ] = useState<boolean>(true);
+  const [ openAmount, setOpenAmount ] = useState<boolean>(false);
   // State variables corresponding to user inputs
    
   const [minMonth, setMinMonth] = useState(userInputs.minMonth)
