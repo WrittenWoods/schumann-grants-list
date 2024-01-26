@@ -43,17 +43,21 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
 
     if (openList) {
       return (
-        filterOptions().sort().map( (x, y) => 
-          <li key={y} >
-            <input 
-              type="checkbox" 
-              checked={results.includes(x)}
-              onChange={e => handleCheck(x)}
-            >  
-            </input>
-            <span>{x}</span>
-          </li> 
-        )
+        <ul className="CheckDrop">
+         { 
+          filterOptions().sort().map( (x, y) => 
+            <li key={y} >
+              <input 
+                type="checkbox" 
+                checked={results.includes(x)}
+                onChange={e => handleCheck(x)}
+              >  
+              </input>
+              <span>{x}</span>
+            </li> 
+          )
+         }
+        </ul>
       )
     } else {
       <></>
@@ -68,9 +72,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
       </div>
       {renderOrgSearch()}
       
-      <ul className="CheckDrop">
-        {renderList()}
-      </ul>
+      {renderList()}
     </>
   );
 }
