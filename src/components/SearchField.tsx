@@ -7,127 +7,30 @@ import LocationMenu from './LocationMenu';
 import KeywordSearch from './KeywordSearch';
 import ApprovalDate from './ApprovalDate';
 import { uniqueOptions } from '../helpers/uniqueOptions';
-import CurrencyInput from 'react-currency-input-field';
+import CurrencyInput, { formatValue } from 'react-currency-input-field';
 
-function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
+function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaults = {} } ) {
 
   const [ openAmount, setOpenAmount ] = useState<boolean>(false);
   // State variables corresponding to user inputs
    
-  const [minMonth, setMinMonth] = useState(userInputs.minMonth)
-  const [maxMonth, setMaxMonth] = useState(userInputs.maxMonth)
-  const [minYear, setMinYear] = useState(userInputs.minYear)
-  const [maxYear, setMaxYear] = useState(userInputs.maxYear)
-  const [minVal, setMinVal] = useState(userInputs.minVal)
-  const [maxVal, setMaxVal] = useState(userInputs.maxVal)
-  const [orgNames, setOrgNames] = useState([...userInputs.orgNames])
-  const [orgCities, setOrgCities] = useState([...userInputs.orgCities])
-  const [orgStates, setOrgStates] = useState([...userInputs.orgStates])
-  const [grantTypes, setGrantTypes] = useState([...userInputs.grantTypes])
-  const [fundingTypes, setFundingTypes] = useState([...userInputs.fundingTypes])
-  const [programAreas, setProgramAreas] = useState([...userInputs.programAreas])
-  const [strategies, setStrategies] = useState([...userInputs.strategies])
-  const [donors, setDonors] = useState([...userInputs.donors])
-  const [anyTerms, setAnyTerms] = useState(userInputs.anyTerms)
-  const [searchQueries, setSearchQueries] = useState([...userInputs.searchQueries])
+  function setMinMonth(value) { setUserInputs({ ...userInputs, minMonth: value })};
+  function setMaxMonth(value) { setUserInputs({ ...userInputs, maxMonth: value })};
+  function setMinYear(value) { setUserInputs({ ...userInputs, minYear: value })};
+  function setMaxYear(value) { setUserInputs({ ...userInputs, maxYear: value })};
+  function setMinVal(value) { setUserInputs({ ...userInputs, minVal: value })};
+  function setMaxVal(value) { setUserInputs({ ...userInputs, maxVal: value })};
 
-  // Updates userInputs state whenever user interacts with the search UI
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.minMonth = minMonth
-    setUserInputs(newUserInputs)
-  }, [minMonth] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.maxMonth = maxMonth
-    setUserInputs(newUserInputs)
-  }, [maxMonth] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.minYear = minYear
-    setUserInputs(newUserInputs)
-  }, [minYear] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.maxYear = maxYear
-    setUserInputs(newUserInputs)
-  }, [maxYear] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.orgNames = [...orgNames]
-    setUserInputs(newUserInputs)
-  }, [orgNames] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.orgCities = [...orgCities]
-    setUserInputs(newUserInputs)
-  }, [orgCities] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.orgStates = [...orgStates]
-    setUserInputs(newUserInputs)
-  }, [orgStates] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.grantTypes = [...grantTypes]
-    setUserInputs(newUserInputs)
-  }, [grantTypes] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.fundingTypes = [...fundingTypes]
-    setUserInputs(newUserInputs)
-  }, [fundingTypes] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.programAreas = [...programAreas]
-    setUserInputs(newUserInputs)
-  }, [programAreas] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.strategies = [...strategies]
-    setUserInputs(newUserInputs)
-  }, [strategies] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.donors = [...donors]
-    setUserInputs(newUserInputs)
-  }, [donors] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.minVal = minVal
-    setUserInputs(newUserInputs)
-  }, [minVal] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.maxVal = maxVal
-    setUserInputs(newUserInputs)
-  }, [maxVal] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.anyTerms = anyTerms
-    setUserInputs(newUserInputs)
-  }, [anyTerms] )
-
-  useEffect(() => {
-    let newUserInputs = { ...userInputs }
-    newUserInputs.searchQueries = [...searchQueries]
-    setUserInputs(newUserInputs)
-  }, [searchQueries] )
+  function setOrgNames(value) { setUserInputs({ ...userInputs, orgNames: value })};
+  function setOrgCities(value) { setUserInputs({ ...userInputs, orgCities: value })};
+  function setOrgStates(value) { setUserInputs({ ...userInputs, orgStates: value })};
+  function setGrantTypes(value) { setUserInputs({ ...userInputs, grantTypes: value })};
+  function setFundingTypes(value) { setUserInputs({ ...userInputs, fundingTypes: value })};
+  function setProgramAreas(value) { setUserInputs({ ...userInputs, programAreas: value })};
+  function setStrategies(value) { setUserInputs({ ...userInputs, strategies: value })};
+  function setDonors(value) { setUserInputs({ ...userInputs, donors: value })};
+  function setAnyTerms(value) { setUserInputs({ ...userInputs, anyTerms: value })};
+  function setSearchQueries(value) { setUserInputs({ ...userInputs, searchQueries: value })};
 
   // uses the value of the fieldType props to render different parts of the search UI.
 
@@ -161,9 +64,21 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs } ) {
             { openAmount && 
               <>
                 <h6>Minimum Value</h6>
-                <CurrencyInput defaultValue={minVal} prefix={'$'} onValueChange={(value) => setMinVal(value || '0')} />
+                <CurrencyInput 
+                  value={userInputs.minVal != defaults.minVal ? userInputs.minVal : ''}
+                  defaultValue={userInputs.minVal != defaults.minVal ? userInputs.minVal : ''} 
+                  placeholder={formatValue({value: defaults.minVal, prefix: '$', groupSeparator: ',', decimalSeparator: '.'})} 
+                  prefix={'$'} 
+                  onValueChange={(value) => setMinVal(value || defaults.minVal)} 
+                />
                 <h6>Maximum Value</h6>
-                <CurrencyInput defaultValue={maxVal} prefix={'$'} onValueChange={(value) => setMaxVal(value || '0')} />
+                <CurrencyInput 
+                  value={userInputs.maxVal != defaults.maxVal ? userInputs.maxVal : ''}
+                  defaultValue={userInputs.maxVal != defaults.maxVal ? userInputs.maxVal : ''} 
+                  prefix={'$'} 
+                  placeholder={formatValue({value: defaults.maxVal, prefix: '$', groupSeparator: ',', decimalSeparator: '.'})} 
+                  onValueChange={(value) => setMaxVal(value || defaults.maxVal)} 
+                />
               </>
             }
           </div>

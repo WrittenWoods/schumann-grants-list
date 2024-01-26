@@ -3,7 +3,7 @@ import './App.css';
 import SearchField from "./SearchField";
 import { SearchFields } from '../helpers/enums';
 
-function SearchUI( {userInputs, setUserInputs, loadedData} ) {
+function SearchUI( {userInputs, setUserInputs, loadedData, defaults = {}} ) {
 
   // An array of all values of the SearchFields enum. 
   // Used to generate each part of the SearchUI.
@@ -32,6 +32,7 @@ function SearchUI( {userInputs, setUserInputs, loadedData} ) {
           userInputs={userInputs}
           setUserInputs={setUserInputs}
           key={n}
+          defaults={defaults}
         />
       )}
     </div>

@@ -77,6 +77,7 @@ function App() {
               userInputs={userInputs}
               setUserInputs={setUserInputs}
               loadedData={loadedData}
+              defaults={{minVal: initMinValue, maxVal: initMaxValue}}
             />
           </div>
         </div>

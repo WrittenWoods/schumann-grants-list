@@ -11,7 +11,7 @@ function CriteriaBlock({iconClass, label, removeCritera}:{iconClass:string, labe
     </div>
   )
 }
-function Criteria({userInputs, setUserInputs, defaults = {}}:{userInputs:any, setUserInputs:Function, defaults?:any}) {
+function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUserInputs:Function, defaults:any}) {
 
   const [displayCriteria, setDisplayCriteria] = useState(true)
 
@@ -22,22 +22,25 @@ function Criteria({userInputs, setUserInputs, defaults = {}}:{userInputs:any, se
 
     const result = []
 
-    if (!defaults.hasOwnProperty('minVal') || userInputs.minVal !== defaults.minVal ) {
+    
+    if ( userInputs.minVal && userInputs.minVal != defaults.minVal ) {
       result.push(
         <CriteriaBlock 
           key={0} 
           iconClass={IconClasses.iconAmount} 
           label={`${'Min: $' + numformat(Number(userInputs.minVal))}`} 
+          removeCritera={() => setUserInputs({ ...userInputs, minVal: defaults.minVal })}
         />
       )
     }
     
-    if (!defaults.hasOwnProperty('maxVal') || userInputs.maxVal !== defaults.maxVal ) {
+    if ( userInputs.maxVal && userInputs.maxVal != defaults.maxVal ) {
       result.push(
         <CriteriaBlock 
           key={1} 
           iconClass={IconClasses.iconAmount} 
           label={`${'Max: $' + numformat(Number(userInputs.maxVal))}`} 
+          removeCritera={() => setUserInputs({ ...userInputs, maxVal: defaults.maxVal })}
         />
       )
     }
