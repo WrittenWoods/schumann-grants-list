@@ -55,7 +55,7 @@ function App() {
             <h3><span className="highlight">{tallies.resultsNum}</span> {tallies.resultsNum === "1" ? 'result' : 'results'} for <span className="highlight">{tallies.granteesNum}</span> {tallies.granteesNum === "1" ? 'grantee' : 'grantees'} totaling <br/><span className="highlight font-large">${tallies.grantsTotal}</span></h3>
             <p>{MONTHS[Math.min(Math.max(0, userInputs.minMonth - 1), 11)]} {userInputs.minYear} - {MONTHS[Math.min(Math.max(1, userInputs.maxMonth - 0), 11)]} {userInputs.maxYear}</p>
           </div>
-          <Criteria userInputs={userInputs} setUserInputs={setUserInputs} defaults={{minVal: initMinValue, maxVal: initMaxValue}}/>
+          <Criteria userInputs={userInputs} setUserInputs={setUserInputs} defaults={{...starterInputs}}/>
         </div>
       </div>
 

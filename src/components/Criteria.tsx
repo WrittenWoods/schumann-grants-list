@@ -96,6 +96,10 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
     <div className="db__summary_filters">      
       <h4>Filters applied:</h4>
       <div className="db__grant-info-tags">      
+        <div className="db__clear-filters">
+          Clear Filters
+          <button onClick={() => setUserInputs(defaults)}><i className="fa-solid fa-xmark"></i></button>
+        </div>
         {listCriteria()}
       </div>
     </div>
