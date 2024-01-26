@@ -55,8 +55,7 @@ function Criteria({userInputs, setUserInputs, defaults = {}}:{userInputs:any, se
       }
     }
 
-    function removeItem(items:Array<string>, toRemove:string):Array<string> {
-      
+    function removeItem(items:Array<string>, toRemove:string):Array<string> {   
       if (items.includes(toRemove)) {
         let index = items.indexOf(toRemove)
         let newItems = [...items]
@@ -66,6 +65,7 @@ function Criteria({userInputs, setUserInputs, defaults = {}}:{userInputs:any, se
         return items
       }
     }
+
     sublist(IconClasses.iconOrg, userInputs.orgNames, (name:string) => setUserInputs({ ...userInputs, orgNames: removeItem(userInputs.orgNames, name)}))
     sublist(IconClasses.iconLocation, userInputs.orgCities, (name:string) => setUserInputs({ ...userInputs, orgCities: removeItem(userInputs.orgCities, name)}))
     sublist(IconClasses.iconLocation, userInputs.orgStates, (name:string) => setUserInputs({ ...userInputs, orgStates: removeItem(userInputs.orgStates, name)}))
@@ -75,6 +75,14 @@ function Criteria({userInputs, setUserInputs, defaults = {}}:{userInputs:any, se
     sublist(IconClasses.iconStrategy, userInputs.strategies, (name:string) => setUserInputs({ ...userInputs, strategies: removeItem(userInputs.strategies, name)}))
     sublist(IconClasses.iconDonor, userInputs.donors, (name:string) => setUserInputs({ ...userInputs, donors: removeItem(userInputs.donors, name)}))
     sublist(IconClasses.iconKeyword, userInputs.searchQueries, (name:string) => setUserInputs({ ...userInputs, searchQueries: removeItem(userInputs.searchQueries, name)}))
+
+    if (result.length === 0) { result.push(
+      <CriteriaBlock 
+        key={0} 
+        iconClass={IconClasses.iconKeyword} 
+        label={`None`} 
+      />
+    )}
 
     if (displayCriteria) {
       return result
