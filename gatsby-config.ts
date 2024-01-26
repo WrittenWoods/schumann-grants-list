@@ -1,7 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
 
 module.exports = {
-  pathPrefix: "/schumann-grants-list",
+  pathPrefix: "/wp-content/apps/grants-database/",
 }
 
 const config: GatsbyConfig = {
