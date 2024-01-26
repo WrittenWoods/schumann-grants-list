@@ -4,6 +4,7 @@ import './App.css';
 function CheckDrop({ fieldName, results, setMethod, options }) {
   
   const [openList, setOpenList] = useState(false)
+  const [orgSearch, setOrgSearch] = useState("")
 
   function handleCheck(arg) {
     if (results.includes(arg)) {
@@ -16,11 +17,33 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
     }
   }
 
+  function filterOptions() {
+    if (fieldName === "Organization") {
+      let filteredOrgs = options
+      if (orgSearch) { 
+        filteredOrgs = filteredOrgs.filter(
+          function (str) { return str.toLowerCase().includes(orgSearch.toLowerCase()) } 
+        ) 
+      }    
+      return filteredOrgs
+    } else {
+      return options
+    }
+  }
+
+  function renderOrgSearch() {
+    if (fieldName === "Organization" && openList) {
+      return (
+        <input value={orgSearch} onChange={(e) => setOrgSearch(e.target.value)} />
+      )
+    }
+  }
+
   function renderList() {
 
     if (openList) {
       return (
-        options.sort().map( (x, y) => 
+        filterOptions().sort().map( (x, y) => 
           <li key={y} >
             <input 
               type="checkbox" 
@@ -43,6 +66,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
       <h6>{fieldName}</h6>
       <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
       </div>
+      {renderOrgSearch()}
       
       <ul className="CheckDrop">
         {renderList()}
