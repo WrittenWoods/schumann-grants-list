@@ -20,7 +20,7 @@ function App() {
   const [filteredResults, setFilteredResults] = useState(starterData.loadedData.sort(dateCompare).reverse())
   const [tallies, setTallies] = useState(generateTallies(loadedData, userInputs))
   
-  const [ sortedColumn, setSortedColumn ] = useState<{column:string, reversed:boolean}>({column: SortableColumns.Amount, reversed:false})
+  const [ sortedColumn, setSortedColumn ] = useState<{column:string, reversed:boolean}>({column: SortableColumns.ApprovalDate, reversed:true})
 
   const [ initMinValue, setInitMinValue ] = useState<string>(starterInputs.minVal)
   const [ initMaxValue, setInitMaxValue ] = useState<string>(starterInputs.maxVal)
@@ -215,7 +215,7 @@ function App() {
         <div className="db__results_queries_inner">
           <div className="db__results">
             <Results 
-              sortedColumn={sortedColumn.column}
+              sortedColumn={sortedColumn}
               setSortedColumn={setSortedColumn}
               userInputs={userInputs}
               filteredResults={filteredResults}

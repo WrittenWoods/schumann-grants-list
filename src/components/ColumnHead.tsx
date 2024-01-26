@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { SortStatus } from '../helpers/enums';
 
-function ColumnHead({ name, isSorted, setSortedColumn }:{name:string, isSorted: boolean, setSortedColumn:(column:string, reversed:boolean) => void}) {
-  const [ reversed, setReversed ] = useState<boolean>(false);
+function ColumnHead({ name, sortedColumn, setSortedColumn }:{name:string, sortedColumn:{column:string, reversed:boolean}, setSortedColumn:({column, reversed}:{column:string, reversed:boolean}) => void}) {
+  const [ reversed, setReversed ] = useState<boolean>(sortedColumn.column === name && sortedColumn.reversed);
 
   useEffect(() => {
-    setReversed( isSorted ? false : true)
-  }, [isSorted]);
+    if ( sortedColumn.column !== name ) {
+      setReversed( false )
+    }
+  }, [sortedColumn.column]);
 
 
   function stringCompare(a:any, b:any) {
@@ -36,7 +38,7 @@ function ColumnHead({ name, isSorted, setSortedColumn }:{name:string, isSorted: 
   }
 
   function renderSortButton() {
-    if (isSorted) {
+    if (sortedColumn.column === name) {
       return (
         // <button onClick={e => handleSortButton()}>
         <>
@@ -48,17 +50,17 @@ function ColumnHead({ name, isSorted, setSortedColumn }:{name:string, isSorted: 
 
 
   function handleSortButton() {
-    let rev = !reversed
+    let rev = sortedColumn.column === name ? !reversed : false;
     setSortedColumn({column: name, reversed: rev});
     setReversed(rev)
   }
 
   function activeSortClass() {
-    return (isSorted ? 'db__results-sorted-inactive' : 'db__results-sorted-active')  
+    return (sortedColumn.column === name ? 'db__results-sorted-inactive' : 'db__results-sorted-active')  
   }
 
   function sortDirection() {
-    return (!isSorted 
+    return (sortedColumn.column !== name 
         ? ''
         : reversed ? 'db__results-sorted-ascending' : 'db__results-sorted-descending'
     ) 

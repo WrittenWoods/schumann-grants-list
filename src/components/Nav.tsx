@@ -9,17 +9,17 @@ function Nav({ sortedColumn, setSortedColumn }:{ sortedColumn:string, setSortedC
         <>
             <ColumnHead 
                 name={SortableColumns.Amount} 
-                isSorted={sortedColumn == SortableColumns.Amount}
+                sortedColumn={sortedColumn}
                 setSortedColumn={setSortedColumn}
             /> 
             <ColumnHead 
                 name={SortableColumns.Result} 
-                isSorted={sortedColumn == SortableColumns.Result}
+                sortedColumn={sortedColumn}
                 setSortedColumn={setSortedColumn}
             />
             <ColumnHead 
                 name={SortableColumns.ApprovalDate} 
-                isSorted={sortedColumn == SortableColumns.ApprovalDate}
+                sortedColumn={sortedColumn}
                 setSortedColumn={setSortedColumn}
             />             
         </>
