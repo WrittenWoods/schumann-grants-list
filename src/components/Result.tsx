@@ -9,7 +9,7 @@ function Result({ individualGrant, userInputs }) {
 
   function dateString(individualGrant) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    return `${individualGrant.year} ${months[individualGrant.month - 1]}`
+    return `${months[individualGrant.month - 1]} ${individualGrant.year}`
   }
 
   function matchedCriteria(individualGrant, userInputs) {
@@ -37,7 +37,7 @@ function Result({ individualGrant, userInputs }) {
     displayedTags = displayedTags.filter( (x) => x.text.trim().length )
 
     return (
-      <div className="db__grant-info-tags">
+      <div className="db__grant-info-tags"> 
         {displayedTags.map( (x, y) => (
           <div className="db__grant-info-tag" key={y}>
             <div className="db__grant-info-tag-icon" alt={x.name}><i className={x.icon}></i></div>
