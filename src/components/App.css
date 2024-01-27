@@ -53,6 +53,9 @@
 }
  
 
+*:first-child {margin-top:0px;}
+
+
 
   p {margin-bottom:1.2em;}
 
@@ -308,12 +311,19 @@
 }
 
 
+
+.db__summary_filters {
+  position:relative;
+}
+
+
+
 .db__summary_filters .db__grant-info-tags {
      column-gap: 14px;
      padding:20px;
      border:2px solid var(--base-2);
-     position:relative;
-
+    max-height: 144px;
+    overflow: auto;
 
 }
 
@@ -326,14 +336,14 @@
   position:absolute;
   top:0;
   right:0;
-  margin-top:-20px;
+  margin-top:0px;
   margin-right:10px;
   display:flex;
   align-items: center;
   column-gap:.4em;
   letter-spacing: 0.07px;
+  z-index:9999;
 }
-
 
 .db__clear-filters span {
   font-size:12px;
