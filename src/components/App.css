@@ -116,7 +116,7 @@
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      column-gap: 10px;
+      column-gap: 20px;
       padding-bottom:10px;
       border-bottom: 4px solid var(--base);
   }
@@ -124,8 +124,7 @@
   article.db__grant {
       display: flex;
       flex-direction: row;
-      flex-wrap: nowrap;
-      column-gap: 10px;
+      column-gap: 20px;
       padding-top: 40px;
     padding-bottom: 50px;
     border-bottom: 2px solid var(--base);
@@ -170,10 +169,29 @@
       width: 65%;
   }
   
-  .db__results-sort:nth0child(3),
+  .db__results-sort:nth-child(3),
   .db__grant-date {
       width: 20%;
   }
+
+
+@media (max-width:1199px) {
+
+    .db__results-sort:first-child,
+  .db__results-sort:nth-child(2),  
+  .db__results-sort:nth-child(3) {
+      width: 33%;
+      max-width:fit-content;
+
+    }
+  }
+
+
+
+
+
+
+
   
 
 
@@ -524,7 +542,8 @@ ul.CheckDrop span {
 
 
 .db__results_summary_inner,
-.db__results_queries_inner {
+.db__results_queries_inner,
+.db__grant {
   flex-wrap:wrap;
   > div {width:100%;}
 }
@@ -541,6 +560,8 @@ ul.CheckDrop span {
   > div {width:290px;}
 }
 
+
+.db__grant > div {margin-bottom:10px;}
 
 
 }
