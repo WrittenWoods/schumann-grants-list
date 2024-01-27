@@ -15,8 +15,8 @@ import PaginationBar from './PaginationBar';
 
 function Results( { sortedColumn, userInputs, setSortedColumn, filteredResults } ) {
 
-  const [pageStart, setPageStart] = useState(0)
-  const [pageEnd, setPageEnd] = useState(10)
+  const [currPageStart, setCurrPageStart] = useState(0)
+  const [currPageEnd, setCurrPageEnd] = useState(10)
 
   // The functions below are named according to which properties of the userInputs object they identify.
   // If the function returns true at an index of loadedData, the result at that index is displayed.
@@ -32,7 +32,7 @@ function Results( { sortedColumn, userInputs, setSortedColumn, filteredResults }
           setSortedColumn={setSortedColumn}
         />
       </nav>
-      {[...filteredResults].slice(pageStart, pageEnd).map( (individualGrant, n) =>
+      {[...filteredResults].slice(currPageStart, currPageEnd).map( (individualGrant, n) =>
         <Result 
           userInputs={userInputs}
           individualGrant={individualGrant}
@@ -41,10 +41,10 @@ function Results( { sortedColumn, userInputs, setSortedColumn, filteredResults }
       )}
       <PaginationBar 
         filteredResults={filteredResults}
-        pageStart={pageStart}
-        setPageStart={setPageStart}
-        pageEnd={pageEnd}
-        setPageEnd={setPageEnd}
+        currPageStart={currPageStart}
+        setCurrPageStart={setCurrPageStart}
+        currPageEnd={currPageEnd}
+        setCurrPageEnd={setCurrPageEnd}
       />
     </>
   );
