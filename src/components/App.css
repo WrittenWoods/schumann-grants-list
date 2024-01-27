@@ -152,8 +152,8 @@
  .db__results_summary_inner {background-color:yellow;}
 .db__results {background-color:blue;}
 .db__queries {background-color:red!important;}
-*/
 
+*/
 
 
 /* ------------------------ End Testing ------------------------ */
@@ -178,18 +178,26 @@
 
 
   .db__results_summary_inner {
-    max-width:1280px;
+    max-width:1200px;
     margin:0 auto;
     padding:45px;
     display:flex;
+    column-gap: 4%;
 
-  
-    > div {width:50%;}
-  
-  
+> div {width:50%;}
+/*  @media(min-width:1200px) {
+    >:first-child {width:55%;}
+    >:nth-child(2) {width:45%; max-width:450px}
+  }*/
   }
   
-  
+  .db__summary_output h3 {
+        line-height: 1.2;
+  }
+
+
+
+
   
   .db__results_queries_inner{
 
@@ -209,7 +217,7 @@
   .db__results {
 
    padding:45px;
-   width: 1280px;
+   width: 1200px;
   }
    
     
@@ -217,7 +225,7 @@
 
 @media (min-width:1370px) {
   .db__results {
-    margin-left: calc(50vw - 595px - 90px);
+    margin-left: calc(50vw - 555px - 90px);
 
 
   }
