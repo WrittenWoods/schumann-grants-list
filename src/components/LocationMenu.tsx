@@ -6,18 +6,8 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
   const [openCitiesStates, setOpenCitiesStates] = useState(false)
   const [openStates, setOpenStates] = useState(false)
   const [openCities, setOpenCities] = useState(false)
-  const [selectedStates, setSelectedStates] = useState([...userInputs.orgStates])
-  const [selectedCities, setSelectedCities] = useState([...userInputs.orgCities])
   const [stateSearch, setStateSearch] = useState("")
   const [citySearch, setCitySearch] = useState("")
-
-  useEffect(() => {
-    setOrgStates([...selectedStates])
-  }, [selectedStates])
-
-  useEffect(() => {
-    setOrgCities([...selectedCities])
-  }, [selectedCities])
 
   function handleCheck(arg:string, stateArray:Array<string>, setMethod:Function) {
     if (stateArray.includes(arg)) {
@@ -46,7 +36,7 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
             <input 
               type="checkbox" 
               checked={userInputs.orgStates.includes(x)}
-              onChange={e => handleCheck(x, selectedStates, setSelectedStates)}
+              onChange={e => handleCheck(x, userInputs.orgStates, (states:Array<string>) => setOrgStates(states))}
             >  
             </input>
             <span>{x}</span>
@@ -73,7 +63,7 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
             <input 
               type="checkbox" 
               checked={userInputs.orgCities.includes(x)}
-              onChange={e => handleCheck(x, selectedCities, setSelectedCities)}
+              onChange={e => handleCheck(x, userInputs.orgCities, (cities:Array<string>) => setOrgCities(cities))}
             >  
             </input>
             <span>{x}</span>
