@@ -19,7 +19,7 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
     setOrgCities([...selectedCities])
   }, [selectedCities])
 
-  function handleCheck(arg, stateArray, setMethod) {
+  function handleCheck(arg:string, stateArray:Array<string>, setMethod:Function) {
     if (stateArray.includes(arg)) {
       let index = stateArray.indexOf(arg)
       let newResults = [...stateArray]
@@ -37,15 +37,15 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       let filteredStates = stateOptions
       if (stateSearch) { 
         filteredStates = stateOptions.filter(
-          function (str) { return str.toLowerCase().includes(stateSearch.toLowerCase()) } 
+          function (str:string) { return str.toLowerCase().includes(stateSearch.toLowerCase()) } 
         ) 
       }
       return (
-        filteredStates.sort().map( (x, y) => 
+        filteredStates.sort().map( (x:string, y:number) => 
           <li key={y} >
             <input 
               type="checkbox" 
-              checked={selectedStates.includes(x)}
+              checked={userInputs.orgStates.includes(x)}
               onChange={e => handleCheck(x, selectedStates, setSelectedStates)}
             >  
             </input>
@@ -64,15 +64,15 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       let filteredCities = cityOptions
       if (citySearch) { 
         filteredCities = cityOptions.filter(
-          function (str) { return str.toLowerCase().includes(citySearch.toLowerCase()) } 
+          function (str:string) { return str.toLowerCase().includes(citySearch.toLowerCase()) } 
         )
       }
       return (
-        filteredCities.sort().map( (x, y) => 
+        filteredCities.sort().map( (x:string, y:number) => 
           <li key={y} >
             <input 
               type="checkbox" 
-              checked={selectedCities.includes(x)}
+              checked={userInputs.orgCities.includes(x)}
               onChange={e => handleCheck(x, selectedCities, setSelectedCities)}
             >  
             </input>
