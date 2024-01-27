@@ -13,8 +13,6 @@ function CriteriaBlock({iconClass, label, removeCritera}:{iconClass:string, labe
 }
 function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUserInputs:Function, defaults:any}) {
 
-  const [displayCriteria, setDisplayCriteria] = useState(true)
-
   const options = {  maximumFractionDigits: 2  }   
   const numformat = Intl.NumberFormat("en-US",options).format
 
@@ -79,28 +77,29 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
     sublist(IconClasses.iconDonor, userInputs.donors, (name:string) => setUserInputs({ ...userInputs, donors: removeItem(userInputs.donors, name)}))
     sublist(IconClasses.iconKeyword, userInputs.searchQueries, (name:string) => setUserInputs({ ...userInputs, searchQueries: removeItem(userInputs.searchQueries, name)}))
 
-    if (result.length === 0) { result.push(
-      <CriteriaBlock 
-        key={0} 
-        iconClass={IconClasses.iconKeyword} 
-        label={`None`} 
-      />
-    )}
-
-    if (displayCriteria) {
-      return result
-    }
+    return result
   }
 
+  const criteria = listCriteria();
   return (
     <div className="db__summary_filters">      
-      <h4>Filters applied:</h4>
-      <div className="db__grant-info-tags">      
-        <div className="db__clear-filters">
-          Clear Filters
-          <button onClick={() => setUserInputs(defaults)}><i className="fa-solid fa-xmark"></i></button>
-        </div>
-        {listCriteria()}
+      <h4>Filters Applied</h4>
+      <div className="db__grant-info-tags">   
+        { criteria?.length > 0 ?    
+          <>
+           
+              
+              <button className="db__clear-filters" onClick={() => setUserInputs(defaults)}><span>Clear All Filters</span><i className="fa-solid fa-xmark"></i></button>
+          
+            {listCriteria()}
+          </>
+          : 
+          <>
+          <div className="db__nofilters">
+          No filters currently selected
+          </div>
+          </>
+        } 
       </div>
     </div>
   );

@@ -38,7 +38,10 @@
   --accent-13:#bbe698;
   }
   
-  
+  body {
+    margin: 0;
+    padding: 0;
+}
 
  body, button, input, select, textarea {
   font-family:"Manrope";
@@ -49,6 +52,9 @@
   color:var(--contrast-2);
 }
  
+
+*:first-child {margin-top:0px;}
+
 
 
   p {margin-bottom:1.2em;}
@@ -139,6 +145,19 @@
 
 
 
+/* ------------------------ Testing ------------------------ */
+
+
+/*body {background-color:green;}
+ .db__results_summary_inner {background-color:yellow;}
+.db__results {background-color:blue;}
+.db__queries {background-color:red!important;}
+*/
+
+
+
+/* ------------------------ End Testing ------------------------ */
+
 
 
   .db__results-sort:first-child,
@@ -163,7 +182,7 @@
     margin:0 auto;
     padding:45px;
     display:flex;
-  
+
   
     > div {width:50%;}
   
@@ -180,8 +199,7 @@
           margin:0 auto;
      margin-left: calc(-100vw / 2 + 100% / 2);
       margin-right: calc(-100vw / 2 + 100% / 2);
-      width: auto;
-   max-width: calc(100vw - 9px);
+
   
   }
   
@@ -189,12 +207,26 @@
   
   
   .db__results {
-   margin-left: calc(50vw - 595px - 90px);
-   margin-left: calc(50vw - 595px - 90px);
-   padding:90px 45px 45px;
+
+   padding:45px;
    width: 1280px;
-   max-width:1280px;
   }
+   
+    
+      
+
+@media (min-width:1370px) {
+  .db__results {
+    margin-left: calc(50vw - 595px - 90px);
+
+
+  }
+}
+
+
+
+
+
   
 .db__results-sort {
     display: flex;
@@ -236,18 +268,21 @@
 
 
   .db__queries {
-    padding:90px 45px 45px 45px;
+    padding:45px;
     width: 400px;
     background-color: var(--base-2);
   }
 
   
+.db__queries h3 {margin:0;}
+
 
 .db__grant-info h4 {
   margin:0;
 }
 
 .db__grant-info p {
+  text-wrap:balance;
   margin:0;
 }
 
@@ -276,14 +311,43 @@
 }
 
 
+
+.db__summary_filters {
+  position:relative;
+}
+
+
+
 .db__summary_filters .db__grant-info-tags {
      column-gap: 14px;
+     padding:20px;
+     border:2px solid var(--base-2);
+    max-height: 144px;
+    overflow: auto;
+
 }
 
 .db__summary_filters .db__grant-info-tag {
       padding: 5px 18px 5px 8px;
+
 }
 
+.db__clear-filters {
+  position:absolute;
+  top:0;
+  right:0;
+  margin-top:0px;
+  margin-right:10px;
+  display:flex;
+  align-items: center;
+  column-gap:.4em;
+  letter-spacing: 0.07px;
+  z-index:9999;
+}
+
+.db__clear-filters span {
+  font-size:12px;
+}
 
 
 
@@ -448,3 +512,27 @@ ul.CheckDrop span {
 
 
 
+@media (max-width:1199px) {
+
+
+.db__results_summary_inner,
+.db__results_queries_inner {
+  flex-wrap:wrap;
+  > div {width:100%;}
+}
+
+.db__results_queries_inner {
+  flex-wrap:wrap-reverse;
+}
+
+
+.db__approval-date {
+  flex-direction:row;
+  column-gap:.5em;
+  flex-wrap: wrap;
+  > div {width:290px;}
+}
+
+
+
+}
