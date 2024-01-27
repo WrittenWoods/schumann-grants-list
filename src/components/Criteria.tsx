@@ -83,21 +83,22 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
   const criteria = listCriteria();
   return (
     <div className="db__summary_filters">      
-      <h4>Filters applied:</h4>
+      <h4>Filters Applied</h4>
       <div className="db__grant-info-tags">   
         { criteria?.length > 0 ?    
           <>
-            <div className="db__clear-filters">
-              Clear Filters
-              <button onClick={() => setUserInputs(defaults)}><i className="fa-solid fa-xmark"></i></button>
-            </div>
+           
+              
+              <button className="db__clear-filters" onClick={() => setUserInputs(defaults)}><span>Clear All Filters</span><i className="fa-solid fa-xmark"></i></button>
+          
             {listCriteria()}
           </>
-          : <CriteriaBlock 
-            key={0} 
-            iconClass={IconClasses.iconKeyword} 
-            label={`None`} 
-          />
+          : 
+          <>
+          <div className="db__nofilters">
+          No filters currently selected
+          </div>
+          </>
         } 
       </div>
     </div>
