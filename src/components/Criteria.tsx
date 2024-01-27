@@ -48,7 +48,7 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
         <CriteriaBlock 
           key={1}  
           iconClass={IconClasses.iconAmount} 
-          label={`Start Date: ${Months[userInputs.minMonth + 1]} ${userInputs.minYear}`} 
+          label={`Start Date: ${Months[userInputs.minMonth - 1]} ${userInputs.minYear}`} 
           removeCritera={() => setUserInputs({ ...userInputs, minMonth: defaults.minMonth, minYear: defaults.minYear })}
         />
       )
@@ -59,7 +59,7 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
         <CriteriaBlock 
           key={1}  
           iconClass={IconClasses.iconAmount} 
-          label={`End Date: ${Months[userInputs.maxMonth + 1]} ${userInputs.maxYear}`} 
+          label={`End Date: ${Months[userInputs.maxMonth - 1]} ${userInputs.maxYear}`} 
           removeCritera={() => setUserInputs({ ...userInputs, maxMonth: defaults.maxMonth, maxYear: defaults.maxYear })}
         />
       )
@@ -108,10 +108,7 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
       <div className="db__grant-info-tags">   
         { criteria?.length > 0 ?    
           <>
-           
-              
-              <button className="db__clear-filters" onClick={() => setUserInputs(defaults)}><span>Clear All Filters</span><i className="fa-solid fa-xmark"></i></button>
-          
+            <button className="db__clear-filters" onClick={() => setUserInputs(defaults)}><span>Clear All Filters</span><i className="fa-solid fa-xmark"></i></button>
             {listCriteria()}
           </>
           : 
