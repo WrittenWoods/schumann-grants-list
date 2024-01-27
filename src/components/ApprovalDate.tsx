@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import { uniqueOptions } from '../helpers/uniqueOptions';
+import { Months } from '../helpers/enums';
 
 function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMaxYear }) {
-
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
     // Creates array of option elements corresponding to contents of an array
 
@@ -36,12 +35,12 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
         <div className="db__approval-date">
         <div className="db__approval-date-start">
         <span>Start</span>
-        <select value={months[userInputs.minMonth - 1]} onChange={(e) => setMinMonth(months.indexOf(e.target.value) + 1)} >{listOptions(months)}</select>
+        <select value={Months[userInputs.minMonth - 1]} onChange={(e) => setMinMonth(Months.indexOf(e.target.value) + 1)} >{listOptions(Months)}</select>
         <select value={userInputs.minYear} onChange={(e) => setMinYear(Number(e.target.value))}  >{yearOptions()}</select>
         </div>
         <div className="db__approval-date-end">
         <span>End</span>
-        <select value={months[userInputs.maxMonth - 1]} onChange={(e) => setMaxMonth(months.indexOf(e.target.value) + 1)} >{listOptions(months)}</select>
+        <select value={Months[userInputs.maxMonth - 1]} onChange={(e) => setMaxMonth(Months.indexOf(e.target.value) + 1)} >{listOptions(Months)}</select>
         <select value={userInputs.maxYear} onChange={(e) => setMaxYear(Number(e.target.value))}  >{yearOptions()}</select>
         </div>
         </div>

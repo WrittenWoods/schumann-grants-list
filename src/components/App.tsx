@@ -6,7 +6,7 @@ import Criteria from "./Criteria";
 import { starterData } from "../starterData";
 import { generateTallies } from '../helpers/generateTallies';
 import { dateCompare } from '../helpers/dateCompare';
-import { SortableColumns } from '../helpers/enums';
+import { Months, SortableColumns } from '../helpers/enums';
 
 function App() {
 
@@ -63,8 +63,6 @@ function App() {
   useEffect(() => {
       setFilteredResults(sortResults(filteredResults.slice()))
   }, [ sortedAttributes ])
-
-  const MONTHS = ["January", "February", "March",  "April", "May", "June",  "July", "August", "September", "October", "November", "December"]
 
   useEffect(() => {
     setTallies(generateTallies(filteredResults, userInputs))
@@ -205,7 +203,7 @@ function App() {
           <div className="db__summary_output">
             <h2>Search database</h2>
             <h3><span className="highlight">{tallies.resultsNum}</span> {tallies.resultsNum === "1" ? 'result' : 'results'} for <br/><span className="highlight">{tallies.granteesNum}</span> {tallies.granteesNum === "1" ? 'grantee' : 'grantees'} totaling <br/><span className="highlight font-large">${tallies.grantsTotal}</span></h3>
-            <p>{MONTHS[Math.min(Math.max(0, userInputs.minMonth - 1), 11)]} {userInputs.minYear} - {MONTHS[Math.min(Math.max(1, userInputs.maxMonth - 0), 11)]} {userInputs.maxYear}</p>
+            <p>{Months[Math.min(Math.max(0, userInputs.minMonth - 1), 11)]} {userInputs.minYear} - {Months[Math.min(Math.max(1, userInputs.maxMonth - 0), 11)]} {userInputs.maxYear}</p>
           </div>
           <Criteria userInputs={userInputs} setUserInputs={setUserInputs} defaults={{...starterInputs}}/>
         </div>

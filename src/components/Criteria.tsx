@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { IconClasses } from '../helpers/enums';
+import { IconClasses, Months } from '../helpers/enums';
 
 function CriteriaBlock({iconClass, label, removeCritera}:{iconClass:string, label:string, removeCritera?:Function}) {
   return (
@@ -43,6 +43,27 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
       )
     }
 
+    if ( userInputs.minMonth !== defaults.minMonth || userInputs.minYear !== defaults.minYear ) {
+      result.push(
+        <CriteriaBlock 
+          key={1}  
+          iconClass={IconClasses.iconAmount} 
+          label={`Start Date: ${Months[userInputs.minMonth + 1]} ${userInputs.minYear}`} 
+          removeCritera={() => setUserInputs({ ...userInputs, minMonth: defaults.minMonth, minYear: defaults.minYear })}
+        />
+      )
+    }
+
+    if ( userInputs.maxMonth !== defaults.maxMonth || userInputs.maxYear !== defaults.maxYear ) {
+      result.push(
+        <CriteriaBlock 
+          key={1}  
+          iconClass={IconClasses.iconAmount} 
+          label={`End Date: ${Months[userInputs.maxMonth + 1]} ${userInputs.maxYear}`} 
+          removeCritera={() => setUserInputs({ ...userInputs, maxMonth: defaults.maxMonth, maxYear: defaults.maxYear })}
+        />
+      )
+    }
     function sublist(icon, inputArray, remove?:Function) {
       for (let i = 0; i < inputArray.length; i++) {
         result.push(

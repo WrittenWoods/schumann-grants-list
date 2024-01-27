@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { IconClasses } from '../helpers/enums';
+import { IconClasses, Months } from '../helpers/enums';
 
 function Result({ individualGrant, userInputs }) {
 
@@ -8,8 +8,7 @@ function Result({ individualGrant, userInputs }) {
   const numformat = Intl.NumberFormat("en-US",options).format
 
   function dateString(individualGrant) {
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    return `${months[individualGrant.month - 1]} ${individualGrant.year}`
+    return `${Months[individualGrant.month - 1]} ${individualGrant.year}`
   }
 
   function matchedCriteria(individualGrant, userInputs) {
