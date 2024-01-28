@@ -7,6 +7,7 @@ import { starterData } from "../starterData";
 import { generateTallies } from '../helpers/generateTallies';
 import { dateCompare } from '../helpers/dateCompare';
 import { SortableColumns } from '../helpers/enums';
+import { uniqueOptions } from '../helpers/uniqueOptions';
 
 function App() {
 
@@ -14,8 +15,9 @@ function App() {
   // userInputs refers to search criteria added by user via UI.
 
   const [loadedData, setLoadedData] = useState(starterData.loadedData)
+  const [processedData, setProcessedData] = useState()
   const starterInputs = generateStarterInputs(loadedData, starterData.userInputs)
-
+  
   const [userInputs, setUserInputs] = useState(starterInputs)
   const [filteredResults, setFilteredResults] = useState(starterData.loadedData.sort(dateCompare).reverse())
   const [tallies, setTallies] = useState(generateTallies(loadedData, userInputs))
@@ -26,6 +28,26 @@ function App() {
   const [ initMaxValue, setInitMaxValue ] = useState<string>(starterInputs.maxVal)
 
   const [ sortedAttributes, setSortedAttributes ] = useState<Array<string>>(sortColumnsArray(sortedColumn.column))
+
+  useEffect(() => {
+    let procData = { ...loadedData, uniqueOptions: {
+      grantType: uniqueOptions(loadedData.map( (x) => x.grantType )),
+      orgCity: uniqueOptions(loadedData.map( (x) => x.orgCity )),
+      orgState: uniqueOptions(loadedData.map( (x) => x.orgState )),
+      orgName: uniqueOptions(loadedData.map( (x) => x.orgName )),
+      fundingType: uniqueOptions(loadedData.map( (x) => x.fundingType )),
+      programArea: uniqueOptions(loadedData.map( (x) => x.programArea )).map((pa) => { return { name: pa, finalYear: 1900 }}),
+      strategy: uniqueOptions(loadedData.map( (x) => x.strategy ).concat(loadedData.map( (x) => x.strategy2 ))),
+      donor: uniqueOptions(loadedData.map( (x) => x.donor ))
+    }}
+
+    procData.uniqueOptions.programArea.map((pa) => 
+      // Find final year of each program
+      pa.finalYear = loadedData.reduce((accum:number, current) => (pa.name == current.programArea ? Math.max(accum, current.year) : accum), 1900)
+    )
+
+    setProcessedData(procData);
+  }, [loadedData])
 
   function sortColumnsArray(name:string) {
     switch ( name ) {
@@ -229,15 +251,17 @@ function App() {
             />
           </div>
 
-          <div className="db__queries">
-            <h3>Refine Search</h3>
-            <SearchUI
-              userInputs={userInputs}
-              setUserInputs={setUserInputs}
-              loadedData={loadedData}
-              defaults={{minVal: initMinValue, maxVal: initMaxValue}}
-            />
-          </div>
+          { processedData && 
+            <div className="db__queries">
+              <h3>Refine Search</h3>
+              <SearchUI
+                userInputs={userInputs}
+                setUserInputs={setUserInputs}
+                loadedData={processedData}
+                defaults={{minVal: initMinValue, maxVal: initMaxValue}}
+              />
+            </div>
+          }
         </div>
       </div>
     </div>
