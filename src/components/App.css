@@ -540,7 +540,7 @@ background-color:var(--base-3);
 }
 
 
-.db__ProgramAreaMenu ul li:nth-child(4) {
+.db__ProgramAreaMenu ul:nth-child(4) li:nth-child(4) {
   display:none;
 }
 
