@@ -15,20 +15,20 @@ const ProgramAreaMenu = ({userInputs, loadedData, setProgramAreas}) => {
       { 
         openProgramArea ? 
         <>
-            <h6 className="db__search-field-sub-header">Current (2023 - present)</h6>
+            <h6 className="db__search-field-sub-header">Current (2022 - present)</h6>
                 <CheckDrop 
                     fieldName={""}
                     results={userInputs.programAreas}
                     setMethod={setProgramAreas}
-                    options={uniqueOptions(loadedData.filter((x) => x.year >= 2023).map( (x) => x.programArea ))}
+                    options={uniqueOptions(loadedData.filter((x) => x.year >= 2022).map( (x) => x.programArea ))}
 
                 />
-            <h6 className="db__search-field-sub-header">Historic (1979 - 2022)</h6>
+            <h6 className="db__search-field-sub-header">Historic (1979 - 2021)</h6>
                 <CheckDrop 
                     fieldName={""}
                     results={userInputs.programAreas}
                     setMethod={setProgramAreas}
-                    options={uniqueOptions(loadedData.filter((x) => x.year < 2023).map( (x) => x.programArea ))}
+                    options={uniqueOptions(loadedData.filter((x) => x.year < 2022).map( (x) => x.programArea ))}
                 />
             </>
         : <></>
