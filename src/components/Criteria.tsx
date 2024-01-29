@@ -47,8 +47,8 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
       result.push(
         <CriteriaBlock 
           key={1}  
-          iconClass={IconClasses.iconAmount} 
-          label={`Start Date: ${Months[userInputs.minMonth - 1]} ${userInputs.minYear}`} 
+          iconClass={IconClasses.iconDate} 
+          label={`Start: ${Months[userInputs.minMonth - 1]} ${userInputs.minYear}`} 
           removeCritera={() => setUserInputs({ ...userInputs, minMonth: defaults.minMonth, minYear: defaults.minYear })}
         />
       )
@@ -58,8 +58,8 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUse
       result.push(
         <CriteriaBlock 
           key={1}  
-          iconClass={IconClasses.iconAmount} 
-          label={`End Date: ${Months[userInputs.maxMonth - 1]} ${userInputs.maxYear}`} 
+          iconClass={IconClasses.iconDate} 
+          label={`End: ${Months[userInputs.maxMonth - 1]} ${userInputs.maxYear}`} 
           removeCritera={() => setUserInputs({ ...userInputs, maxMonth: defaults.maxMonth, maxYear: defaults.maxYear })}
         />
       )
