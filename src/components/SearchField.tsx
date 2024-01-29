@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { SearchFields } from '../helpers/enums';
+import { uniqueOptions } from '../helpers/uniqueOptions';
 import Select, { StylesConfig } from 'react-select';
 import CheckDrop from './CheckDrop';
 import LocationMenu from './LocationMenu';
@@ -93,7 +94,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Organization"}
               results={userInputs.orgNames}
               setMethod={setOrgNames}
-              options={loadedData.uniqueOptions?.orgName}
+              options={uniqueOptions(loadedData.map( (x) => x.orgName ))}
             />
           </div>
         )
@@ -104,8 +105,8 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
           <div className="db__search-field-inner">
             <LocationMenu
               userInputs={userInputs}
-              cityOptions={loadedData.uniqueOptions?.orgCity }
-              stateOptions={loadedData.uniqueOptions?.orgState }
+              cityOptions={uniqueOptions(loadedData.map( (x) => x.orgCity ))}
+              stateOptions={uniqueOptions(loadedData.map( (x) => x.orgState ))}
               setOrgCities={setOrgCities}
               setOrgStates={setOrgStates}
             />
@@ -120,7 +121,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Grant Type"}
               results={userInputs.grantTypes}
               setMethod={setGrantTypes}
-              options={loadedData.uniqueOptions?.grantType }
+              options={uniqueOptions(loadedData.map( (x) => x.grantType ))}
             />
           </div>      
         )
@@ -133,7 +134,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Funding Types"}
               results={userInputs.fundingTypes}
               setMethod={setFundingTypes}
-              options={loadedData.uniqueOptions?.fundingType }
+              options={uniqueOptions(loadedData.map( (x) => x.fundingType ))}
             />
           </div>
         )
@@ -158,7 +159,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Strategy"}
               results={userInputs.strategies}
               setMethod={setStrategies}
-              options={loadedData.uniqueOptions?.strategy}
+              options={uniqueOptions(loadedData.map( (x) => x.strategy ))}
             />
           </div>
         )
@@ -171,7 +172,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Donor"}
               results={userInputs.donors}
               setMethod={setDonors}
-              options={loadedData.uniqueOptions?.donor}
+              options={uniqueOptions(loadedData.map( (x) => x.donor ))}
             />
           </div>
         )
