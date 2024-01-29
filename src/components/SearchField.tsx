@@ -44,6 +44,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
         return (
           <div className="db__search-field-inner">
             <ApprovalDate 
+              defaults={defaults}
               userInputs={userInputs}
               setMinMonth={setMinMonth}
               setMaxMonth={setMaxMonth}
