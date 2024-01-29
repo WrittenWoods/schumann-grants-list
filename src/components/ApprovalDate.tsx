@@ -34,7 +34,6 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
       </div>
       <div className="db__approval-date">
         <div className="db__approval-date-start">
-          <span>Start</span>
           <select 
             className={ userInputs.minMonth == defaults.minMonth ? 'db__filter-default-value' : ''} 
             value={Months[userInputs.minMonth - 1]} 
@@ -48,8 +47,8 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
               {yearOptions()}
           </select>
         </div>
+        <span> — </span>
         <div className="db__approval-date-end">
-          <span>End</span>
           <select 
             className={ userInputs.maxMonth == defaults.maxMonth ? 'db__filter-default-value' : ''}
             value={Months[userInputs.maxMonth - 1]} 
