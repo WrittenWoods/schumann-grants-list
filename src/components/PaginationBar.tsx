@@ -41,6 +41,29 @@ const resultsMax = 10;
         }
     }
 
+    function renderPageButton(x, y, pageStart) {
+        if (x === "...") {
+            return (
+                <button 
+                    key={y}
+                    className={"db__pagination-spacer"}
+                    >
+                ...
+                </button>
+            )
+        } else {
+            return (
+                <button 
+                    key={y}
+                    onClick={() => handlePaginationButton(Number(x))}
+                    className={Number(x) === pageStart ? "db__pagination-button db__pagination-current" : "db__pagination-button"}
+                    >
+                    {Math.floor(Number(x)/resultsMax) + 1}
+                </button>
+            )
+        }
+    }
+
     function renderPaginationButtons(pageStart) {
         let result = []
         let resultsCount = 0
@@ -66,32 +89,26 @@ const resultsMax = 10;
         result = uniqueOptions(result, "...")
 
         return result.map( (x, y) => {
-            return (
-                <button 
-                    key={y}
-                    onClick={() => handlePaginationButton(Number(x))}
-                    className={x === pageStart ? "db__pagination-button db__pagination-current" : "db__pagination-button"}
-                >
-                    {x === "..." ? "..." : Math.floor(Number(x)/resultsMax) + 1}
-                </button>
-            ) 
+            return (renderPageButton(x, y, pageStart))
         })
     }
 
   return (
     <>
         <div className="db__results-pagination">
+            {currPageStart !== 0 && 
             <div className="db__pagination-previous" >
                 <button onClick={paginatePrev}>previous</button>
-            </div>
+            </div>}
 
             <div className='db__pagination-pages'>
                 {renderPaginationButtons(currPageStart)}
             </div>
 
+            {currPageEnd !== filteredResults.length && 
             <div className="db__pagination-next">
                 <button onClick={paginateNext}>next</button>
-            </div>
+            </div>}
         </div>
     </>
   );
