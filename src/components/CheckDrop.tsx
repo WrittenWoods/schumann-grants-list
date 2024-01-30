@@ -69,7 +69,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
     <div className="db__search-field-head">
       { fieldName && 
         <>
-          <h6>{fieldName}</h6>
+          <h5>{fieldName}</h5>
           <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
         </>
       }

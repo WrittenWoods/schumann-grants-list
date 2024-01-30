@@ -272,12 +272,13 @@ function App() {
               <>
                 <h2>Search database</h2>
                 <h3>
-                  <span className="highlight">{tallies.resultsNum}</span> 
-                  {tallies.resultsNum === "1" ? 'result' : 'results'} for 
-                  <span className="highlight">{tallies.granteesNum}</span> 
+                  <span className="highlight">{tallies.resultsNum} </span>
+                  {tallies.resultsNum === "1" ? 'result' : 'results'} for
+                  <br/>
+                  <span className="highlight">{tallies.granteesNum} </span>
                   {tallies.granteesNum === "1" ? 'grantee' : 'grantees'} totaling 
                   <br/>
-                  <span className="highlight font-large">${tallies.grantsTotal}</span>
+                  <span className="highlight font-large"> ${tallies.grantsTotal}</span>
                 </h3>
               </>
             }
