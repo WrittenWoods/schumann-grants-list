@@ -3,7 +3,7 @@ import './App.css';
 
 function CheckDrop({ fieldName, results, setMethod, options }) {
   
-  const [openList, setOpenList] = useState(false)
+  const [openList, setOpenList] = useState(!fieldName)
   const [orgSearch, setOrgSearch] = useState("")
 
   function handleCheck(arg) {
@@ -67,8 +67,12 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
   return (
     <>
     <div className="db__search-field-head">
-      <h6>{fieldName}</h6>
-      <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
+      { fieldName && 
+        <>
+          <h6>{fieldName}</h6>
+          <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
+        </>
+      }
       </div>
       {renderOrgSearch()}
       

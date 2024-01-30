@@ -501,8 +501,10 @@ ul.CheckDrop span {
 
 .db__approval-date {
   display:flex;
-  flex-direction:column;
+  flex-direction:row;
+  column-gap: 1em;
   margin-top:10px;
+  align-items: center;
 }
 
 
@@ -513,15 +515,8 @@ ul.CheckDrop span {
   flex-direction: row;
   flex-wrap: nowrap;
   column-gap:.5em;
-  margin-top:10px;
-  padding:20px 20px;
   align-items: center;
   border-radius:12px;
-
-  background-color:var(--base);
-
-  :first-child {width:60px;}
-
   font-weight:800;
   text-transform:uppercase;
   font-size:15px;
@@ -529,8 +524,24 @@ ul.CheckDrop span {
 
 }
 
-.db__approval-date-start {
-  
+select.db__filter-default-value{
+background-color:var(--base-3);
+
+}
+
+.db__approval-date select {
+  padding: 10px 15px;
+}
+
+
+.db__summary_output .db__search-field-inner {
+  padding:0;
+  border:0;
+}
+
+
+.db__ProgramAreaMenu ul:nth-child(4) li:nth-child(4) {
+  display:none;
 }
 
 
@@ -538,7 +549,42 @@ ul.CheckDrop span {
 
 
 
+
+
+
+
+
+.db__results-pagination, .db__pagination-pages{
+  display: flex;
+  column-gap: .5em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width:1199px) {
+
+
+.db__approval-date select {
+  padding: 0px;
+}
+
+.db__summary_output .db__search-field-inner {
+  margin-bottom:20px
+}
+
+
+.db__summary_filters h4 {margin-bottom:0;}
 
 
 .db__results_summary_inner,
@@ -557,11 +603,16 @@ ul.CheckDrop span {
   flex-direction:row;
   column-gap:.5em;
   flex-wrap: wrap;
-  > div {width:290px;}
+  > div, span {margin-bottom:5px;}
 }
 
 
 .db__grant > div {margin-bottom:10px;}
+
+
+
+
+
 
 
 }
