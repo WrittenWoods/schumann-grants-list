@@ -7,23 +7,32 @@ import { starterData } from "../starterData";
 import { generateTallies } from '../helpers/generateTallies';
 import { dateCompare } from '../helpers/dateCompare';
 import { SearchFields, SortableColumns } from '../helpers/enums';
+import { uniqueOptions } from '../helpers/uniqueOptions';
 import SearchField from './SearchField';
 import { fetchData, gapiLoaded} from '../helpers/fetchData';
 
+type ProcessedData = {
+  data:Array<any>
+  uniqueOptions:{[key:string]:Object}
+}
+
 function App() {
-
  
-  const [loadedData, setLoadedData] = useState(starterData.loadedData)
-  const starterInputs = generateStarterInputs(loadedData, starterData.userInputs)
-
-  const [userInputs, setUserInputs] = useState(starterInputs)
-  const [filteredResults, setFilteredResults] = useState(starterData.loadedData.sort(dateCompare).reverse())
-  const [tallies, setTallies] = useState(generateTallies(loadedData, userInputs))
+   // sheetData refers to spreadsheet data loaded via Google Sheets API
+  const [sheetData, setSheetData] = useState<Array<any>>()
+  // processedData is the sheet data, post-processed to precalculate the uniqueOptions lists
+  const [processedData, setProcessedData] = useState<ProcessedData>()
+  // initial inputs loaded from starterData
+  const [ starterInputs, setStarterInputs ] = useState()
+  
+  const [userInputs, setUserInputs] = useState()
+  const [filteredResults, setFilteredResults] = useState()
+  const [tallies, setTallies] = useState()
   
   const [ sortedColumn, setSortedColumn ] = useState<{column:string, reversed:boolean}>({column: SortableColumns.ApprovalDate, reversed:true})
 
-  const [ initMinValue, setInitMinValue ] = useState<string>(starterInputs.minVal)
-  const [ initMaxValue, setInitMaxValue ] = useState<string>(starterInputs.maxVal)
+  const [ initMinValue, setInitMinValue ] = useState<string>()
+  const [ initMaxValue, setInitMaxValue ] = useState<string>()
 
   const [ sortedAttributes, setSortedAttributes ] = useState<Array<string>>(sortColumnsArray(sortedColumn.column))
 
@@ -33,25 +42,72 @@ function App() {
 
      const script = document.createElement('script');
 
+     script.id = 'google-api-script';
      script.src = "https://apis.google.com/js/api.js";
      script.async = true;
-     script.addEventListener('load', gapiLoaded);
+     script.addEventListener('load', () => gapiLoaded(async () => {
+      setSheetData(await fetchData())
+     }));
      document.body.appendChild(script);
      //gapiLoaded();
 
      return () => {
         document.body.removeChild(script);
-        
-       // let m = fetchData();
-      //  console.log(m);
       }
-    }, []);
+  }, []);
 
-   // loadedData refers to spreadsheet data fetched from API.
+   // 
   // userInputs refers to search criteria added by user via UI.
-   const sheetData = fetchData();
+  useEffect(() => {
+    if ( starterInputs ) {
+      setInitMinValue(starterInputs.minVal)
+      setInitMaxValue(starterInputs.maxVal)
+    }
+  }, [starterInputs])
 
+  useEffect(() => {
+    if ( sheetData?.length ) {
+      setStarterInputs(generateStarterInputs(sheetData, starterData.userInputs))
+      setUserInputs(starterData.userInputs)
 
+      let procData = { data: [...sheetData], uniqueOptions: {
+        grantType: uniqueOptions(sheetData.map( (x) => x.grantType )),
+        orgCity: uniqueOptions(sheetData.map( (x) => x.orgCity )),
+        orgState: uniqueOptions(sheetData.map( (x) => x.orgState )),
+        orgName: uniqueOptions(sheetData.map( (x) => x.orgName )),
+        fundingType: uniqueOptions(sheetData.map( (x) => x.fundingType )),
+        programArea: uniqueOptions(sheetData.map( (x) => x.programArea )).map((pa) => { return { name: pa, finalYear: 1900 }}),
+        strategy: uniqueOptions(sheetData.map( (x) => x.strategy ).concat(sheetData.map( (x) => x.strategy2 ))),
+        donor: uniqueOptions(sheetData.map( (x) => x.donor ))
+      }}
+
+      procData.uniqueOptions.programArea.map((pa) => 
+        // Find final year of each program
+        pa.finalYear = sheetData.reduce((accum:number, current) => (pa.name == current.programArea ? Math.max(accum, current.year) : accum), 1900)
+      )
+
+      setProcessedData(procData);
+    }
+  }, [sheetData])
+
+  useEffect(() => {
+    setSortedAttributes(sortColumnsArray(sortedColumn.column))
+  }, [sortedColumn])
+
+  useEffect(() => {
+    filteredResults && setFilteredResults(sortResults(filteredResults.slice()))
+  }, [ sortedAttributes ])
+
+  useEffect(() => {
+    filteredResults && setTallies(generateTallies(filteredResults, userInputs))
+  }, [filteredResults] )
+
+  useEffect(() => {
+    if ( processedData ) {
+      userInputs && setFilteredResults(sortResults(filterGrants(processedData.data, userInputs)))
+      generateTallies(processedData.data, userInputs)
+    }
+  }, [processedData, userInputs] )
 
   function sortColumnsArray(name:string) {
     switch ( name ) {
@@ -82,25 +138,10 @@ function App() {
     return newResults
   }
 
-  useEffect(() => {
-    setSortedAttributes(sortColumnsArray(sortedColumn.column))
-  }, [sortedColumn])
-
-  useEffect(() => {
-      setFilteredResults(sortResults(filteredResults.slice()))
-  }, [ sortedAttributes ])
-
-  useEffect(() => {
-    setTallies(generateTallies(filteredResults, userInputs))
-  }, [filteredResults] )
  
   // The SearchUI component represents user interaction with the interface.
   // The Criteria component represents user inputs displayed back to the user.
   // The Results component uses userInputs to filter and display loadedData.
-
-  useEffect(() => {
-    setFilteredResults(sortResults(filterGrants(loadedData, userInputs)))
-  }, [userInputs] )
 
   function dateMatch(data, inputDates) {
     let grantYear = data.year
@@ -227,34 +268,54 @@ function App() {
       <div className="db__results_summary"> 
         <div className="db__results_summary_inner">
           <div className="db__summary_output">
-            <h2>Search database</h2>
-            <h3><span className="highlight">{tallies.resultsNum}</span> {tallies.resultsNum === "1" ? 'result' : 'results'} for <br/><span className="highlight">{tallies.granteesNum}</span> {tallies.granteesNum === "1" ? 'grantee' : 'grantees'} totaling <br/><span className="highlight font-large">${tallies.grantsTotal}</span></h3>
-            <SearchField userInputs={userInputs} loadedData={loadedData} fieldType={SearchFields.ApprovalDate} defaults={{...starterInputs}} setUserInputs={setUserInputs} />
+            { tallies && 
+              <>
+                <h2>Search database</h2>
+                <h3>
+                  <span className="highlight">{tallies.resultsNum}</span> 
+                  {tallies.resultsNum === "1" ? 'result' : 'results'} for 
+                  <span className="highlight">{tallies.granteesNum}</span> 
+                  {tallies.granteesNum === "1" ? 'grantee' : 'grantees'} totaling 
+                  <br/>
+                  <span className="highlight font-large">${tallies.grantsTotal}</span>
+                </h3>
+              </>
+            }
+            {processedData && userInputs && <SearchField userInputs={userInputs} loadedData={processedData.data} fieldType={SearchFields.ApprovalDate} defaults={{...starterInputs}} setUserInputs={setUserInputs} />}
           </div>
-          <Criteria userInputs={userInputs} setUserInputs={setUserInputs} defaults={{...starterInputs}}/>
+          { userInputs && userInputs && <Criteria userInputs={userInputs} setUserInputs={setUserInputs} defaults={{...starterInputs}}/> }
         </div>
       </div>
 
       <div className="db__results_queries">
         <div className="db__results_queries_inner">
-          <div className="db__results">
-            <Results 
-              sortedColumn={sortedColumn}
-              setSortedColumn={setSortedColumn}
-              userInputs={userInputs}
-              filteredResults={filteredResults}
-            />
-          </div>
+          
+          { filteredResults ? 
+            <div className="db__results">
+              <Results 
+                sortedColumn={sortedColumn}
+                setSortedColumn={setSortedColumn}
+                userInputs={userInputs}
+                filteredResults={filteredResults}
+              />
+            </div>
+            :
+            <div className="db__results">
+              <div className="db__results-waiting">Loading data...</div>
+            </div>
+          }
 
-          <div className="db__queries">
-            <h3>Refine Search</h3>
-            <SearchUI
-              userInputs={userInputs}
-              setUserInputs={setUserInputs}
-              loadedData={loadedData}
-              defaults={{minVal: initMinValue, maxVal: initMaxValue}}
-            />
-          </div>
+          { processedData && userInputs && 
+            <div className="db__queries">
+              <h3>Refine Search</h3>
+              <SearchUI
+                userInputs={userInputs}
+                setUserInputs={setUserInputs}
+                loadedData={processedData}
+                defaults={{minVal: initMinValue, maxVal: initMaxValue}}
+              />
+            </div>
+          }
         </div>
       </div>
     </div>

@@ -6,76 +6,36 @@ const API_KEY = 'AIzaSyDPuYhvWkWAeY0PzYcACoH9IKZbQnxDayU';
 const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
 let gapiInited = false;
 
-
-async function waitForGapiInitialized(maxAttempts, interval)
-{
-   let attempts = 0;
-   let loadedjson = {};
-   console.log(" waiting for gapi...");
-   function check()
-   {
-   	   attempts++;
-   	   if( gapiInited)
-   	   {
-           console.log( "gapi initialized");
-           loadedjson = buildJSON();
-   	   }
-   	   else if (attempts < maxAttempts)
-       {
-           setTimeout(check, interval);
-       }
-       else
-       {
-       	   console.error(" gapi not intiialzied after maximum attempts");
-       }
-   }
-   
-   if (gapiInited)
-   {
-      return loadedjson;
-   }
-   else
-   {
-   	   check();
-   }
-
-}
-
-
 export async function fetchData()  
 {
-    //useEffect(  () =>  {gapiLoaded(); }, [] );
-   
-     // need to wait until gapiInited = true
-	 
-    const fullJSON = waitForGapiInitialized(20, 250);  
-
-
-    //const fullJSON = await buildJSON();
-    return fullJSON;
+    return await buildJSON();
 }
 
 
        /**
        * Callback after api.js is loaded.
        */
-      export function gapiLoaded() 
+      export function gapiLoaded(callback?:Function) 
       {
-      	//console.log(" gapi loading");
-        gapi.load('client', initializeGapiClient);
+      	if ( gapi ) {
+          console.log(" gapi loaded");
+          gapi.load('client', () => initializeGapiClient(callback));
+        }
       }
 
       /**
        * Callback after the API client is loaded. Loads the
        * discovery doc to initialize the API.
        */
-      async function initializeGapiClient() 
+      async function initializeGapiClient(callback?:Function) 
       {
         await gapi.client.init({
           apiKey: API_KEY,
           discoveryDocs: [DISCOVERY_DOC],
         });
         gapiInited = true;
+
+        callback && callback()
       }
 
 
@@ -220,7 +180,7 @@ async function buildJSON()
         const all_string = all_lines.join(",");
         const total_string = '[' + all_string + ']';
 
-        console.log(total_string);
+        // console.log(total_string);
         const parsedJSON = JSON.parse(total_string);
 
         return parsedJSON;

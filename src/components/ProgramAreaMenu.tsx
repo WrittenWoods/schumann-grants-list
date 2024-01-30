@@ -20,7 +20,7 @@ const ProgramAreaMenu = ({userInputs, loadedData, setProgramAreas}) => {
                     fieldName={""}
                     results={userInputs.programAreas}
                     setMethod={setProgramAreas}
-                    options={uniqueOptions(loadedData.filter((x) => x.year >= 2022).map( (x) => x.programArea ))}
+                    options={loadedData.uniqueOptions?.programArea.filter((x) => x.finalYear >= 2022).map( (x) => x.name )}
 
                 />
             <h6 className="db__search-field-sub-header">Historic (1979 - 2021)</h6>
@@ -28,7 +28,7 @@ const ProgramAreaMenu = ({userInputs, loadedData, setProgramAreas}) => {
                     fieldName={""}
                     results={userInputs.programAreas}
                     setMethod={setProgramAreas}
-                    options={uniqueOptions(loadedData.filter((x) => x.year < 2022).map( (x) => x.programArea ))}
+                    options={loadedData.uniqueOptions?.programArea.filter((x) => x.finalYear < 2022).map( (x) => x.name )}
                 />
             </>
         : <></>
