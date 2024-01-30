@@ -94,7 +94,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Organization"}
               results={userInputs.orgNames}
               setMethod={setOrgNames}
-              options={uniqueOptions(loadedData.map( (x) => x.orgName ))}
+              options={loadedData.uniqueOptions?.orgName}
             />
           </div>
         )
@@ -105,8 +105,8 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
           <div className="db__search-field-inner">
             <LocationMenu
               userInputs={userInputs}
-              cityOptions={uniqueOptions(loadedData.map( (x) => x.orgCity ))}
-              stateOptions={uniqueOptions(loadedData.map( (x) => x.orgState ))}
+              cityOptions={loadedData.uniqueOptions?.orgCity}
+              stateOptions={loadedData.uniqueOptions?.orgState}
               setOrgCities={setOrgCities}
               setOrgStates={setOrgStates}
             />
@@ -121,7 +121,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Grant Type"}
               results={userInputs.grantTypes}
               setMethod={setGrantTypes}
-              options={uniqueOptions(loadedData.map( (x) => x.grantType ))}
+              options={loadedData.uniqueOptions?.grantType}
             />
           </div>      
         )
@@ -134,7 +134,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Funding Types"}
               results={userInputs.fundingTypes}
               setMethod={setFundingTypes}
-              options={uniqueOptions(loadedData.map( (x) => x.fundingType ))}
+              options={loadedData.uniqueOptions?.fundingType}
             />
           </div>
         )
@@ -159,7 +159,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Strategy"}
               results={userInputs.strategies}
               setMethod={setStrategies}
-              options={uniqueOptions(loadedData.map( (x) => x.strategy ))}
+              options={loadedData.uniqueOptions?.strategy}
             />
           </div>
         )
@@ -172,7 +172,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Donor"}
               results={userInputs.donors}
               setMethod={setDonors}
-              options={uniqueOptions(loadedData.map( (x) => x.donor ))}
+              options={loadedData.uniqueOptions?.donor}
             />
           </div>
         )
