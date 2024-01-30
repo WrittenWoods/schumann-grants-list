@@ -35,3 +35,5 @@ export enum SortStatus {
   ArrowUp = "fa-solid fa-arrow-up",
   Close = "fa-solid fa-close"
 }
+
+export const Months = ["January", "February", "March",  "April", "May", "June",  "July", "August", "September", "October", "November", "December"]

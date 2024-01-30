@@ -6,20 +6,10 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
   const [openCitiesStates, setOpenCitiesStates] = useState(false)
   const [openStates, setOpenStates] = useState(false)
   const [openCities, setOpenCities] = useState(false)
-  const [selectedStates, setSelectedStates] = useState([...userInputs.orgStates])
-  const [selectedCities, setSelectedCities] = useState([...userInputs.orgCities])
   const [stateSearch, setStateSearch] = useState("")
   const [citySearch, setCitySearch] = useState("")
 
-  useEffect(() => {
-    setOrgStates([...selectedStates])
-  }, [selectedStates])
-
-  useEffect(() => {
-    setOrgCities([...selectedCities])
-  }, [selectedCities])
-
-  function handleCheck(arg, stateArray, setMethod) {
+  function handleCheck(arg:string, stateArray:Array<string>, setMethod:Function) {
     if (stateArray.includes(arg)) {
       let index = stateArray.indexOf(arg)
       let newResults = [...stateArray]
@@ -37,16 +27,16 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       let filteredStates = stateOptions
       if (stateSearch) { 
         filteredStates = stateOptions.filter(
-          function (str) { return str.toLowerCase().includes(stateSearch.toLowerCase()) } 
+          function (str:string) { return str.toLowerCase().includes(stateSearch.toLowerCase()) } 
         ) 
       }
       return (
-        filteredStates.sort().map( (x, y) => 
+        filteredStates.sort().map( (x:string, y:number) => 
           <li key={y} >
             <input 
               type="checkbox" 
-              checked={selectedStates.includes(x)}
-              onChange={e => handleCheck(x, selectedStates, setSelectedStates)}
+              checked={userInputs.orgStates.includes(x)}
+              onChange={e => handleCheck(x, userInputs.orgStates, (states:Array<string>) => setOrgStates(states))}
             >  
             </input>
             <span>{x}</span>
@@ -64,16 +54,16 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       let filteredCities = cityOptions
       if (citySearch) { 
         filteredCities = cityOptions.filter(
-          function (str) { return str.toLowerCase().includes(citySearch.toLowerCase()) } 
+          function (str:string) { return str.toLowerCase().includes(citySearch.toLowerCase()) } 
         )
       }
       return (
-        filteredCities.sort().map( (x, y) => 
+        filteredCities.sort().map( (x:string, y:number) => 
           <li key={y} >
             <input 
               type="checkbox" 
-              checked={selectedCities.includes(x)}
-              onChange={e => handleCheck(x, selectedCities, setSelectedCities)}
+              checked={userInputs.orgCities.includes(x)}
+              onChange={e => handleCheck(x, userInputs.orgCities, (cities:Array<string>) => setOrgCities(cities))}
             >  
             </input>
             <span>{x}</span>

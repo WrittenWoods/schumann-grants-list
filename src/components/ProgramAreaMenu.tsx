@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import { uniqueOptions } from '../helpers/uniqueOptions';
 import CheckDrop from './CheckDrop';
 
 const ProgramAreaMenu = ({userInputs, loadedData, setProgramAreas}) => {
@@ -14,19 +15,20 @@ const ProgramAreaMenu = ({userInputs, loadedData, setProgramAreas}) => {
       { 
         openProgramArea ? 
         <>
-            <h6 className="db__search-field-sub-header">Current (2023 - present)</h6>
+            <h6 className="db__search-field-sub-header">Current (2022 - present)</h6>
                 <CheckDrop 
                     fieldName={""}
                     results={userInputs.programAreas}
                     setMethod={setProgramAreas}
-                    options={loadedData.uniqueOptions?.programArea.filter(pa => pa.finalYear >= 2023).map((pa) => pa.name)}
+                    options={uniqueOptions(loadedData.filter((x) => x.year >= 2022).map( (x) => x.programArea ))}
+
                 />
-            <h6 className="db__search-field-sub-header">Historic (1979 - 2022)</h6>
+            <h6 className="db__search-field-sub-header">Historic (1979 - 2021)</h6>
                 <CheckDrop 
                     fieldName={""}
                     results={userInputs.programAreas}
                     setMethod={setProgramAreas}
-                    options={loadedData.uniqueOptions?.programArea.filter(pa => pa.finalYear < 2023).map((pa) => pa.name)}
+                    options={uniqueOptions(loadedData.filter((x) => x.year < 2022).map( (x) => x.programArea ))}
                 />
             </>
         : <></>

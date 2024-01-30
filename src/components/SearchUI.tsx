@@ -9,7 +9,6 @@ function SearchUI( {userInputs, setUserInputs, loadedData, defaults = {}} ) {
   // Used to generate each part of the SearchUI.
 
   const searchFieldsList = [
-    SearchFields.ApprovalDate, 
     SearchFields.Amount, 
     SearchFields.Organization, 
     SearchFields.Location, 
