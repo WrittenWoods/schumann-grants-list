@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { SearchFields } from '../helpers/enums';
+import { uniqueOptions } from '../helpers/uniqueOptions';
 import Select, { StylesConfig } from 'react-select';
 import CheckDrop from './CheckDrop';
 import LocationMenu from './LocationMenu';
 import KeywordSearch from './KeywordSearch';
 import ApprovalDate from './ApprovalDate';
-import { uniqueOptions } from '../helpers/uniqueOptions';
 import CurrencyInput, { formatValue } from 'react-currency-input-field';
+import ProgramAreaMenu from './ProgramAreaMenu';
 
 function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaults = {} } ) {
 
@@ -142,12 +143,11 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
       case SearchFields.ProgramArea:
         return (
           <div className="db__search-field-inner">
-            <CheckDrop 
-              fieldName={"Program Area"}
-              results={userInputs.programAreas}
-              setMethod={setProgramAreas}
-              options={uniqueOptions(loadedData.map( (x) => x.programArea ))}
-            />
+            <ProgramAreaMenu
+              userInputs={userInputs}
+              loadedData={loadedData}
+              setProgramAreas={setProgramAreas}
+              />
           </div>
         )
         break;
@@ -159,7 +159,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
               fieldName={"Strategy"}
               results={userInputs.strategies}
               setMethod={setStrategies}
-              options={uniqueOptions(loadedData.map( (x) => x.strategy ).concat(loadedData.map( (x) => x.strategy2 )))}
+              options={uniqueOptions(loadedData.map( (x) => x.strategy ))}
             />
           </div>
         )

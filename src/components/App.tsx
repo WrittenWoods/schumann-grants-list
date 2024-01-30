@@ -8,12 +8,11 @@ import { generateTallies } from '../helpers/generateTallies';
 import { dateCompare } from '../helpers/dateCompare';
 import { SearchFields, SortableColumns } from '../helpers/enums';
 import SearchField from './SearchField';
+import { fetchData, gapiLoaded} from '../helpers/fetchData';
 
 function App() {
 
-  // loadedData refers to spreadsheet data fetched from API.
-  // userInputs refers to search criteria added by user via UI.
-
+ 
   const [loadedData, setLoadedData] = useState(starterData.loadedData)
   const starterInputs = generateStarterInputs(loadedData, starterData.userInputs)
 
@@ -27,6 +26,32 @@ function App() {
   const [ initMaxValue, setInitMaxValue ] = useState<string>(starterInputs.maxVal)
 
   const [ sortedAttributes, setSortedAttributes ] = useState<Array<string>>(sortColumnsArray(sortedColumn.column))
+
+
+   // hook for loading google api for sheets access [not sure if this is a good place to put this]
+   useEffect(() => {
+
+     const script = document.createElement('script');
+
+     script.src = "https://apis.google.com/js/api.js";
+     script.async = true;
+     script.addEventListener('load', gapiLoaded);
+     document.body.appendChild(script);
+     //gapiLoaded();
+
+     return () => {
+        document.body.removeChild(script);
+        
+       // let m = fetchData();
+      //  console.log(m);
+      }
+    }, []);
+
+   // loadedData refers to spreadsheet data fetched from API.
+  // userInputs refers to search criteria added by user via UI.
+   const sheetData = fetchData();
+
+
 
   function sortColumnsArray(name:string) {
     switch ( name ) {
