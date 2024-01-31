@@ -13,6 +13,9 @@ import ProgramAreaMenu from './ProgramAreaMenu';
 function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaults = {} } ) {
 
   const [ openAmount, setOpenAmount ] = useState<boolean>(false);
+  const [ minValLength, setMinValLength ] = useState<number>(0);
+  const [ maxValLength, setMaxValLength ] = useState<number>(0);
+
   // State variables corresponding to user inputs
    
   function setMinMonth(value) { setUserInputs({ ...userInputs, minMonth: value })};
@@ -60,27 +63,41 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
         return (
           <div className="db__search-field-inner">
             <div className="db__search-field-head">
-            <h6>Amount</h6>
+            <h5>Amount</h5>
             <button onClick={e => setOpenAmount(!openAmount)}>{ openAmount ? "-" : "+" }</button>
             </div>
             { openAmount && 
               <>
-                <h6>Minimum Value</h6>
-                <CurrencyInput 
-                  value={userInputs.minVal != defaults.minVal ? userInputs.minVal : ''}
-                  defaultValue={userInputs.minVal != defaults.minVal ? userInputs.minVal : ''} 
-                  placeholder={formatValue({value: defaults.minVal, prefix: '$', groupSeparator: ',', decimalSeparator: '.'})} 
-                  prefix={'$'} 
-                  onValueChange={(value) => setMinVal(value || defaults.minVal)} 
-                />
-                <h6>Maximum Value</h6>
-                <CurrencyInput 
-                  value={userInputs.maxVal != defaults.maxVal ? userInputs.maxVal : ''}
-                  defaultValue={userInputs.maxVal != defaults.maxVal ? userInputs.maxVal : ''} 
-                  prefix={'$'} 
-                  placeholder={formatValue({value: defaults.maxVal, prefix: '$', groupSeparator: ',', decimalSeparator: '.'})} 
-                  onValueChange={(value) => setMaxVal(value || defaults.maxVal)} 
-                />
+                <div className="db__search-field-sub-section">
+                  <div className="db__search-field-sub-header">
+                    <h6>Minimum Value</h6></div>
+                    <CurrencyInput 
+                      value={userInputs.minVal != defaults.minVal ? userInputs.minVal : ''}
+                      defaultValue={userInputs.minVal != defaults.minVal ? userInputs.minVal : ''} 
+                      placeholder={formatValue({value: defaults.minVal, prefix: '$', groupSeparator: ',', decimalSeparator: '.'})} 
+                      prefix={'$'} 
+                      maxLength={10}
+                      onValueChange={(value) => {
+                        value !== undefined ? setMinValLength(value.length) : setMinValLength(0)
+                        setMinVal(value || defaults.minVal)
+                      }}                     
+                    />
+                    { minValLength === 10 && <span className='db__char-limit' >Character limit maximum reached</span> }
+                  <div className="db__search-field-sub-header">
+                    <h6>Maximum Value</h6></div>
+                    <CurrencyInput 
+                      value={userInputs.maxVal != defaults.maxVal ? userInputs.maxVal : ''}
+                      defaultValue={userInputs.maxVal != defaults.maxVal ? userInputs.maxVal : ''} 
+                      prefix={'$'} 
+                      maxLength={10}
+                      placeholder={formatValue({value: defaults.maxVal, prefix: '$', groupSeparator: ',', decimalSeparator: '.'})} 
+                      onValueChange={(value) => {
+                        value !== undefined ? setMaxValLength(value.length) : setMaxValLength(0)
+                        setMaxVal(value || defaults.maxVal)
+                      }} 
+                    />
+                    { maxValLength === 10 && <span className='db__char-limit'>Character limit maximum reached</span> }
+                </div>
               </>
             }
           </div>
@@ -181,7 +198,7 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
       case SearchFields.KeywordSearch:
         return (
           <div className="db__search-field-inner">
-            <h6>Keyword Search</h6>
+            <h5>Keyword Search</h5>
             <KeywordSearch 
               userInputs={userInputs}
               setSearchQueries={setSearchQueries}

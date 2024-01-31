@@ -41,9 +41,14 @@ export async function fetchData()
 
       function processDateMonth( strdate)
       {
-        const d = new Date(strdate+" 2020");
-        return (d.getMonth()+1);
+        let dateMonth = 1;
 
+        if (month_names.has(strdate))
+        {
+        	dateMonth = month_names.get(strdate);
+        }
+
+        return dateMonth;
       }
       
 
@@ -60,6 +65,9 @@ export async function fetchData()
         return noCents;
       }
 
+
+  const month_names = new Map([ ["January", 1], ["February", 2], ["March", 3], ["April", 4], ["May", 5], ["June", 6], ["July", 7],
+  	                            ["August", 8], ["September", 9],["October", 10], ["November", 11], ["December", 12]])
 
   const state_names = new Map([
              ["AL" ,"Alabama (AL)"], 
@@ -179,10 +187,9 @@ async function buildJSON()
 
         const all_string = all_lines.join(",");
         const total_string = '[' + all_string + ']';
-
-        // console.log(total_string);
+         
         const parsedJSON = JSON.parse(total_string);
-
+        
         return parsedJSON;
       }
 

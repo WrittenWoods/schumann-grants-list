@@ -22,7 +22,7 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
       let result = []
       let currentYear = new Date().getFullYear()
 
-      for (let i = 1900; i <= currentYear; i++) { result.push(i) }
+      for (let i = 1979; i <= currentYear; i++) { result.push(i) }
 
       return result.map ( (x, y) => <option value={x} key={y} >{x}</option>)
     } 

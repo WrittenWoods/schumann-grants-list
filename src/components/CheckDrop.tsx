@@ -5,6 +5,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
   
   const [openList, setOpenList] = useState(!fieldName)
   const [orgSearch, setOrgSearch] = useState("")
+  const [orgSearchLength, setOrgSearchLength] = useState<number>(0)
 
   function handleCheck(arg) {
     if (results.includes(arg)) {
@@ -34,7 +35,13 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
   function renderOrgSearch() {
     if (fieldName === "Organization" && openList) {
       return (
-        <input value={orgSearch} onChange={(e) => setOrgSearch(e.target.value)} />
+        <>
+        <input value={orgSearch} maxLength={25} onChange={(e) => {
+          e !== undefined ? setOrgSearchLength(e.target.value.length) : setOrgSearchLength(0)
+          setOrgSearch(e.target.value)}
+        }/>
+        { orgSearchLength === 25 && <span className='db__char-limit'>Character limit maximum reached</span> }
+        </>
       )
     }
   }
@@ -69,7 +76,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
     <div className="db__search-field-head">
       { fieldName && 
         <>
-          <h6>{fieldName}</h6>
+          <h5>{fieldName}</h5>
           <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
         </>
       }

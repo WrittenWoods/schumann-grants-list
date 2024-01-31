@@ -9,13 +9,14 @@ const ProgramAreaMenu = ({userInputs, loadedData, setProgramAreas}) => {
   return (
     <div className="db__ProgramAreaMenu">
       <div className="db__search-field-head">
-      <h6>Program Area</h6>
+      <h5>Program Area</h5>
       <button onClick={e => setOpenProgramArea(!openProgramArea)}>{ openProgramArea ? "-" : "+" }</button>
       </div>
       { 
         openProgramArea ? 
         <>
-            <h6 className="db__search-field-sub-header">Current (2022 - present)</h6>
+        <div className="db__search-field-sub-section">
+            <div className="db__search-field-sub-header"><h6>Current (2022 - present)</h6></div>
                 <CheckDrop 
                     fieldName={""}
                     results={userInputs.programAreas}
@@ -23,13 +24,14 @@ const ProgramAreaMenu = ({userInputs, loadedData, setProgramAreas}) => {
                     options={loadedData.uniqueOptions?.programArea.filter((x) => x.finalYear >= 2022).map( (x) => x.name )}
 
                 />
-            <h6 className="db__search-field-sub-header">Historic (1979 - 2021)</h6>
+            <div className="db__search-field-sub-header"><h6>Historic (1979 - 2021)</h6></div>
                 <CheckDrop 
                     fieldName={""}
                     results={userInputs.programAreas}
                     setMethod={setProgramAreas}
                     options={loadedData.uniqueOptions?.programArea.filter((x) => x.finalYear < 2022).map( (x) => x.name )}
                 />
+                </div>
             </>
         : <></>
       }
