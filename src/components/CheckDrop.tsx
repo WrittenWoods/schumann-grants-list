@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-function CheckDrop({ fieldName, results, setMethod, options }) {
+function CheckDrop(
+  { fieldName, results, setMethod, options }:
+  { fieldName:string, results:Array<string>, setMethod:(val:Array<string>) => void, options:Array<string> }
+) {
   
   const [openList, setOpenList] = useState(!fieldName)
   const [orgSearch, setOrgSearch] = useState("")
   const [orgSearchLength, setOrgSearchLength] = useState<number>(0)
 
-  function handleCheck(arg) {
+  function handleCheck(arg:string) {
     if (results.includes(arg)) {
       let index = results.indexOf(arg)
       let newResults = [...results]
@@ -23,7 +26,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
       let filteredOrgs = options
       if (orgSearch) { 
         filteredOrgs = filteredOrgs.filter(
-          function (str) { return str.toLowerCase().includes(orgSearch.toLowerCase()) } 
+          function (str:string) { return str.toLowerCase().includes(orgSearch.toLowerCase()) } 
         ) 
       }    
       return filteredOrgs

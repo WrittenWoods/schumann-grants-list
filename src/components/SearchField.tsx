@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { SearchFields } from '../helpers/enums';
-import { uniqueOptions } from '../helpers/uniqueOptions';
-import Select, { StylesConfig } from 'react-select';
 import CheckDrop from './CheckDrop';
 import LocationMenu from './LocationMenu';
 import KeywordSearch from './KeywordSearch';
 import ApprovalDate from './ApprovalDate';
 import CurrencyInput, { formatValue } from 'react-currency-input-field';
 import ProgramAreaMenu from './ProgramAreaMenu';
+import { Inputs, ProcessedData } from '../helpers/types';
 
-function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaults = {} } ) {
+function SearchField( 
+  { fieldType, loadedData, userInputs, setUserInputs, defaults }:
+  { fieldType:SearchFields, loadedData:ProcessedData, userInputs:Inputs, setUserInputs:(inputs:Inputs) => void, defaults:Inputs }
+) {
 
   const [ openAmount, setOpenAmount ] = useState<boolean>(false);
   const [ minValLength, setMinValLength ] = useState<number>(0);
@@ -18,27 +20,27 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
 
   // State variables corresponding to user inputs
    
-  function setMinMonth(value) { setUserInputs({ ...userInputs, minMonth: value })};
-  function setMaxMonth(value) { setUserInputs({ ...userInputs, maxMonth: value })};
-  function setMinYear(value) { setUserInputs({ ...userInputs, minYear: value })};
-  function setMaxYear(value) { setUserInputs({ ...userInputs, maxYear: value })};
-  function setMinVal(value) { setUserInputs({ ...userInputs, minVal: value })};
-  function setMaxVal(value) { setUserInputs({ ...userInputs, maxVal: value })};
+  function setMinMonth(value:number) { setUserInputs({ ...userInputs, minMonth: value })};
+  function setMaxMonth(value:number) { setUserInputs({ ...userInputs, maxMonth: value })};
+  function setMinYear(value:number) { setUserInputs({ ...userInputs, minYear: value })};
+  function setMaxYear(value:number) { setUserInputs({ ...userInputs, maxYear: value })};
+  function setMinVal(value:string) { setUserInputs({ ...userInputs, minVal: value })};
+  function setMaxVal(value:string) { setUserInputs({ ...userInputs, maxVal: value })};
 
-  function setOrgNames(value) { setUserInputs({ ...userInputs, orgNames: value })};
-  function setOrgCities(value) { setUserInputs({ ...userInputs, orgCities: value })};
-  function setOrgStates(value) { setUserInputs({ ...userInputs, orgStates: value })};
-  function setGrantTypes(value) { setUserInputs({ ...userInputs, grantTypes: value })};
-  function setFundingTypes(value) { setUserInputs({ ...userInputs, fundingTypes: value })};
-  function setProgramAreas(value) { setUserInputs({ ...userInputs, programAreas: value })};
-  function setStrategies(value) { setUserInputs({ ...userInputs, strategies: value })};
-  function setDonors(value) { setUserInputs({ ...userInputs, donors: value })};
-  function setAnyTerms(value) { setUserInputs({ ...userInputs, anyTerms: value })};
-  function setSearchQueries(value) { setUserInputs({ ...userInputs, searchQueries: value })};
+  function setOrgNames(value:Array<string>) { setUserInputs({ ...userInputs, orgNames: value })};
+  function setOrgCities(value:Array<string>) { setUserInputs({ ...userInputs, orgCities: value })};
+  function setOrgStates(value:Array<string>) { setUserInputs({ ...userInputs, orgStates: value })};
+  function setGrantTypes(value:Array<string>) { setUserInputs({ ...userInputs, grantTypes: value })};
+  function setFundingTypes(value:Array<string>) { setUserInputs({ ...userInputs, fundingTypes: value })};
+  function setProgramAreas(value:Array<string>) { setUserInputs({ ...userInputs, programAreas: value })};
+  function setStrategies(value:Array<string>) { setUserInputs({ ...userInputs, strategies: value })};
+  function setDonors(value:Array<string>) { setUserInputs({ ...userInputs, donors: value })};
+  function setAnyTerms(value:boolean) { setUserInputs({ ...userInputs, anyTerms: value })};
+  function setSearchQueries(value:Array<string>) { setUserInputs({ ...userInputs, searchQueries: value })};
 
   // uses the value of the fieldType props to render different parts of the search UI.
 
-  function renderField(fieldType) {
+  function renderField(fieldType:SearchFields) {
 
     // Returns JSX for a search UI component depending on the fieldType props
 
@@ -202,7 +204,6 @@ function SearchField( { fieldType, loadedData, userInputs, setUserInputs, defaul
             <KeywordSearch 
               userInputs={userInputs}
               setSearchQueries={setSearchQueries}
-              setAnyTerms={setAnyTerms}
             />
           </div>
         )

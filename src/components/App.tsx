@@ -5,29 +5,25 @@ import SearchUI from "./SearchUI";
 import Criteria from "./Criteria";
 import { starterData } from "../starterData";
 import { generateTallies } from '../helpers/generateTallies';
-import { dateCompare } from '../helpers/dateCompare';
 import { SearchFields, SortableColumns } from '../helpers/enums';
 import { uniqueOptions } from '../helpers/uniqueOptions';
 import SearchField from './SearchField';
 import { fetchData, gapiLoaded} from '../helpers/fetchData';
+import { GrantRecord, Inputs, ProcessedData, Tallies } from '../helpers/types';
 
-type ProcessedData = {
-  data:Array<any>
-  uniqueOptions:{[key:string]:Object}
-}
 
 function App() {
  
    // sheetData refers to spreadsheet data loaded via Google Sheets API
-  const [sheetData, setSheetData] = useState<Array<any>>()
+  const [sheetData, setSheetData] = useState<Array<GrantRecord>>()
   // processedData is the sheet data, post-processed to precalculate the uniqueOptions lists
   const [processedData, setProcessedData] = useState<ProcessedData>()
   // initial inputs loaded from starterData
-  const [ starterInputs, setStarterInputs ] = useState()
+  const [ starterInputs, setStarterInputs ] = useState<Inputs>()
   
-  const [userInputs, setUserInputs] = useState()
-  const [filteredResults, setFilteredResults] = useState()
-  const [tallies, setTallies] = useState()
+  const [userInputs, setUserInputs] = useState<Inputs>()
+  const [filteredResults, setFilteredResults] = useState<Array<GrantRecord>>()
+  const [tallies, setTallies] = useState<Tallies>()
   
   const [ sortedColumn, setSortedColumn ] = useState<{column:string, reversed:boolean}>({column: SortableColumns.ApprovalDate, reversed:true})
 
@@ -99,13 +95,13 @@ function App() {
   }, [ sortedAttributes ])
 
   useEffect(() => {
-    filteredResults && setTallies(generateTallies(filteredResults, userInputs))
+    filteredResults && setTallies(generateTallies(filteredResults))
   }, [filteredResults] )
 
   useEffect(() => {
     if ( processedData ) {
       userInputs && setFilteredResults(sortResults(filterGrants(processedData.data, userInputs)))
-      generateTallies(processedData.data, userInputs)
+      generateTallies(processedData.data)
     }
   }, [processedData, userInputs] )
 
@@ -143,7 +139,7 @@ function App() {
   // The Criteria component represents user inputs displayed back to the user.
   // The Results component uses userInputs to filter and display loadedData.
 
-  function dateMatch(data, inputDates) {
+  function dateMatch(data:GrantRecord, inputDates:Inputs) {
     let grantYear = data.year
     let grantMonth = data.month
 
@@ -159,7 +155,7 @@ function App() {
 
   }
 
-  function amountMatch(amount, minVal, maxVal) {
+  function amountMatch(amount:number, minVal:string, maxVal:string) {
     let aboveMin = false, belowMax = false
 
     if (minVal.trim() === "" && maxVal.trim() === "") { return true }
@@ -173,7 +169,7 @@ function App() {
     }
   }
 
-  function locationMatch(data, inputs) {
+  function locationMatch(data:GrantRecord, inputs:Inputs) {
     let city = data.orgCity
     let state = data.orgState
     let cityMatch = false
@@ -199,7 +195,7 @@ function App() {
 
   }
 
-  function keywordMatch(data, inputs) {
+  function keywordMatch(data:GrantRecord, inputs:Inputs) {
     let anyTerms = inputs.anyTerms
     let queries = inputs.searchQueries
     let toMatch = [data.orgName, data.description, data.donor, data.fundingType, data.grantType, data.orgCity, data.programArea, data.strategy, data.strategy2]
@@ -220,14 +216,14 @@ function App() {
 
   }
 
-  function inputMatch(inputArray, arg) {
+  function inputMatch(inputArray:Array<any>, arg:string) {
     if (inputArray === undefined || inputArray.length === 0) { return true }
     return inputArray.includes(arg.trim())
   }
 
   // Checks a particular grant for correspondence with userInputs.
 
-  function grantMatch(data, inputs) {
+  function grantMatch(data:GrantRecord, inputs:Inputs) {
     let match = 
       dateMatch(data, inputs)
       && amountMatch(data.amount, inputs.minVal, inputs.maxVal)
@@ -245,13 +241,13 @@ function App() {
 
   // Iterates through loadedData array to check for matches with userInputs.
 
-  function filterGrants(data, inputs) {
+  function filterGrants(data:Array<GrantRecord>, inputs:Inputs) {
     let filteredResults = [...data]
     filteredResults = filteredResults.filter((x) => grantMatch(x, inputs))
     return filteredResults
   }
 
-  function generateStarterInputs(loadedData, userInputs) {
+  function generateStarterInputs(loadedData:Array<GrantRecord>, userInputs:Inputs) {
     // console.log(loadedData.map( (x) => x.amount ))
     let starterInputs = { ...userInputs }
     starterInputs.minVal = "0"
@@ -282,21 +278,26 @@ function App() {
                 </h3>
               </>
             }
-            {processedData && userInputs && <SearchField userInputs={userInputs} loadedData={processedData.data} fieldType={SearchFields.ApprovalDate} defaults={{...starterInputs}} setUserInputs={setUserInputs} />}
+            {
+              processedData && userInputs && starterInputs && 
+              <SearchField userInputs={userInputs} loadedData={processedData} fieldType={SearchFields.ApprovalDate} defaults={{...starterInputs}} setUserInputs={setUserInputs} />
+            }
           </div>
-          { userInputs && userInputs && <Criteria userInputs={userInputs} setUserInputs={setUserInputs} defaults={{...starterInputs}}/> }
+          { 
+            userInputs && userInputs && starterInputs && 
+            <Criteria userInputs={userInputs} setUserInputs={setUserInputs} defaults={{...starterInputs}}/> 
+          }
         </div>
       </div>
 
       <div className="db__results_queries">
         <div className="db__results_queries_inner">
           
-          { filteredResults ? 
+          { filteredResults && userInputs ? 
             <div className="db__results">
               <Results 
                 sortedColumn={sortedColumn}
                 setSortedColumn={setSortedColumn}
-                userInputs={userInputs}
                 filteredResults={filteredResults}
               />
             </div>
@@ -306,14 +307,14 @@ function App() {
             </div>
           }
 
-          { processedData && userInputs && 
+          { processedData && userInputs && starterInputs && 
             <div className="db__queries">
               <h3>Refine Search</h3>
               <SearchUI
                 userInputs={userInputs}
                 setUserInputs={setUserInputs}
                 loadedData={processedData}
-                defaults={{minVal: initMinValue, maxVal: initMaxValue}}
+                defaults={starterInputs}
               />
             </div>
           }

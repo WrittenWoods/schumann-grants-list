@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import { Inputs } from '../helpers/types';
 
-function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, setOrgCities }) {
+function LocationMenu(
+  { userInputs, cityOptions, stateOptions, setOrgStates, setOrgCities }:
+  { 
+    userInputs:Inputs, 
+    cityOptions:Array<string>, 
+    stateOptions:Array<string>, 
+    setOrgStates:(vals:Array<string>) => void, 
+    setOrgCities:(vals:Array<string>) => void
+  }
+) {
 
   const [openCitiesStates, setOpenCitiesStates] = useState(false)
   const [openStates, setOpenStates] = useState(false)

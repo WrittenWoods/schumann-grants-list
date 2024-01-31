@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { uniqueOptions } from '../helpers/uniqueOptions';
 import CheckDrop from './CheckDrop';
+import { Inputs, ProcessedData } from '../helpers/types';
 
-const ProgramAreaMenu = ({userInputs, loadedData, setProgramAreas}) => {
+const ProgramAreaMenu = (
+  {userInputs, loadedData, setProgramAreas}:
+  {userInputs:Inputs, loadedData:ProcessedData, setProgramAreas:(areas:Array<string>) => void}
+) => {
     const [openProgramArea, setOpenProgramArea] = useState(false)
     
   return (
