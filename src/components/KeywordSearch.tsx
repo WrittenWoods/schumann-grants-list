@@ -4,6 +4,7 @@ import './App.css';
 function KeywordSearch({ userInputs, setSearchQueries, setAnyTerms }) {
 
   const [searchTerm, setSearchTerm] = useState("")
+  const [termLength, setTermLength] = useState<number>(0)
 
   return (
     <div className="KeywordSearch">
@@ -27,7 +28,11 @@ function KeywordSearch({ userInputs, setSearchQueries, setAnyTerms }) {
         </label> */}
         <input 
             value={searchTerm} 
-            onChange={(e) => setSearchTerm(e.target.value)} 
+            maxLength={25}
+            onChange={(e) => {
+              e !== undefined ? setTermLength(e.target.value.length) : setTermLength(0)
+              setSearchTerm(e.target.value)
+            }} 
             onKeyDown={(e) => {
                 if (e.key === "Enter") {
                     setSearchQueries([...userInputs.searchQueries, searchTerm])
@@ -35,6 +40,7 @@ function KeywordSearch({ userInputs, setSearchQueries, setAnyTerms }) {
                 }
             }}
         />
+        { termLength === 25 && <span className='db__char-limit'>Character limit maximum reached</span> }
         <ul>
             {userInputs.searchQueries.map(
                  (x, y) => (
