@@ -1,6 +1,7 @@
+import { GrantRecord, Tallies } from "./types"
 import { uniqueOptions } from "./uniqueOptions"
 
-export function generateTallies(results, inputs) {
+export function generateTallies(results:Array<GrantRecord>):Tallies {
   
     const options = {  maximumFractionDigits: 2  }   
     const numformat = (value:number, decimals:number) => Intl.NumberFormat("en-US", { maximumFractionDigits: decimals } ).format(value)

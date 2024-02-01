@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { uniqueOptions } from '../helpers/uniqueOptions';
+import { GrantRecord } from '../helpers/types';
 
-function PaginationBar({ filteredResults, currPageStart, setCurrPageStart, currPageEnd, setCurrPageEnd }) {
-
-const resultsMax = 10;
+function PaginationBar(
+    { filteredResults, currPageStart, setCurrPageStart, currPageEnd, setCurrPageEnd }:
+    { 
+        filteredResults:Array<GrantRecord>, 
+        currPageStart:number, 
+        setCurrPageStart:(page:number) => void, 
+        currPageEnd:number, 
+        setCurrPageEnd:(page:number) => void
+    }
+) {
+    const resultsMax = 10;
 
     useEffect(() => {
         setCurrPageStart(0)
@@ -34,14 +43,14 @@ const resultsMax = 10;
         }
     }
 
-    function handlePaginationButton(buttonPageStart) {
+    function handlePaginationButton(buttonPageStart:string) {
         if (buttonPageStart !== "...") {
-            setCurrPageStart(buttonPageStart)
-            setCurrPageEnd(buttonPageStart + resultsMax <= filteredResults.length ? buttonPageStart + resultsMax : filteredResults.length)
+            setCurrPageStart(Number(buttonPageStart))
+            setCurrPageEnd(Number(buttonPageStart) + resultsMax <= filteredResults.length ? Number(buttonPageStart) + resultsMax : filteredResults.length)
         }
     }
 
-    function renderPageButton(x, y, pageStart) {
+    function renderPageButton(x:string, y:number, pageStart:number) {
         if (x === "...") {
             return (
                 <button 
@@ -55,7 +64,7 @@ const resultsMax = 10;
             return (
                 <button 
                     key={y}
-                    onClick={() => handlePaginationButton(Number(x))}
+                    onClick={() => handlePaginationButton(x)}
                     className={Number(x) === pageStart ? "db__pagination-button db__pagination-current" : "db__pagination-button"}
                     >
                     {Math.floor(Number(x)/resultsMax) + 1}
@@ -64,7 +73,7 @@ const resultsMax = 10;
         }
     }
 
-    function renderPaginationButtons(pageStart) {
+    function renderPaginationButtons(pageStart:number) {
         let result = []
         let resultsCount = 0
         result.push("0")

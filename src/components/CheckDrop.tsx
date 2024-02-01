@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-function CheckDrop({ fieldName, results, setMethod, options }) {
+function CheckDrop(
+  { fieldName, results, setMethod, options }:
+  { fieldName:string, results:Array<string>, setMethod:(val:Array<string>) => void, options:Array<string> }
+) {
   
   const [openList, setOpenList] = useState(!fieldName)
   const [orgSearch, setOrgSearch] = useState("")
+  const [orgSearchLength, setOrgSearchLength] = useState<number>(0)
 
-  function handleCheck(arg) {
+  function handleCheck(arg:string) {
     if (results.includes(arg)) {
       let index = results.indexOf(arg)
       let newResults = [...results]
@@ -22,7 +26,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
       let filteredOrgs = options
       if (orgSearch) { 
         filteredOrgs = filteredOrgs.filter(
-          function (str) { return str.toLowerCase().includes(orgSearch.toLowerCase()) } 
+          function (str:string) { return str.toLowerCase().includes(orgSearch.toLowerCase()) } 
         ) 
       }    
       return filteredOrgs
@@ -34,7 +38,13 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
   function renderOrgSearch() {
     if (fieldName === "Organization" && openList) {
       return (
-        <input value={orgSearch} onChange={(e) => setOrgSearch(e.target.value)} />
+        <>
+        <input value={orgSearch} maxLength={25} onChange={(e) => {
+          e !== undefined ? setOrgSearchLength(e.target.value.length) : setOrgSearchLength(0)
+          setOrgSearch(e.target.value)}
+        }/>
+        { orgSearchLength === 25 && <span className='db__char-limit'>Character limit maximum reached</span> }
+        </>
       )
     }
   }
@@ -69,7 +79,7 @@ function CheckDrop({ fieldName, results, setMethod, options }) {
     <div className="db__search-field-head">
       { fieldName && 
         <>
-          <h6>{fieldName}</h6>
+          <h5>{fieldName}</h5>
           <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
         </>
       }

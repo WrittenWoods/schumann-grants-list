@@ -37,8 +37,11 @@
   --accent-12:#81bd50;
   --accent-13:#bbe698;
   }
-  
-  body {
+
+
+
+ 
+body {
     margin: 0;
     padding: 0;
 }
@@ -52,6 +55,10 @@
   color:var(--contrast-2);
 }
  
+
+
+
+
 
 *:first-child {margin-top:0px;}
 
@@ -97,7 +104,7 @@
     font-family:museo-sans-display;
     font-weight:600;
     line-height:1.1;
-    margin-bottom:20px;
+    margin:0;
   }
 
 
@@ -203,14 +210,12 @@
     column-gap: 4%;
 
 > div {width:50%;}
-/*  @media(min-width:1200px) {
-    >:first-child {width:55%;}
-    >:nth-child(2) {width:45%; max-width:450px}
-  }*/
+
   }
   
   .db__summary_output h3 {
         line-height: 1.2;
+        margin-bottom:1em;
   }
 
 
@@ -293,19 +298,42 @@
 
 
 
-  .db__queries {
+.db__queries {
     padding:45px;
     width: 400px;
     background-color: var(--base-2);
   }
 
+  .db__queries > h3 {margin-bottom:1em;}
+
   
-.db__queries h3 {margin:0;}
+
+   .db__queries .db__search-field-head {
+      margin-top:1em;
+      margin-bottom:1em;
+    }
 
 
-.db__grant-info h4 {
-  margin:0;
-}
+    .db__queries .db__search-field-inner 
+    > :last-child:not(.db__LocationMenu, .db__ProgramAreaMenu, :first-child, .KeywordSearch),
+    .db__LocationMenu ul.CheckDrop, .db__ProgramAreaMenu ul.CheckDrop {
+
+        margin-bottom:1em;
+      }
+    
+
+.KeywordSearch {margin-bottom:1em;}
+    
+
+.db__search-field-sub-section .db__search-field-head {display:none;}
+
+.db__search-field-sub-header {margin-bottom:.5em; margin-top:1em}
+
+ 
+
+
+
+
 
 .db__grant-info p {
   text-wrap:balance;
@@ -414,9 +442,10 @@ button.db__grant-info-remove:hover
 
 
 .db__search-field-inner {
-  padding:20px 0px 40px 0px;
   border-bottom: 2px solid var(--base);
 }
+
+
 
 .db__search-field-head {
     display: flex;
@@ -427,13 +456,6 @@ button.db__grant-info-remove:hover
     column-gap: .5em;
 }
 
-.db__search-field-head h6 {
-  margin:0;
-  margin-top:3px;
-}
-
-
-
 .db__search-field-head button,
 .db__LocationMenu button {
   padding:0px 4px;
@@ -441,6 +463,14 @@ button.db__grant-info-remove:hover
   font-size:1.5em;
   font-weight:500;
   line-height:1;
+}
+
+.db__queries_inner>:last-child .db__search-field-inner{
+padding-top:1em;
+
+:first-child {
+  margin-bottom:.5em;
+}
 
 }
 
@@ -616,3 +646,5 @@ background-color:var(--base-3);
 
 
 }
+
+

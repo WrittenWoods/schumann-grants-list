@@ -2,8 +2,9 @@ import React from 'react';
 import './App.css';
 import ColumnHead from './ColumnHead';
 import { SortableColumns } from '../helpers/enums';
+import { Column } from '../helpers/types';
 
-function Nav({ sortedColumn, setSortedColumn }:{ sortedColumn:string, setSortedColumn:(columns:string, reversed:boolean) => void }) {
+function Nav({ sortedColumn, setSortedColumn }:{ sortedColumn:Column, setSortedColumn:(col:Column) => void }) {
 
     return (
         <>
