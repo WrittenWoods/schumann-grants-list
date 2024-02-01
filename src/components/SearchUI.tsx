@@ -1,13 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import SearchField from "./SearchField";
 import { SearchFields } from '../helpers/enums';
-import { Inputs, ProcessedData } from '../helpers/types';
 
-function SearchUI( 
-  {userInputs, setUserInputs, loadedData, defaults }:
-  {userInputs:Inputs, setUserInputs:(inputs:Inputs) => void, loadedData:ProcessedData, defaults:Inputs }
-) {
+function SearchUI( {userInputs, setUserInputs, loadedData, defaults = {}} ) {
 
   // An array of all values of the SearchFields enum. 
   // Used to generate each part of the SearchUI.

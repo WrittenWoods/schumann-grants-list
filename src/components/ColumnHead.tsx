@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { SortStatus } from '../helpers/enums';
-import { Column } from '../helpers/types';
 
-function ColumnHead({ name, sortedColumn, setSortedColumn }:{name:string, sortedColumn:Column, setSortedColumn:(col:Column) => void}) {
+function ColumnHead({ name, sortedColumn, setSortedColumn }:{name:string, sortedColumn:{column:string, reversed:boolean}, setSortedColumn:({column, reversed}:{column:string, reversed:boolean}) => void}) {
   const [ reversed, setReversed ] = useState<boolean>(sortedColumn.column === name && sortedColumn.reversed);
 
   useEffect(() => {

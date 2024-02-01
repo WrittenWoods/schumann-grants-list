@@ -1,7 +1,7 @@
 // Removes redundant options
 
-export function uniqueOptions(arg:Array<string>, except:string = ""):Array<string> {
-    let unique:Array<string> = []
+export function uniqueOptions (arg, except = "") {
+    let unique = []
 
     for (let i = 0; i < arg.length; i++) {
         if (!unique.includes(arg[i].trim()) && arg[i] !== except) { 

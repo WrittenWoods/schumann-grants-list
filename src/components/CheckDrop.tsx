@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-function CheckDrop(
-  { fieldName, results, setMethod, options }:
-  { fieldName:string, results:Array<string>, setMethod:(val:Array<string>) => void, options:Array<string> }
-) {
+function CheckDrop({ fieldName, results, setMethod, options }) {
   
   const [openList, setOpenList] = useState(!fieldName)
   const [orgSearch, setOrgSearch] = useState("")
-  const [orgSearchLength, setOrgSearchLength] = useState<number>(0)
 
-  function handleCheck(arg:string) {
+  function handleCheck(arg) {
     if (results.includes(arg)) {
       let index = results.indexOf(arg)
       let newResults = [...results]
@@ -26,7 +22,7 @@ function CheckDrop(
       let filteredOrgs = options
       if (orgSearch) { 
         filteredOrgs = filteredOrgs.filter(
-          function (str:string) { return str.toLowerCase().includes(orgSearch.toLowerCase()) } 
+          function (str) { return str.toLowerCase().includes(orgSearch.toLowerCase()) } 
         ) 
       }    
       return filteredOrgs
@@ -38,13 +34,7 @@ function CheckDrop(
   function renderOrgSearch() {
     if (fieldName === "Organization" && openList) {
       return (
-        <>
-        <input value={orgSearch} maxLength={25} onChange={(e) => {
-          e !== undefined ? setOrgSearchLength(e.target.value.length) : setOrgSearchLength(0)
-          setOrgSearch(e.target.value)}
-        }/>
-        { orgSearchLength === 25 && <span className='db__char-limit'>Character limit maximum reached</span> }
-        </>
+        <input value={orgSearch} onChange={(e) => setOrgSearch(e.target.value)} />
       )
     }
   }
@@ -79,7 +69,7 @@ function CheckDrop(
     <div className="db__search-field-head">
       { fieldName && 
         <>
-          <h5>{fieldName}</h5>
+          <h6>{fieldName}</h6>
           <button onClick={e => setOpenList(!openList)}>{ openList ? "-" : "+" }</button>
         </>
       }

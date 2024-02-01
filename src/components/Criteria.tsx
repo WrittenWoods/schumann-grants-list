@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { IconClasses, Months } from '../helpers/enums';
-import { Inputs } from '../helpers/types';
 
 function CriteriaBlock({iconClass, label, removeCritera}:{iconClass:string, label:string, removeCritera?:Function}) {
   return (
     <div className="db__grant-info-tag">
       <div className="db__grant-info-tag-icon"><i className={iconClass}></i></div>
       <div className="db__grant-info-tag-text">{label}</div>
-      { removeCritera && <button className="db__grant-info-remove" title="Remove Filter" onClick={() => removeCritera(label) }><i className="fa-solid fa-xmark"></i></button> }
+      { removeCritera && <button className="db__grant-info-remove" alt="Remove Filter" onClick={() => removeCritera(label) }><i className="fa-solid fa-xmark"></i></button> }
     </div>
   )
 }
-function Criteria({userInputs, setUserInputs, defaults }:{userInputs:Inputs, setUserInputs:(inputs:Inputs) => void, defaults:Inputs}) {
+function Criteria({userInputs, setUserInputs, defaults }:{userInputs:any, setUserInputs:Function, defaults:any}) {
 
   const options = {  maximumFractionDigits: 2  }   
   const numformat = Intl.NumberFormat("en-US",options).format
@@ -65,7 +64,7 @@ function Criteria({userInputs, setUserInputs, defaults }:{userInputs:Inputs, set
         />
       )
     }
-    function sublist(icon:string, inputArray:Array<string>, remove?:(name:string) => void) {
+    function sublist(icon, inputArray, remove?:Function) {
       for (let i = 0; i < inputArray.length; i++) {
         result.push(
           <CriteriaBlock 

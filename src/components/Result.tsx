@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { IconClasses, Months } from '../helpers/enums';
-import { GrantRecord } from '../helpers/types';
 
-function Result({ individualGrant }:{ individualGrant:GrantRecord }) {
+function Result({ individualGrant, userInputs }) {
 
   const options = {  maximumFractionDigits: 2  }   
   const numformat = Intl.NumberFormat("en-US",options).format
 
-  function dateString(individualGrant:GrantRecord) {
+  function dateString(individualGrant) {
     return `${Months[individualGrant.month - 1]} ${individualGrant.year}`
   }
 
-  function matchedCriteria(individualGrant:GrantRecord) {
+  function matchedCriteria(individualGrant, userInputs) {
     let displayedTags = []
+    let toMatch = [
+      individualGrant.orgName, 
+      individualGrant.description, 
+      individualGrant.donor, 
+      individualGrant.fundingType, 
+      individualGrant.grantType, 
+      individualGrant.orgCity, 
+      individualGrant.programArea, 
+      individualGrant.strategy,
+      individualGrant.strategy2
+    ]
 
     displayedTags.push({ name: 'Location', text: individualGrant.orgCity + ', ' + individualGrant.orgState, icon: IconClasses.iconLocation })
     displayedTags.push({ name: 'Grant Type', text: individualGrant.grantType, icon: IconClasses.iconGrantType }) 
@@ -29,12 +39,13 @@ function Result({ individualGrant }:{ individualGrant:GrantRecord }) {
       <div className="db__grant-info-tags"> 
         {displayedTags.map( (x, y) => (
           <div className="db__grant-info-tag" key={y}>
-            <div className="db__grant-info-tag-icon" title={x.name}><i className={x.icon}></i></div>
+            <div className="db__grant-info-tag-icon" alt={x.name}><i className={x.icon}></i></div>
             <div className="db__grant-info-tag-text">{x.text}</div>
           </div>
         ))}
       </div>
     )
+    
   }
 
   return (
@@ -46,7 +57,7 @@ function Result({ individualGrant }:{ individualGrant:GrantRecord }) {
       <div className="db__grant-info">
         <h4>{individualGrant.orgName}</h4>
         <p>{individualGrant.description}</p>
-        {matchedCriteria(individualGrant)}
+        {matchedCriteria(individualGrant, userInputs)}
       </div>
 
       <div className="db__grant-date">

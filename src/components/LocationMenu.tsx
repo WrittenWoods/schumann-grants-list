@@ -1,25 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Inputs } from '../helpers/types';
 
-function LocationMenu(
-  { userInputs, cityOptions, stateOptions, setOrgStates, setOrgCities }:
-  { 
-    userInputs:Inputs, 
-    cityOptions:Array<string>, 
-    stateOptions:Array<string>, 
-    setOrgStates:(vals:Array<string>) => void, 
-    setOrgCities:(vals:Array<string>) => void
-  }
-) {
+function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, setOrgCities }) {
 
   const [openCitiesStates, setOpenCitiesStates] = useState(false)
   const [openStates, setOpenStates] = useState(false)
   const [openCities, setOpenCities] = useState(false)
   const [stateSearch, setStateSearch] = useState("")
-  const [stateSearchLength, setStateSearchLength] = useState<number>(0)
   const [citySearch, setCitySearch] = useState("")
-  const [citySearchLength, setCitySearchLength] = useState<number>(0)
 
   function handleCheck(arg:string, stateArray:Array<string>, setMethod:Function) {
     if (stateArray.includes(arg)) {
@@ -90,32 +78,20 @@ function LocationMenu(
   return (
     <div className="db__LocationMenu">
       <div className="db__search-field-head">
-      <h5>City/State</h5>
+      <h6>City/State</h6>
       <button onClick={e => setOpenCitiesStates(!openCitiesStates)}>{ openCitiesStates ? "-" : "+" }</button>
       </div>
       { 
         openCitiesStates ? 
         <>
-        <div className="db__search-field-sub-section">
-            <div className="db__search-field-sub-header">
-              <h6>State</h6> </div>
-              <input value={stateSearch} maxLength={25} onChange={(e) => {
-                e !== undefined ? setStateSearchLength(e.target.value.length) : setStateSearchLength(0)
-                setStateSearch(e.target.value)
-              }} />
-              { stateSearchLength === 25 && <span className='db__char-limit'>Character limit maximum reached</span> }
-              <button onClick={e => setOpenStates(!openStates)}>{ openStates ? "-" : "+" }</button>
-              <ul className="CheckDrop">{stateList()}</ul>
-            <div className="db__search-field-sub-header">
-              <h6>City</h6></div>
-              <input value={citySearch} maxLength={25} onChange={(e) => {
-                e !== undefined ? setCitySearchLength(e.target.value.length) : setCitySearchLength(0)
-                setCitySearch(e.target.value)
-              }} />              
-              { citySearchLength === 25 && <span className='db__char-limit'>Character limit maximum reached</span> }
-              <button onClick={e => setOpenCities(!openCities)}>{ openCities ? "-" : "+" }</button>
-              <ul className="CheckDrop">{cityList()}</ul>
-          </div>
+          <h6>State</h6>
+          <input value={stateSearch} onChange={(e) => setStateSearch(e.target.value)} />
+          <button onClick={e => setOpenStates(!openStates)}>{ openStates ? "-" : "+" }</button>
+          <ul className="CheckDrop">{stateList()}</ul>
+          <h6>City</h6>
+          <input value={citySearch} onChange={(e) => setCitySearch(e.target.value)} />
+          <button onClick={e => setOpenCities(!openCities)}>{ openCities ? "-" : "+" }</button>
+          <ul className="CheckDrop">{cityList()}</ul>
         </>
         : <></>
       }
