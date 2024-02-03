@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import './App.css';
 import { uniqueOptions } from '../helpers/uniqueOptions';
+import { Months } from '../helpers/enums';
 
-function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMaxYear }) {
-
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMaxYear, defaults }) {
 
     // Creates array of option elements corresponding to contents of an array
 
@@ -29,15 +29,40 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
 
     return (
     <>
-        <h3>Approval Date</h3>
-
-        <span>Start</span>
-        <select value={months[userInputs.minMonth - 1]} onChange={(e) => setMinMonth(months.indexOf(e.target.value) + 1)} >{listOptions(months)}</select>
-        <select value={userInputs.minYear} onChange={(e) => setMinYear(Number(e.target.value))}  >{yearOptions()}</select>
-
-        <span>End</span>
-        <select value={months[userInputs.maxMonth - 1]} onChange={(e) => setMaxMonth(months.indexOf(e.target.value) + 1)} >{listOptions(months)}</select>
-        <select value={userInputs.maxYear} onChange={(e) => setMaxYear(Number(e.target.value))}  >{yearOptions()}</select>
+      <div className="db__search-field-head">
+        <h6>Approval Date</h6>
+      </div>
+      <div className="db__approval-date">
+        <div className="db__approval-date-start">
+          <select 
+            className={ userInputs.minMonth == defaults.minMonth ? 'db__filter-default-value' : ''} 
+            value={Months[userInputs.minMonth - 1]} 
+            onChange={(e) => setMinMonth(Months.indexOf(e.target.value) + 1)} >
+              {listOptions(Months)}
+          </select>
+          <select 
+            className={ userInputs.minYear == defaults.minYear ? 'db__filter-default-value' : ''} 
+            value={userInputs.minYear} 
+            onChange={(e) => setMinYear(Number(e.target.value))}  >
+              {yearOptions()}
+          </select>
+        </div>
+        <span> — </span>
+        <div className="db__approval-date-end">
+          <select 
+            className={ userInputs.maxMonth == defaults.maxMonth ? 'db__filter-default-value' : ''}
+            value={Months[userInputs.maxMonth - 1]} 
+            onChange={(e) => setMaxMonth(Months.indexOf(e.target.value) + 1)} >
+              {listOptions(Months)}
+          </select>
+          <select 
+            className={ userInputs.maxYear == defaults.maxYear ? 'db__filter-default-value' : ''}
+            value={userInputs.maxYear} 
+            onChange={(e) => setMaxYear(Number(e.target.value))}>
+              {yearOptions()}
+          </select>
+        </div>
+      </div>
     </>
     );
 }

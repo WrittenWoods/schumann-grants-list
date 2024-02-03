@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import './App.css';
 import SearchField from "./SearchField";
 import { SearchFields } from '../helpers/enums';
 
-function SearchUI( {userInputs, setUserInputs, loadedData} ) {
+function SearchUI( {userInputs, setUserInputs, loadedData, defaults = {}} ) {
 
   // An array of all values of the SearchFields enum. 
   // Used to generate each part of the SearchUI.
 
   const searchFieldsList = [
-    SearchFields.ApprovalDate, 
     SearchFields.Amount, 
     SearchFields.Organization, 
     SearchFields.Location, 
@@ -23,7 +23,7 @@ function SearchUI( {userInputs, setUserInputs, loadedData} ) {
   // Iterates over searchFieldsList to render the UI for various search criteria.
 
   return (
-    <div className="SearchUI">
+    <div className="db__queries_inner">
       {searchFieldsList.map( (fieldType, n) =>
         <SearchField 
           fieldType={fieldType} 
@@ -31,6 +31,7 @@ function SearchUI( {userInputs, setUserInputs, loadedData} ) {
           userInputs={userInputs}
           setUserInputs={setUserInputs}
           key={n}
+          defaults={defaults}
         />
       )}
     </div>

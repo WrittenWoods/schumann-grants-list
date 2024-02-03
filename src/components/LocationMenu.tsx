@@ -1,30 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 
 function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, setOrgCities }) {
 
+  const [openCitiesStates, setOpenCitiesStates] = useState(false)
   const [openStates, setOpenStates] = useState(false)
   const [openCities, setOpenCities] = useState(false)
-  const [selectedStates, setSelectedStates] = useState([...userInputs.orgStates])
-  const [selectedCities, setSelectedCities] = useState([...userInputs.orgCities])
   const [stateSearch, setStateSearch] = useState("")
   const [citySearch, setCitySearch] = useState("")
 
-  useEffect(() => {
-    setOrgStates([...selectedStates])
-  }, [selectedStates])
-
-  useEffect(() => {
-    setOrgCities([...selectedCities])
-  }, [selectedCities])
-
-  function handleCheck(arg, stateArray, setMethod) {
+  function handleCheck(arg:string, stateArray:Array<string>, setMethod:Function) {
     if (stateArray.includes(arg)) {
       let index = stateArray.indexOf(arg)
       let newResults = [...stateArray]
       newResults.splice(index, 1)
       setMethod(newResults)
     } else {
-      setMethod([...stateArray, arg])
+      let newResults = [...stateArray, arg]
+      setMethod(newResults)
     }
   }
 
@@ -34,16 +27,16 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       let filteredStates = stateOptions
       if (stateSearch) { 
         filteredStates = stateOptions.filter(
-          function (str) { return str.toLowerCase().includes(stateSearch.toLowerCase()) } 
+          function (str:string) { return str.toLowerCase().includes(stateSearch.toLowerCase()) } 
         ) 
       }
       return (
-        filteredStates.map( (x, y) => 
+        filteredStates.sort().map( (x:string, y:number) => 
           <li key={y} >
             <input 
               type="checkbox" 
-              checked={selectedStates.includes(x)}
-              onChange={e => handleCheck(x, selectedStates, setSelectedStates)}
+              checked={userInputs.orgStates.includes(x)}
+              onChange={e => handleCheck(x, userInputs.orgStates, (states:Array<string>) => setOrgStates(states))}
             >  
             </input>
             <span>{x}</span>
@@ -61,16 +54,16 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
       let filteredCities = cityOptions
       if (citySearch) { 
         filteredCities = cityOptions.filter(
-          function (str) { return str.toLowerCase().includes(citySearch.toLowerCase()) } 
-        ) 
+          function (str:string) { return str.toLowerCase().includes(citySearch.toLowerCase()) } 
+        )
       }
       return (
-        filteredCities.map( (x, y) => 
+        filteredCities.sort().map( (x:string, y:number) => 
           <li key={y} >
             <input 
               type="checkbox" 
-              checked={selectedCities.includes(x)}
-              onChange={e => handleCheck(x, selectedCities, setSelectedCities)}
+              checked={userInputs.orgCities.includes(x)}
+              onChange={e => handleCheck(x, userInputs.orgCities, (cities:Array<string>) => setOrgCities(cities))}
             >  
             </input>
             <span>{x}</span>
@@ -83,17 +76,26 @@ function LocationMenu({ userInputs, cityOptions, stateOptions, setOrgStates, set
   }
 
   return (
-    <div className="LocationMenu">
-      <h3>City/State</h3>
-      <h3>State</h3>
-      <input value={stateSearch} onChange={(e) => setStateSearch(e.target.value)} />
-      <button onClick={e => setOpenStates(!openStates)}>{ openStates ? "⌃" : "⌄" }</button>
-      <ul>{stateList()}</ul>
-      <h3>City</h3>
-      <input value={citySearch} onChange={(e) => setCitySearch(e.target.value)} />
-      <button onClick={e => setOpenCities(!openCities)}>{ openCities ? "⌃" : "⌄" }</button>
-      <ul>{cityList()}</ul>
-    </div>
+    <div className="db__LocationMenu">
+      <div className="db__search-field-head">
+      <h6>City/State</h6>
+      <button onClick={e => setOpenCitiesStates(!openCitiesStates)}>{ openCitiesStates ? "-" : "+" }</button>
+      </div>
+      { 
+        openCitiesStates ? 
+        <>
+          <h6>State</h6>
+          <input value={stateSearch} onChange={(e) => setStateSearch(e.target.value)} />
+          <button onClick={e => setOpenStates(!openStates)}>{ openStates ? "-" : "+" }</button>
+          <ul className="CheckDrop">{stateList()}</ul>
+          <h6>City</h6>
+          <input value={citySearch} onChange={(e) => setCitySearch(e.target.value)} />
+          <button onClick={e => setOpenCities(!openCities)}>{ openCities ? "-" : "+" }</button>
+          <ul className="CheckDrop">{cityList()}</ul>
+        </>
+        : <></>
+      }
+    </div>  
   );
 }
 
