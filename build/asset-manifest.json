@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.16da7f2e.css",
-    "main.js": "/static/js/main.7ea7a411.js",
-    "static/js/592.8ac8728c.chunk.js": "/static/js/592.8ac8728c.chunk.js",
-    "index.html": "/index.html",
-    "main.16da7f2e.css.map": "/static/css/main.16da7f2e.css.map",
-    "main.7ea7a411.js.map": "/static/js/main.7ea7a411.js.map",
-    "592.8ac8728c.chunk.js.map": "/static/js/592.8ac8728c.chunk.js.map"
+    "main.css": "/schumann-grants-list/static/css/main.16da7f2e.css",
+    "main.js": "/schumann-grants-list/static/js/main.8ce8ee08.js",
+    "static/js/592.8ac8728c.chunk.js": "/schumann-grants-list/static/js/592.8ac8728c.chunk.js",
+    "index.html": "/schumann-grants-list/index.html",
+    "main.16da7f2e.css.map": "/schumann-grants-list/static/css/main.16da7f2e.css.map",
+    "main.8ce8ee08.js.map": "/schumann-grants-list/static/js/main.8ce8ee08.js.map",
+    "592.8ac8728c.chunk.js.map": "/schumann-grants-list/static/js/592.8ac8728c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.16da7f2e.css",
-    "static/js/main.7ea7a411.js"
+    "static/js/main.8ce8ee08.js"
   ]
 }
