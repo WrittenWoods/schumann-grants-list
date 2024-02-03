@@ -12,8 +12,12 @@ import './App.css';
 import Result from './Result';
 import Nav from './Nav';
 import PaginationBar from './PaginationBar';
+import { Column, GrantRecord } from '../helpers/types';
 
-function Results( { sortedColumn, userInputs, setSortedColumn, filteredResults } ) {
+function Results( 
+  { sortedColumn, setSortedColumn, filteredResults }:
+  { sortedColumn:Column, setSortedColumn:(col:Column) => void, filteredResults:Array<GrantRecord> } 
+) {
 
   const [currPageStart, setCurrPageStart] = useState(0)
   const [currPageEnd, setCurrPageEnd] = useState(10)
@@ -34,7 +38,6 @@ function Results( { sortedColumn, userInputs, setSortedColumn, filteredResults }
       </nav>
       {[...filteredResults].slice(currPageStart, currPageEnd).map( (individualGrant, n) =>
         <Result 
-          userInputs={userInputs}
           individualGrant={individualGrant}
           key={n}
         />

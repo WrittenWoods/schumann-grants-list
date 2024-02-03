@@ -1,33 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import { Inputs } from '../helpers/types';
 
-function KeywordSearch({ userInputs, setSearchQueries, setAnyTerms }) {
+function KeywordSearch({ userInputs, setSearchQueries }:{userInputs:Inputs, setSearchQueries:Function}) {
 
   const [searchTerm, setSearchTerm] = useState("")
+  const [termLength, setTermLength] = useState<number>(0)
 
   return (
     <div className="KeywordSearch">
-{/*         <label>
-          <input 
-            type="radio" 
-            name="anyTerms" 
-            value={!userInputs.anyTerms}
-            onChange={(e) => setAnyTerms(false)}
-          />
-          All terms
-        </label>
-        <label>
-          <input 
-            type="radio" 
-            name="anyTerms" 
-            value={userInputs.anyTerms}
-            onChange={(e) => setAnyTerms(true)}
-          />
-          Any terms
-        </label> */}
         <input 
             value={searchTerm} 
-            onChange={(e) => setSearchTerm(e.target.value)} 
+            maxLength={25}
+            onChange={(e) => {
+              e !== undefined ? setTermLength(e.target.value.length) : setTermLength(0)
+              setSearchTerm(e.target.value)
+            }} 
             onKeyDown={(e) => {
                 if (e.key === "Enter") {
                     setSearchQueries([...userInputs.searchQueries, searchTerm])
@@ -35,6 +23,7 @@ function KeywordSearch({ userInputs, setSearchQueries, setAnyTerms }) {
                 }
             }}
         />
+        { termLength === 25 && <span className='db__char-limit'>Character limit maximum reached</span> }
         <ul>
             {userInputs.searchQueries.map(
                  (x, y) => (

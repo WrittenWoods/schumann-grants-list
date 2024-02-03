@@ -2,12 +2,23 @@ import React from 'react';
 import './App.css';
 import { uniqueOptions } from '../helpers/uniqueOptions';
 import { Months } from '../helpers/enums';
+import { Inputs } from '../helpers/types';
 
-function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMaxYear, defaults }) {
+function ApprovalDate(
+    { userInputs, setMinMonth, setMaxMonth, setMinYear, setMaxYear, defaults }:
+    { 
+      userInputs:Inputs, 
+      setMinMonth:(val:number) => void, 
+      setMaxMonth:(val:number) => void, 
+      setMinYear:(val:number) => void, 
+      setMaxYear:(val:number) => void, 
+      defaults:Inputs
+    }
+  ) {
 
     // Creates array of option elements corresponding to contents of an array
 
-    function listOptions(arg) {
+    function listOptions(arg:Array<string>) {
 
       let result = uniqueOptions(arg)
 
@@ -22,7 +33,7 @@ function ApprovalDate({ userInputs, setMinMonth, setMaxMonth, setMinYear, setMax
       let result = []
       let currentYear = new Date().getFullYear()
 
-      for (let i = 1900; i <= currentYear; i++) { result.push(i) }
+      for (let i = 1979; i <= currentYear; i++) { result.push(i) }
 
       return result.map ( (x, y) => <option value={x} key={y} >{x}</option>)
     } 
