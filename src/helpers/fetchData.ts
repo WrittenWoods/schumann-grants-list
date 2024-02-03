@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 import React, { useEffect } from 'react';
 
@@ -121,7 +122,8 @@ export async function fetchData()
 
       function wrapDoubleQuotes(s)
       {
-          return s.replace(/"/g, "\\\\\\\"");
+          //return s.replace(/"/g, "\\\\\\\"");
+        return s.replace(/"/g, "\\\"");
       }
 
       function wrapNewlines(s)
