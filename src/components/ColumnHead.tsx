@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { SortStatus } from '../helpers/enums';
+import { SortStatus, SortableColumns } from '../helpers/enums';
 import { Column } from '../helpers/types';
 
-function ColumnHead({ name, sortedColumn, setSortedColumn }:{name:string, sortedColumn:Column, setSortedColumn:(col:Column) => void}) {
+function ColumnHead({ name, sortedColumn, setSortedColumn }:{name:SortableColumns, sortedColumn:Column, setSortedColumn:(col:Column) => void}) {
   const [ reversed, setReversed ] = useState<boolean>(sortedColumn.column === name && sortedColumn.reversed);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function ColumnHead({ name, sortedColumn, setSortedColumn }:{name:string, sorted
       return (
         // <button onClick={e => handleSortButton()}>
         <>
-          { reversed ? <i className={SortStatus.ArrowDown}></i> : <i className={SortStatus.ArrowUp}></i> }
+          { sortedColumn.reversed ? <i className={SortStatus.ArrowDown}></i> : <i className={SortStatus.ArrowUp}></i> }
         </>
       )
     }

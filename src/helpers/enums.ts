@@ -30,6 +30,12 @@ export enum SortableColumns {
   Result = "Result"
 }
 
+export const DefaultSort:Array<{name: string, reversed: boolean}> = [
+  { name: "Approval Date", reversed: true },
+  { name: "Amount", reversed: false },
+  { name: "Result", reversed: true }
+]
+
 export enum SortStatus {
   ArrowDown = "fa-solid fa-arrow-down",
   ArrowUp = "fa-solid fa-arrow-up",
