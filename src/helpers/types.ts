@@ -1,3 +1,5 @@
+import { SortableColumns } from "./enums"
+
 export type GrantRecord = {
     amount:number
     description:string
@@ -63,6 +65,6 @@ export type Tallies = {
 }
 
 export type Column = {
-    column:string,
+    column:SortableColumns,
     reversed:boolean
 }

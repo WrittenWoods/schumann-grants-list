@@ -9,7 +9,7 @@ import { SearchFields, SortableColumns } from '../helpers/enums';
 import { uniqueOptions } from '../helpers/uniqueOptions';
 import SearchField from './SearchField';
 import { fetchData, gapiLoaded} from '../helpers/fetchData';
-import { GrantRecord, Inputs, ProcessedData, Tallies } from '../helpers/types';
+import { Column, GrantRecord, Inputs, ProcessedData, Tallies } from '../helpers/types';
 
 
 function App() {
@@ -25,13 +25,15 @@ function App() {
   const [filteredResults, setFilteredResults] = useState<Array<GrantRecord>>()
   const [tallies, setTallies] = useState<Tallies>()
   
-  const [ sortedColumn, setSortedColumn ] = useState<{column:string, reversed:boolean}>({column: SortableColumns.ApprovalDate, reversed:true})
+  const [ sortedColumn, setSortedColumn ] = useState<Column>({column: SortableColumns.ApprovalDate, reversed:true})
+  const [ sortAttributes, setSortAttributes ] = useState<Array<Column>>([
+    {column: SortableColumns.ApprovalDate, reversed: true},
+    {column: SortableColumns.Result, reversed: false},
+    {column: SortableColumns.Amount, reversed: true}
+  ]);
 
   const [ initMinValue, setInitMinValue ] = useState<string>()
   const [ initMaxValue, setInitMaxValue ] = useState<string>()
-
-  const [ sortedAttributes, setSortedAttributes ] = useState<Array<string>>(sortColumnsArray(sortedColumn.column))
-
 
    // hook for loading google api for sheets access [not sure if this is a good place to put this]
    useEffect(() => {
@@ -87,12 +89,15 @@ function App() {
   }, [sheetData])
 
   useEffect(() => {
-    setSortedAttributes(sortColumnsArray(sortedColumn.column))
+    let newSortAttributes = sortAttributes.slice()
+    newSortAttributes = newSortAttributes.filter((col) => col.column !== sortedColumn.column)
+    newSortAttributes.splice(0, 0, sortedColumn)
+    setSortAttributes(newSortAttributes)
   }, [sortedColumn])
 
   useEffect(() => {
     filteredResults && setFilteredResults(sortResults(filteredResults.slice()))
-  }, [ sortedAttributes ])
+  }, [ sortAttributes ])
 
   useEffect(() => {
     filteredResults && setTallies(generateTallies(filteredResults))
@@ -105,35 +110,29 @@ function App() {
     }
   }, [processedData, userInputs] )
 
-  function sortColumnsArray(name:string) {
-    switch ( name ) {
-      case ( SortableColumns.Amount ): return ['amount','orgName','year','month']
-      case ( SortableColumns.Result ): return ['orgName','year','month','amount']
-      default: return ['year','month','orgName','amount']
-    }
-  }
-
-  function sortKey(record:any, columns:Array<string>) {
-    return columns.map((col) => {
-        switch (col) {
-        // pad amounts so they sort properly
-        case 'amount': return `${record[col]*100}`.padStart(12, '0')
-        // pad the month to two characters
-        case 'month': return `${record[col]}`.padStart(2, '0')
-        // otherwise just return it
-        default: return record[col]
-        }}
-    ).join('');
+  function compareValue(val1:any, val2:any, reversed:boolean) {
+    return val1 < val2 ? (reversed ? 1 : -1) : val1 > val2 ? ( reversed ? -1 : 1 ) : 0
   }
 
   function sortResults(results:Array<any>) {
     let newResults = results
     // for (let i = 0; i < sortFunctions.length; i++) { newResults = newResults.sort(sortFunctions[i]) }
-    newResults.sort((a:any, b:any) => sortKey(a, sortedAttributes) >= sortKey(b, sortedAttributes) ? 1 : -1)
-    if (sortedColumn.reversed) { newResults = newResults.reverse() }
+    newResults.sort((a:any, b:any) => {
+      let sortResults = sortAttributes.map((col:Column) => {
+        switch (col.column) {
+          case SortableColumns.Amount:
+            return compareValue(a.amount, b.amount, col.reversed)
+          case SortableColumns.ApprovalDate:
+            return compareValue(`${a.year}${`${a.month}`.padStart(2, '0')}`, `${b.year}${`${b.month}`.padStart(2, '0')}`, col.reversed)
+          case SortableColumns.Result:
+            return compareValue(a.orgName, b.orgName, col.reversed)
+        }
+      })
+
+      return sortResults.reduce((accum, current) => accum == 0 ? current : accum, 0)
+    })
     return newResults
   }
-
  
   // The SearchUI component represents user interaction with the interface.
   // The Criteria component represents user inputs displayed back to the user.
