@@ -43,10 +43,10 @@ function PaginationBar(
         }
     }
 
-    function handlePaginationButton(buttonPageStart:number) {
+    function handlePaginationButton(buttonPageStart:string) {
         if (buttonPageStart !== "...") {
-            setCurrPageStart(buttonPageStart)
-            setCurrPageEnd(buttonPageStart + resultsMax <= filteredResults.length ? buttonPageStart + resultsMax : filteredResults.length)
+            setCurrPageStart(Number(buttonPageStart))
+            setCurrPageEnd(Number(buttonPageStart) + resultsMax <= filteredResults.length ? Number(buttonPageStart) + resultsMax : filteredResults.length)
         }
     }
 
@@ -64,7 +64,7 @@ function PaginationBar(
             return (
                 <button 
                     key={y}
-                    onClick={() => handlePaginationButton(Number(x))}
+                    onClick={() => handlePaginationButton(x)}
                     className={Number(x) === pageStart ? "db__pagination-button db__pagination-current" : "db__pagination-button"}
                     >
                     {Math.floor(Number(x)/resultsMax) + 1}

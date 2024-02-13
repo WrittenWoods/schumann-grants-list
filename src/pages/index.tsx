@@ -1,15 +1,17 @@
-import * as React from "react"
-import App from "../components/App"
-import type { HeadFC, PageProps } from "gatsby"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from '../components/App';
+import reportWebVitals from '../reportWebVitals';
 
-const IndexPage: React.FC<PageProps> = () => {
-  return (
-    <main>
-      <App />
-    </main>
-  )
-}
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-export default IndexPage
-
-export const Head: HeadFC = () => <title>Home Page</title>
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
